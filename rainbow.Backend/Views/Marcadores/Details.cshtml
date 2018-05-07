@@ -1,0 +1,42 @@
+﻿@model rainbow.Domain.Configurations.Marcador
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Marcador</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeMarcador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeMarcador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailMarcador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailMarcador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelemovelMarcador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelemovelMarcador)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MarcadorId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

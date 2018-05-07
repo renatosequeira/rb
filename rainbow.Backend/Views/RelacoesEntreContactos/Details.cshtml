@@ -1,0 +1,26 @@
+﻿@model rainbow.Domain.Configurations.RelacaoEntreContactos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RelacaoEntreContactos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DescricaoRelacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoRelacao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RelacaoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

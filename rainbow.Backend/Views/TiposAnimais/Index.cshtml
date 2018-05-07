@@ -1,0 +1,33 @@
+﻿@model IEnumerable<rainbow.Domain.Configurations.TipoAnimal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoAnimalDesignacao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoAnimalDesignacao)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TipoAnimalId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TipoAnimalId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TipoAnimalId })
+        </td>
+    </tr>
+}
+
+</table>

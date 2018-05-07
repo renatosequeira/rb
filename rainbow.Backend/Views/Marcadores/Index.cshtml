@@ -1,0 +1,45 @@
+﻿@model IEnumerable<rainbow.Domain.Configurations.Marcador>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeMarcador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailMarcador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelemovelMarcador)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeMarcador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailMarcador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelemovelMarcador)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MarcadorId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MarcadorId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MarcadorId })
+        </td>
+    </tr>
+}
+
+</table>

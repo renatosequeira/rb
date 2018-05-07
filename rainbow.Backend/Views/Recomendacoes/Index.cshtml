@@ -1,0 +1,93 @@
+﻿@model IEnumerable<rainbow.Domain.Recomendation.Recomendacao>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoCivil.NomeEstadoCivil)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RelacaoEntreContactos.DescricaoRelacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title.TitleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeSr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeSra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdadeSr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdadeSra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelemSr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelemSra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfissaoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Localidade)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoCivil.NomeEstadoCivil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RelacaoEntreContactos.DescricaoRelacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title.TitleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeSr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeSra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdadeSr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdadeSra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelemSr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelemSra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfissaoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Localidade)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RecomendacaoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RecomendacaoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RecomendacaoId })
+        </td>
+    </tr>
+}
+
+</table>

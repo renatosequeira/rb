@@ -1,0 +1,26 @@
+﻿@model rainbow.Domain.Configurations.MetodosDePagamento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MetodosDePagamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DescricaoMetodoPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoMetodoPagamento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MetodosDePagamentoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

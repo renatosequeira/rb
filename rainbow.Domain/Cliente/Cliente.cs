@@ -1,0 +1,83 @@
+﻿namespace rainbow.Domain.Client
+{
+    using Newtonsoft.Json;
+    using rainbow.Domain.Animais;
+    using rainbow.Domain.Configurations;
+    using rainbow.Domain.Familia;
+    using rainbow.Domain.Saude;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    public class Cliente
+    {
+        [Key]
+        public int ClientId { get; set; }
+
+        //origem do contacto (quem deu o nome)
+
+        [Required(ErrorMessage = "The field {0} is required!")]
+        [MaxLength(50,ErrorMessage = "The field {0} is limited to {1} characters lenght!")]
+        [Display(Name = "Nome")]
+        public string NomeCliente { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is required!")]
+        [MaxLength(20, ErrorMessage = "The field {0} is limited to {1} characters lenght!")]
+        [Index("Client_ClientMobile_Index", IsUnique = true)]
+        [Display(Name = "Telemóvel")]
+        public string TelemovelCliente { get; set; }
+
+        [Display(Name = "Contato Alternativo")]
+        public string ContactoAlternativoCliente { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
+        public string EmailCliente { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Data Nascimento")]
+        public DateTime DataNascimentoCliente { get; set; }
+
+        [Display(Name = "Idade")]
+        public int IdadeCliente { get; set; }
+
+        [Display(Name = "Morada")]
+        public string MoradaCliente { get; set; }
+
+        [Display(Name = "CP")]
+        public string CodigoPostalCliente { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Notas")]
+        public string Obs { get; set; }
+
+        [Display(Name = "Eligivel para recrutamento")]
+        public bool ElegivelParaRecrutamento { get; set; }
+
+        [Display(Name = "Estado Civil")]
+        public int EstadoCivilId { get; set; }
+        [JsonIgnore]
+        public virtual EstadoCivil EstadoCivil { get; set; }
+
+        [Display(Name = "Profissão")]
+        public int ProfissaoId { get; set; }
+        [JsonIgnore]
+        public virtual Profissao Profissao { get; set; }
+
+        [Display(Name = "Título")]
+        public int TitleId { get; set; }
+        [JsonIgnore]
+        public virtual Title Title { get; set; }
+
+        //animal de estimação
+
+        //membros da familia
+
+        //demos
+
+        //recomendações
+
+        //alergias
+    }
+}

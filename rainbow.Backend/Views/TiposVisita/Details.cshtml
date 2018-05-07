@@ -1,0 +1,26 @@
+﻿@model rainbow.Domain.Configurations.TipoVisita
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TipoVisita</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeTipoVisita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeTipoVisita)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TipoVisitaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

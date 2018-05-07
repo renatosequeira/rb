@@ -1,0 +1,105 @@
+﻿@model IEnumerable<rainbow.Domain.Client.Cliente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoCivil.NomeEstadoCivil)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profissao.NomeProfissao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title.TitleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelemovelCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactoAlternativoCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataNascimentoCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdadeCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoradaCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoPostalCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Obs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ElegivelParaRecrutamento)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoCivil.NomeEstadoCivil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Profissao.NomeProfissao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title.TitleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelemovelCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactoAlternativoCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataNascimentoCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdadeCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoradaCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodigoPostalCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Obs)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ElegivelParaRecrutamento)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ClientId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ClientId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ClientId })
+        </td>
+    </tr>
+}
+
+</table>

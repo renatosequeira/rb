@@ -1,0 +1,26 @@
+﻿@model rainbow.Domain.Configurations.TipoDeMaterial
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TipoDeMaterial</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DescricaoTipoDeMaterial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoTipoDeMaterial)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TipoDeMaterialId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

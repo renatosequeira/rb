@@ -1,0 +1,72 @@
+﻿@model rainbow.Domain.Familia.MembroFamilia
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MembroFamilia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoMembroFamilia.NomeTipoMembroFamilia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoMembroFamilia.NomeTipoMembroFamilia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeMembroFamilia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeMembroFamilia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApelidoMembroFamilia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApelidoMembroFamilia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MembroFamiliaDataNascimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MembroFamiliaDataNascimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MembroFamiliaIdade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MembroFamiliaIdade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obs)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

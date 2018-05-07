@@ -1,0 +1,50 @@
+﻿@model rainbow.Domain.PosVenda.Assistencia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Assistencia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoAssistencia.DescricaoTipoAssistencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoAssistencia.DescricaoTipoAssistencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataAssistencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataAssistencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFechoAssistencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFechoAssistencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obs)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AssistenciaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

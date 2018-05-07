@@ -1,0 +1,138 @@
+﻿@model rainbow.Domain.Demo.Demonstracao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Demonstracao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Campanha.DescricaoCampanha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Campanha.DescricaoCampanha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marcador.NomeMarcador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marcador.NomeMarcador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Premio.DescricaoPremio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premio.DescricaoPremio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoVisita.NomeTipoVisita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoVisita.NomeTipoVisita)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataMarcacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataMarcacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DemoFinalizada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DemoFinalizada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RazaoNaoFinalizacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RazaoNaoFinalizacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClienteComprou)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClienteComprou)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdentificacaoVenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdentificacaoVenda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RazaoNaoCompra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RazaoNaoCompra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConvidadoParaCasaAberta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConvidadoParaCasaAberta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClienteAceitouConviteParaCasaAberta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClienteAceitouConviteParaCasaAberta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataVisitaCasaAberta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataVisitaCasaAberta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SucessoRecrutamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SucessoRecrutamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obs)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DemonstracaoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

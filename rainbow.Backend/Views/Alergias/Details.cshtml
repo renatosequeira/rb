@@ -1,0 +1,26 @@
+﻿@model rainbow.Domain.Saude.Alergia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Alergia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DescricaoAlergia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoAlergia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AlergiaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

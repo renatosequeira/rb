@@ -1,0 +1,51 @@
+﻿@model IEnumerable<rainbow.Domain.Venda.Venda>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MetodosDePagamento.DescricaoMetodoPagamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReferenciaInternaVenda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NIFFaturacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preco)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MetodosDePagamento.DescricaoMetodoPagamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReferenciaInternaVenda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NIFFaturacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preco)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VendaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VendaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VendaId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<rainbow.Domain.Demo.Demonstracao>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Campanha.DescricaoCampanha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Marcador.NomeMarcador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Premio.DescricaoPremio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoVisita.NomeTipoVisita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataMarcacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DemoFinalizada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RazaoNaoFinalizacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClienteComprou)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdentificacaoVenda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RazaoNaoCompra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConvidadoParaCasaAberta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClienteAceitouConviteParaCasaAberta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataVisitaCasaAberta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SucessoRecrutamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Obs)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Campanha.DescricaoCampanha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Marcador.NomeMarcador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Premio.DescricaoPremio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoVisita.NomeTipoVisita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataMarcacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DemoFinalizada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RazaoNaoFinalizacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClienteComprou)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdentificacaoVenda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RazaoNaoCompra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConvidadoParaCasaAberta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClienteAceitouConviteParaCasaAberta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataVisitaCasaAberta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SucessoRecrutamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Obs)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DemonstracaoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DemonstracaoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DemonstracaoId })
+        </td>
+    </tr>
+}
+
+</table>

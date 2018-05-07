@@ -1,0 +1,66 @@
+﻿@model rainbow.Domain.Familia.MembroFamilia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MembroFamilia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoMembroFamilia.NomeTipoMembroFamilia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoMembroFamilia.NomeTipoMembroFamilia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeMembroFamilia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeMembroFamilia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApelidoMembroFamilia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApelidoMembroFamilia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MembroFamiliaDataNascimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MembroFamiliaDataNascimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MembroFamiliaIdade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MembroFamiliaIdade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obs)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MembroFamiliaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
