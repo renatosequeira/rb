@@ -1,4 +1,4 @@
-﻿@model rainbow.Domain.Recomendation.Recomendacao
+﻿@model rainbow.Backend.Models.ImagemRecomendacaoView
 
 @{
     ViewBag.Title = "Edit";
@@ -7,15 +7,16 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Recomendacoes", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Recomendacao</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.RecomendacaoId)
+        @Html.HiddenFor(model => model.ScanFolhaDeContactos)
 
         <div class="form-group">
             @Html.LabelFor(model => model.NomeSr, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -102,6 +103,15 @@
             <div class="col-md-10">
                 @Html.DropDownList("TitleId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TitleId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecomendationsImageFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span class="btn btn-default btn-file">
+                    @Html.TextBoxFor(modelo => modelo.RecomendationsImageFile, new { type = "file" })
+                </span>
             </div>
         </div>
 

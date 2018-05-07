@@ -27,6 +27,8 @@
         [Display(Name = "Telemóvel Sra.")]
         public string TelemSra { get; set; }
 
+        public string ScanFolhaDeContactos { get; set; }
+
         [Display(Name = "Profissão Sr.")]
         public int ProfissaoId { get; set; }
         [JsonIgnore]

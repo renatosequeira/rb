@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using rainbow.Backend.Models;
-using rainbow.Domain.Demo;
-
-namespace rainbow.Backend.Controllers.Demo
+﻿namespace rainbow.Backend.Controllers.Demo
 {
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using System.Net;
+    using System.Web.Mvc;
+    using rainbow.Backend.Models;
+    using rainbow.Domain.Demo;
+
+    [Authorize]
     public class DemonstracoesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();

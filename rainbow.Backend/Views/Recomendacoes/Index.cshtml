@@ -44,6 +44,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Localidade)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScanFolhaDeContactos)
+        </th>
         <th></th>
     </tr>
 
@@ -82,10 +85,18 @@
         <td>
             @Html.DisplayFor(modelItem => item.Localidade)
         </td>
+
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RecomendacaoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RecomendacaoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RecomendacaoId })
+            @if (!string.IsNullOrEmpty(item.ScanFolhaDeContactos))
+            {
+                <img src="@Url.Content(item.ScanFolhaDeContactos)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+            }
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.RecomendacaoId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.RecomendacaoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.RecomendacaoId })
         </td>
     </tr>
 }

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using rainbow.Backend.Models;
-using rainbow.Domain.Premios;
-
-namespace rainbow.Backend.Controllers
+﻿namespace rainbow.Backend.Controllers
 {
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using System.Net;
+    using System.Web.Mvc;
+    using rainbow.Backend.Models;
+    using rainbow.Domain.Premios;
+
+    [Authorize]
     public class PremiosController : Controller
     {
         private DataContextLocal db = new DataContextLocal();

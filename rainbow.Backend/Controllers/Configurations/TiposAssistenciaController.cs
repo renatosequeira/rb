@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using rainbow.Backend.Models;
-using rainbow.Domain.Configurations;
-
-namespace rainbow.Backend.Controllers.Configurations
+﻿namespace rainbow.Backend.Controllers.Configurations
 {
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using System.Net;
+    using System.Web.Mvc;
+    using rainbow.Backend.Models;
+    using rainbow.Domain.Configurations;
+
+    [Authorize]
     public class TiposAssistenciaController : Controller
     {
         private DataContextLocal db = new DataContextLocal();

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using rainbow.Backend.Models;
-using rainbow.Domain.Client;
-
-namespace rainbow.Backend.Controllers
+﻿namespace rainbow.Backend.Controllers
 {
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using System.Net;
+    using System.Web.Mvc;
+    using rainbow.Backend.Models;
+    using rainbow.Domain.Client;
+
+    [Authorize]
     public class ClientesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
@@ -52,7 +48,7 @@ namespace rainbow.Backend.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ClientId,NomeCliente,TelemovelCliente,ContactoAlternativoCliente,EmailCliente,DataNascimentoCliente,IdadeCliente,MoradaCliente,CodigoPostalCliente,Obs,ElegivelParaRecrutamento,EstadoCivilId,ProfissaoId,TitleId")] Cliente cliente)
+        public async Task<ActionResult> Create(Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,7 @@ namespace rainbow.Backend.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ClientId,NomeCliente,TelemovelCliente,ContactoAlternativoCliente,EmailCliente,DataNascimentoCliente,IdadeCliente,MoradaCliente,CodigoPostalCliente,Obs,ElegivelParaRecrutamento,EstadoCivilId,ProfissaoId,TitleId")] Cliente cliente)
+        public async Task<ActionResult> Edit(Cliente cliente)
         {
             if (ModelState.IsValid)
             {

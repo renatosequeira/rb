@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using rainbow.Backend.Models;
-using rainbow.Domain.Recomendation;
-
-namespace rainbow.Backend.Controllers.Recomendation
+﻿namespace rainbow.Backend.Controllers.Recomendation
 {
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using System.Net;
+    using System.Web.Mvc;
+    using rainbow.Backend.Models;
+    using rainbow.Domain.Recomendation;
+    using rainbow.Backend.Helpers;
+    using System;
+
+    [Authorize]
     public class RecomendacoesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
@@ -52,19 +50,56 @@ namespace rainbow.Backend.Controllers.Recomendation
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RecomendacaoId,NomeSr,NomeSra,IdadeSr,IdadeSra,TelemSr,TelemSra,ProfissaoId,Localidade,EstadoCivilId,RelacaoId,TitleId")] Recomendacao recomendacao)
+        public async Task<ActionResult> Create(ImagemRecomendacaoView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Images";
+
+                if (view.RecomendationsImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.RecomendationsImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var recomendacao = ToRecomendacao(view);
+                recomendacao.ScanFolhaDeContactos = pic;
+
                 db.Recomendacaos.Add(recomendacao);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", recomendacao.EstadoCivilId);
-            ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao", recomendacao.RelacaoId);
-            ViewBag.TitleId = new SelectList(db.Titles, "TitleId", "TitleName", recomendacao.TitleId);
-            return View(recomendacao);
+            ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", view.EstadoCivilId);
+            ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao", view.RelacaoId);
+            ViewBag.TitleId = new SelectList(db.Titles, "TitleId", "TitleName", view.TitleId);
+            return View(view);
+        }
+
+        private Recomendacao ToRecomendacao(ImagemRecomendacaoView view)
+        {
+            return new Recomendacao
+            {
+                EstadoCivil = view.EstadoCivil,
+                EstadoCivilId = view.EstadoCivilId,
+                IdadeSr = view.IdadeSr,
+                IdadeSra = view.IdadeSra,
+                Localidade = view.Localidade,
+                NomeSr = view.NomeSr,
+                NomeSra = view.NomeSra,
+                ProfissaoId = view.ProfissaoId,
+                ProfissaoSr = view.ProfissaoSr,
+                ProfissaoSra = view.ProfissaoSra,
+                RecomendacaoId = view.RecomendacaoId,
+                RelacaoEntreContactos = view.RelacaoEntreContactos,
+                RelacaoId = view.RelacaoId,
+                ScanFolhaDeContactos = view.ScanFolhaDeContactos,
+                TelemSr = view.TelemSr,
+                TelemSra = view.TelemSra,
+                Title = view.Title,
+                TitleId = view.TitleId
+            };
         }
 
         // GET: Recomendacoes/Edit/5
@@ -74,7 +109,9 @@ namespace rainbow.Backend.Controllers.Recomendation
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recomendacao recomendacao = await db.Recomendacaos.FindAsync(id);
+
+            var recomendacao = await db.Recomendacaos.FindAsync(id);
+
             if (recomendacao == null)
             {
                 return HttpNotFound();
@@ -82,7 +119,35 @@ namespace rainbow.Backend.Controllers.Recomendation
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", recomendacao.EstadoCivilId);
             ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao", recomendacao.RelacaoId);
             ViewBag.TitleId = new SelectList(db.Titles, "TitleId", "TitleName", recomendacao.TitleId);
-            return View(recomendacao);
+
+            var view = ToView(recomendacao);
+
+            return View(view);
+        }
+
+        private ImagemRecomendacaoView ToView(Recomendacao recomendacao)
+        {
+            return new ImagemRecomendacaoView
+            {
+                EstadoCivil = recomendacao.EstadoCivil,
+                EstadoCivilId = recomendacao.EstadoCivilId,
+                IdadeSr = recomendacao.IdadeSr,
+                IdadeSra = recomendacao.IdadeSra,
+                Localidade = recomendacao.Localidade,
+                NomeSr = recomendacao.NomeSr,
+                NomeSra = recomendacao.NomeSra,
+                ProfissaoId = recomendacao.ProfissaoId,
+                ProfissaoSr = recomendacao.ProfissaoSr,
+                ProfissaoSra = recomendacao.ProfissaoSra,
+                RecomendacaoId = recomendacao.RecomendacaoId,
+                RelacaoEntreContactos = recomendacao.RelacaoEntreContactos,
+                RelacaoId = recomendacao.RelacaoId,
+                ScanFolhaDeContactos = recomendacao.ScanFolhaDeContactos,
+                TelemSr = recomendacao.TelemSr,
+                TelemSra = recomendacao.TelemSra,
+                Title = recomendacao.Title,
+                TitleId = recomendacao.TitleId
+            };
         }
 
         // POST: Recomendacoes/Edit/5
@@ -90,18 +155,30 @@ namespace rainbow.Backend.Controllers.Recomendation
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "RecomendacaoId,NomeSr,NomeSra,IdadeSr,IdadeSra,TelemSr,TelemSra,ProfissaoId,Localidade,EstadoCivilId,RelacaoId,TitleId")] Recomendacao recomendacao)
+        public async Task<ActionResult> Edit(ImagemRecomendacaoView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = view.ScanFolhaDeContactos;
+                var folder = "~/Content/Images";
+
+                if (view.RecomendationsImageFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.RecomendationsImageFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var recomendacao = ToRecomendacao(view);
+                recomendacao.ScanFolhaDeContactos = pic;
+
                 db.Entry(recomendacao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", recomendacao.EstadoCivilId);
-            ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao", recomendacao.RelacaoId);
-            ViewBag.TitleId = new SelectList(db.Titles, "TitleId", "TitleName", recomendacao.TitleId);
-            return View(recomendacao);
+            ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", view.EstadoCivilId);
+            ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao", view.RelacaoId);
+            ViewBag.TitleId = new SelectList(db.Titles, "TitleId", "TitleName", view.TitleId);
+            return View(view);
         }
 
         // GET: Recomendacoes/Delete/5

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using rainbow.Backend.Models;
-using rainbow.Domain.Familia;
-
-namespace rainbow.Backend.Controllers.Familia
+﻿namespace rainbow.Backend.Controllers.Familia
 {
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using System.Net;
+    using System.Web.Mvc;
+    using rainbow.Backend.Models;
+    using rainbow.Domain.Familia;
+
+    [Authorize]
     public class MembrosFamiliaController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
