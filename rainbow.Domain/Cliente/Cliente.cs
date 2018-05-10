@@ -3,7 +3,9 @@
     using Newtonsoft.Json;
     using rainbow.Domain.Animais;
     using rainbow.Domain.Configurations;
+    using rainbow.Domain.Demo;
     using rainbow.Domain.Familia;
+    using rainbow.Domain.Recomendation;
     using rainbow.Domain.Saude;
     using System;
     using System.Collections.Generic;
@@ -40,7 +42,7 @@
         public DateTime DataNascimentoCliente { get; set; }
 
         [Display(Name = "Idade")]
-        public int IdadeCliente { get; set; }
+        public string IdadeCliente { get; set; }
 
         [Display(Name = "Morada")]
         public string MoradaCliente { get; set; }
@@ -52,8 +54,17 @@
         [Display(Name = "Notas")]
         public string Obs { get; set; }
 
-        [Display(Name = "Eligivel para recrutamento")]
+        [Display(Name = "Recrutamento")]
         public bool ElegivelParaRecrutamento { get; set; }
+
+        [Display(Name = "IBAN")]
+        public string NIB { get; set; }
+
+        [Display(Name = "Cliente RB?")]
+        public bool ClienteRainbow { get; set; }
+
+        [Display(Name = "Recomendado por:")]
+        public string RecomendadoPor { get; set; }
 
         [Display(Name = "Estado Civil")]
         public int EstadoCivilId { get; set; }
@@ -70,13 +81,17 @@
         [JsonIgnore]
         public virtual Title Title { get; set; }
 
-        //animal de estimação
+        [JsonIgnore]
+        public virtual ICollection<Recomendacao> Recomendacao { get; set; }
 
-        //membros da familia
+        [JsonIgnore]
+        public virtual ICollection<Demonstracao> Demonstracao { get; set; }
 
-        //demos
+        [JsonIgnore]
+        public virtual ICollection<MembroFamilia> MembroFamilia { get; set; }
 
-        //recomendações
+        [JsonIgnore]
+        public virtual ICollection<AnimalEstimacao> AnimalEstimacao { get; set; }
 
         //alergias
     }

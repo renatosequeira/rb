@@ -23,10 +23,10 @@
 
         [DataType(DataType.Date)]
         [Display(Name = "Data nascimento")]
-        public DateTime MembroFamiliaDataNascimento { get; set; }
+        public DateTime? MembroFamiliaDataNascimento { get; set; }
 
         [Display(Name = "Idade")]
-        public int MembroFamiliaIdade { get; set; }
+        public string MembroFamiliaIdade { get; set; }
 
         [Display(Name = "Notas")]
         [DataType(DataType.MultilineText)]
@@ -37,5 +37,9 @@
         [JsonIgnore]
         public virtual TipoMembroFamilia TipoMembroFamilia { get; set; }
 
+        [Display(Name = "Identificação do contacto")]
+        public int? ClientId { get; set; }
+        [JsonIgnore]
+        public virtual Cliente Cliente { get; set; }
     }
 }

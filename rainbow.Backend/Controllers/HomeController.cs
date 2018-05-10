@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using rainbow.Backend.Models;
+using rainbow.Domain;
 
 namespace rainbow.Backend.Controllers
 {
@@ -10,7 +12,11 @@ namespace rainbow.Backend.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            DataContext db = new DataContext();
+            List<object> myModel = new List<object>();
+            myModel.Add(db.Clientes.ToList());
+            myModel.Add(db.Recomendacaos.ToList());
+            return View(myModel);
         }
 
         public ActionResult About()

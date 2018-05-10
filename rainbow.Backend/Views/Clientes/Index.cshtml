@@ -1,104 +1,123 @@
 ﻿@model IEnumerable<rainbow.Domain.Client.Cliente>
 
+<style>
+    input[type="search"]::-webkit-search-cancel-button {
+        /*Bootstrap 3 override*/
+        -webkit-appearance: searchfield-cancel-button !important;
+    }
+</style>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Clientes</h2>
+<h2>Listagem de clientes</h2>
+
+<br />
 
 <p>
     @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary"})
 </p>
+
+
+<p>
+    @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
+    {
+        @Html.TextBox("search", ViewBag.CurrentFilter as string,
+         new { @class = "form-control", placeholder = "Procurar nome ou telemóvel", @type = "search" })
+    }
+</p>
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.EstadoCivil.NomeEstadoCivil)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Profissao.NomeProfissao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title.TitleName)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.NomeCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoCivil.NomeEstadoCivil)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TelemovelCliente)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ContactoAlternativoCliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailCliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataNascimentoCliente)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.IdadeCliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MoradaCliente)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CodigoPostalCliente)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Obs)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.ElegivelParaRecrutamento)
         </th>
+
+        <th></th>
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.EstadoCivil.NomeEstadoCivil)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Profissao.NomeProfissao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title.TitleName)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.NomeCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoCivil.NomeEstadoCivil)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TelemovelCliente)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ContactoAlternativoCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataNascimentoCliente)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.IdadeCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MoradaCliente)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CodigoPostalCliente)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Obs)
+
+        <td style="text-align:center;">
+            @if (item.ElegivelParaRecrutamento)
+        {
+            <img title="Eligível para recrutar" style="width:35px;" src="~/Content/Images/green-light.png" />
+    }
+    else
+    {
+        <img title="Não Eligível para recrutar" style="width:35px;" src="~/Content/Images/red-light.png" />
+}
         </td>
+
         <td>
-            @Html.DisplayFor(modelItem => item.ElegivelParaRecrutamento)
+            @if ((Convert.ToInt32(item.IdadeCliente) >= 30) && (Convert.ToInt32(item.IdadeCliente) <= 76))
+        {
+            if (item.EstadoCivilId != 5)
+            {
+                <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+        }
+
+    }
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ClientId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ClientId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ClientId })
+
+        <td style="text-align:center; width:10px;">
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.ClientId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ClientId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ClientId })*@
+            <a href="@Url.Action("Edit", "Clientes", new { id=item.ClientId })" title="Editar empresa">
+                <img src="~/Content/Images/btn_edit.png" width="30" />
+            </a>
+
         </td>
+
+        <td style="text-align:center; width:10px;">
+            <a href="@Url.Action("Details", "Clientes", new { id=item.ClientId })" title="Detalhes da empresa">
+                <img src="~/Content/Images/btn_details.png" width="30" />
+            </a>
+        </td>
+
+        <td style="text-align:center;width:10px;">
+            <a href="@Url.Action("Delete", "Clientes", new { id=item.ClientId })" title="Apagar empresa">
+                <img src="~/Content/Images/btn_delete.png" width="30" />
+            </a>
+        </td>
+
     </tr>
 }
 

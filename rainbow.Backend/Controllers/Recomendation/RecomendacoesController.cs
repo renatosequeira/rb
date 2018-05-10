@@ -8,11 +8,14 @@
     using rainbow.Domain.Recomendation;
     using rainbow.Backend.Helpers;
     using System;
+    using System.Linq;
+    using rainbow.Domain.Client;
 
     [Authorize]
     public class RecomendacoesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
+        private static int? InternalClientId;
 
         // GET: Recomendacoes
         public async Task<ActionResult> Index()
@@ -37,8 +40,16 @@
         }
 
         // GET: Recomendacoes/Create
-        public ActionResult Create()
+        public ActionResult Create(int? comp)
         {
+            //if (comp == null)
+            //{
+            //    //return HttpNotFound();
+            //    Response.Redirect("~/Clientes");
+            //}
+
+            InternalClientId = comp;
+
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil");
             ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao");
             ViewBag.TitleId = new SelectList(db.Titles, "TitleId", "TitleName");
@@ -98,7 +109,12 @@
                 TelemSr = view.TelemSr,
                 TelemSra = view.TelemSra,
                 Title = view.Title,
-                TitleId = view.TitleId
+                TitleId = view.TitleId,
+                Cliente = view.Cliente,
+                ClientId = InternalClientId,
+                OkParaContactar = view.OkParaContactar,
+                Contactado = view.Contactado,
+                Obs = view.Obs
             };
         }
 
@@ -127,6 +143,8 @@
 
         private ImagemRecomendacaoView ToView(Recomendacao recomendacao)
         {
+            InternalClientId = recomendacao.ClientId;
+
             return new ImagemRecomendacaoView
             {
                 EstadoCivil = recomendacao.EstadoCivil,
@@ -146,7 +164,11 @@
                 TelemSr = recomendacao.TelemSr,
                 TelemSra = recomendacao.TelemSra,
                 Title = recomendacao.Title,
-                TitleId = recomendacao.TitleId
+                TitleId = recomendacao.TitleId,
+                Cliente = recomendacao.Cliente,
+                OkParaContactar = recomendacao.OkParaContactar,
+                Contactado = recomendacao.Contactado,
+                Obs = recomendacao.Obs
             };
         }
 

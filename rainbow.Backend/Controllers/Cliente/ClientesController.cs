@@ -6,6 +6,9 @@
     using System.Web.Mvc;
     using rainbow.Backend.Models;
     using rainbow.Domain.Client;
+    using System;
+    using System.Linq;
+    using System.Web.Routing;
 
     [Authorize]
     public class ClientesController : Controller
@@ -13,10 +16,13 @@
         private DataContextLocal db = new DataContextLocal();
 
         // GET: Clientes
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string search)
         {
-            var clientes = db.Clientes.Include(c => c.EstadoCivil).Include(c => c.Profissao).Include(c => c.Title);
-            return View(await clientes.ToListAsync());
+
+            return View(await db.Clientes.Where(c => c.NomeCliente.StartsWith(search) || c.TelemovelCliente.StartsWith(search) || search == null).ToListAsync());
+            
+            //var clientes = db.Clientes.Include(c => c.EstadoCivil).Include(c => c.Profissao).Include(c => c.Title);
+            //return View(await clientes.ToListAsync());
         }
 
         // GET: Clientes/Details/5
@@ -50,8 +56,17 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Cliente cliente)
         {
+            // Save today's date.
+            var today = DateTime.Today;
+            // Calculate the age.
+            int idade = today.Year - cliente.DataNascimentoCliente.Year;
+            cliente.IdadeCliente = Convert.ToString(idade);
+            // Go back to the year the person was born in case of a leap year
+            if (cliente.DataNascimentoCliente > today.AddYears(idade)) idade--;
+
             if (ModelState.IsValid)
             {
+
                 db.Clientes.Add(cliente);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -88,11 +103,21 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Cliente cliente)
         {
+            // Save today's date.
+            var today = DateTime.Today;
+            // Calculate the age.
+            int idade = today.Year - cliente.DataNascimentoCliente.Year;
+            cliente.IdadeCliente = Convert.ToString(idade);
+            // Go back to the year the person was born in case of a leap year
+            if (cliente.DataNascimentoCliente > today.AddYears(idade)) idade--;
+
             if (ModelState.IsValid)
             {
+            
                 db.Entry(cliente).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = cliente.ClientId }));
             }
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", cliente.EstadoCivilId);
             ViewBag.ProfissaoId = new SelectList(db.Profissaos, "ProfissaoId", "NomeProfissao", cliente.ProfissaoId);

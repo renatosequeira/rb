@@ -6,11 +6,13 @@
     using System.Web.Mvc;
     using rainbow.Backend.Models;
     using rainbow.Domain.Demo;
+    using System.Linq;
 
     [Authorize]
     public class DemonstracoesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
+        private static int? InternalClientId;
 
         // GET: Demonstracoes
         public async Task<ActionResult> Index()
@@ -35,8 +37,10 @@
         }
 
         // GET: Demonstracoes/Create
-        public ActionResult Create()
+        public ActionResult Create(int? cltId)
         {
+            InternalClientId = cltId;
+
             ViewBag.CampanhaId = new SelectList(db.Campanhas, "CampanhaId", "DescricaoCampanha");
             ViewBag.MarcadorId = new SelectList(db.Marcadors, "MarcadorId", "NomeMarcador");
             ViewBag.PremioId = new SelectList(db.Premios, "PremioId", "DescricaoPremio");
@@ -49,10 +53,12 @@
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DemonstracaoId,DataMarcacao,DemoFinalizada,RazaoNaoFinalizacao,ClienteComprou,IdentificacaoVenda,RazaoNaoCompra,ConvidadoParaCasaAberta,ClienteAceitouConviteParaCasaAberta,DataVisitaCasaAberta,SucessoRecrutamento,Obs,CampanhaId,MarcadorId,TipoVisitaId,PremioId")] Demonstracao demonstracao)
+        public async Task<ActionResult> Create(Demonstracao demonstracao)
         {
             if (ModelState.IsValid)
             {
+                demonstracao.ClientId = InternalClientId;
+
                 db.Demonstracaos.Add(demonstracao);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -73,6 +79,9 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Demonstracao demonstracao = await db.Demonstracaos.FindAsync(id);
+
+            InternalClientId = demonstracao.DemonstracaoId;
+
             if (demonstracao == null)
             {
                 return HttpNotFound();
@@ -89,10 +98,12 @@
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DemonstracaoId,DataMarcacao,DemoFinalizada,RazaoNaoFinalizacao,ClienteComprou,IdentificacaoVenda,RazaoNaoCompra,ConvidadoParaCasaAberta,ClienteAceitouConviteParaCasaAberta,DataVisitaCasaAberta,SucessoRecrutamento,Obs,CampanhaId,MarcadorId,TipoVisitaId,PremioId")] Demonstracao demonstracao)
+        public async Task<ActionResult> Edit(Demonstracao demonstracao)
         {
             if (ModelState.IsValid)
             {
+                demonstracao.ClientId = InternalClientId;
+
                 db.Entry(demonstracao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

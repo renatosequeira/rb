@@ -1,22 +1,68 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<object>
+
+@*https://www.youtube.com/watch?v=AsUWnheMOos*@
+
+@{
+    List<rainbow.Domain.Client.Cliente> clt = Model.ToList()[0] as List<rainbow.Domain.Client.Cliente>;
+    List<rainbow.Domain.Recomendation.Recomendacao> recom = Model.ToList()[1] as List<rainbow.Domain.Recomendation.Recomendacao>;
+}
+
+@{
+    ViewBag.Title = "Dashboard";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>RCM Dashboard</h1>
 </div>
 
 <div class="row">
+
     <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Contagem</div>
+            <div class="panel-body">
+                <p>Clientes: @clt.Count()</p>
+                <p>Total Recomendações: @recom.Count()</p>
+                <p>
+                    OK's:
+                    @{
+            int oks = 0;
+            foreach (var item in recom)
+            {
+                if (item.OkParaContactar && !item.Contactado)
+                {
+                    oks++;
+                }
+            }
+
+            <span>@oks</span>
+                    }
+                </p>
+                <p>
+                    Percentagem Ok's:
+                    @{
+            int totalOks = 0;
+            int totalRecom = recom.Count();
+            double percentagemOks = 0;
+            foreach (var item in recom)
+            {
+                if (item.OkParaContactar)
+                {
+                    totalOks++;
+                }
+
+                percentagemOks = (totalOks * 100) / totalRecom;
+            }
+
+            <span>@percentagemOks%</span>
+                    }
+                </p>
+            </div>
+        </div>
+
+        
+
     </div>
     <div class="col-md-4">
         <h2>Get more libraries</h2>

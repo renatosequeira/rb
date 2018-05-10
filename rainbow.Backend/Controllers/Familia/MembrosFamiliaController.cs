@@ -6,11 +6,13 @@
     using System.Web.Mvc;
     using rainbow.Backend.Models;
     using rainbow.Domain.Familia;
+    using System;
 
     [Authorize]
     public class MembrosFamiliaController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
+        private static int? InternalClientId;
 
         // GET: MembrosFamilia
         public async Task<ActionResult> Index()
@@ -35,8 +37,10 @@
         }
 
         // GET: MembrosFamilia/Create
-        public ActionResult Create()
+        public ActionResult Create(int? cltId)
         {
+            InternalClientId = cltId;
+
             ViewBag.TipoMembroFamiliaId = new SelectList(db.TipoMembroFamilias, "TipoMembroFamiliaId", "NomeTipoMembroFamilia");
             return View();
         }
@@ -46,10 +50,23 @@
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MembroFamiliaId,NomeMembroFamilia,ApelidoMembroFamilia,MembroFamiliaDataNascimento,MembroFamiliaIdade,Obs,TipoMembroFamiliaId")] MembroFamilia membroFamilia)
+        public async Task<ActionResult> Create(MembroFamilia membroFamilia)
         {
+            // Save today's date.
+            var today = DateTime.Today;
+
+            // Calculate the age.
+
+            int idade = today.Year - membroFamilia.MembroFamiliaDataNascimento.Value.Year;
+
+            membroFamilia.MembroFamiliaIdade = Convert.ToString(idade);
+            // Go back to the year the person was born in case of a leap year
+            if (membroFamilia.MembroFamiliaDataNascimento > today.AddYears(idade)) idade--;
+
             if (ModelState.IsValid)
             {
+                membroFamilia.ClientId = InternalClientId;
+
                 db.MembroFamilias.Add(membroFamilia);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -67,6 +84,9 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             MembroFamilia membroFamilia = await db.MembroFamilias.FindAsync(id);
+
+            InternalClientId = membroFamilia.ClientId;
+
             if (membroFamilia == null)
             {
                 return HttpNotFound();
@@ -80,10 +100,23 @@
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MembroFamiliaId,NomeMembroFamilia,ApelidoMembroFamilia,MembroFamiliaDataNascimento,MembroFamiliaIdade,Obs,TipoMembroFamiliaId")] MembroFamilia membroFamilia)
+        public async Task<ActionResult> Edit(MembroFamilia membroFamilia)
         {
+            // Save today's date.
+            var today = DateTime.Today;
+
+            // Calculate the age.
+
+            int idade = today.Year - membroFamilia.MembroFamiliaDataNascimento.Value.Year;
+
+            membroFamilia.MembroFamiliaIdade = Convert.ToString(idade);
+            // Go back to the year the person was born in case of a leap year
+            if (membroFamilia.MembroFamiliaDataNascimento > today.AddYears(idade)) idade--;
+
             if (ModelState.IsValid)
             {
+                membroFamilia.ClientId = InternalClientId;
+
                 db.Entry(membroFamilia).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -100,6 +133,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             MembroFamilia membroFamilia = await db.MembroFamilias.FindAsync(id);
+
             if (membroFamilia == null)
             {
                 return HttpNotFound();

@@ -3,38 +3,49 @@
     using Newtonsoft.Json;
     using rainbow.Domain.Configurations;
     using System.ComponentModel.DataAnnotations;
+    using rainbow.Domain.Client;
 
     public class Recomendacao
     {
         [Key]
         public int RecomendacaoId { get; set; }
 
-        [Display(Name = "Nome Sr.")]
+        [Display(Name = "Nome contacto principal")]
         public string NomeSr { get; set; }
 
-        [Display(Name = "Nome Sra.")]
+        [Display(Name = "Nome contacto secundário")]
         public string NomeSra { get; set; }
 
-        [Display(Name = "Idade Sr.")]
+        [Display(Name = "Idade contacto principal")]
         public int IdadeSr { get; set; }
 
-        [Display(Name = "Idade Sra.")]
+        [Display(Name = "Idade contacto secundário")]
         public int IdadeSra { get; set; }
 
-        [Display(Name = "Telemóvel Sr.")]
+        [Display(Name = "Telemóvel contacto principal")]
         public string TelemSr { get; set; }
 
-        [Display(Name = "Telemóvel Sra.")]
+        [Display(Name = "Telemóvel contacto secundário")]
         public string TelemSra { get; set; }
 
         public string ScanFolhaDeContactos { get; set; }
 
-        [Display(Name = "Profissão Sr.")]
+        [Display(Name = "Aceitou contacto")]
+        public bool OkParaContactar { get; set; }
+
+
+        public bool Contactado { get; set; }
+
+        [Display(Name = "Notas")]
+        [DataType(DataType.MultilineText)]
+        public string Obs { get; set; }
+
+        [Display(Name = "Profissão contacto principal")]
         public int ProfissaoId { get; set; }
         [JsonIgnore]
         public virtual Profissao ProfissaoSr { get; set; }
 
-        [Display(Name = "Profissão Sra.")]
+        [Display(Name = "Profissão contacto secundário")]
         [JsonIgnore]
         public virtual Profissao ProfissaoSra { get; set; }
 
@@ -55,6 +66,11 @@
         public int TitleId { get; set; }
         [JsonIgnore]
         public virtual Title Title { get; set; }
+
+        [Display(Name = "Identificação do contacto")]
+        public int? ClientId { get; set; }
+        [JsonIgnore]
+        public virtual Cliente Cliente { get; set; }
 
     }
 }

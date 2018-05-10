@@ -18,6 +18,10 @@
         [JsonIgnore]
         public virtual TipoAnimal TipoAnimal { get; set; }
 
-        //id do dono
+        [Display(Name = "Identificação do contacto")]
+        public int? ClientId { get; set; }
+        [JsonIgnore]
+        public virtual Cliente Cliente { get; set; }
+
     }
 }

@@ -56,6 +56,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Obs)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.DemoDelegada)
+        </th>
         <th></th>
     </tr>
 
@@ -104,12 +108,15 @@
             @Html.DisplayFor(modelItem => item.SucessoRecrutamento)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.DemoDelegada)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Obs)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DemonstracaoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DemonstracaoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DemonstracaoId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.DemonstracaoId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.DemonstracaoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.DemonstracaoId })
         </td>
     </tr>
 }
