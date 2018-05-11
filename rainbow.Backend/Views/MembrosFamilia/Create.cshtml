@@ -56,7 +56,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TipoMembroFamiliaId, "TipoMembroFamiliaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TipoMembroFamiliaId, "Parentesto", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("TipoMembroFamiliaId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TipoMembroFamiliaId, "", new { @class = "text-danger" })
@@ -71,9 +71,9 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Voltar", "Details", "Clientes", new { id = ViewBag.ccc }, new { @class = "btn btn-info btn-small" })
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

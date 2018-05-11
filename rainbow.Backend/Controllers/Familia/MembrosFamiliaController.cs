@@ -7,6 +7,7 @@
     using rainbow.Backend.Models;
     using rainbow.Domain.Familia;
     using System;
+    using System.Web.Routing;
 
     [Authorize]
     public class MembrosFamiliaController : Controller
@@ -35,13 +36,14 @@
             }
             return View(membroFamilia);
         }
-
+       
         // GET: MembrosFamilia/Create
         public ActionResult Create(int? cltId)
         {
             InternalClientId = cltId;
 
             ViewBag.TipoMembroFamiliaId = new SelectList(db.TipoMembroFamilias, "TipoMembroFamiliaId", "NomeTipoMembroFamilia");
+            ViewBag.ccc = cltId;
             return View();
         }
 
@@ -69,7 +71,8 @@
 
                 db.MembroFamilias.Add(membroFamilia);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = membroFamilia.ClientId }));
             }
 
             ViewBag.TipoMembroFamiliaId = new SelectList(db.TipoMembroFamilias, "TipoMembroFamiliaId", "NomeTipoMembroFamilia", membroFamilia.TipoMembroFamiliaId);
@@ -119,7 +122,8 @@
 
                 db.Entry(membroFamilia).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = membroFamilia.ClientId }));
             }
             ViewBag.TipoMembroFamiliaId = new SelectList(db.TipoMembroFamilias, "TipoMembroFamiliaId", "NomeTipoMembroFamilia", membroFamilia.TipoMembroFamiliaId);
             return View(membroFamilia);
@@ -146,10 +150,13 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            int? clId;
             MembroFamilia membroFamilia = await db.MembroFamilias.FindAsync(id);
+            clId = membroFamilia.ClientId;
             db.MembroFamilias.Remove(membroFamilia);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = clId}));
         }
 
         protected override void Dispose(bool disposing)

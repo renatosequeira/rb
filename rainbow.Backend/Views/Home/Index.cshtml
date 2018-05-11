@@ -20,42 +20,43 @@
     <div class="col-md-4">
 
         <div class="panel panel-primary">
-            <div class="panel-heading">Contagem</div>
-            <div class="panel-body">
+            
+            <div class="panel-heading">Contagem<span style="float: right;"><a href="#contagem" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+            <div class="panel-body collapse" id="contagem">
                 <p>Clientes: @clt.Count()</p>
                 <p>Total Recomendações: @recom.Count()</p>
                 <p>
                     OK's:
                     @{
-            int oks = 0;
-            foreach (var item in recom)
-            {
-                if (item.OkParaContactar && !item.Contactado)
+                int oks = 0;
+                foreach (var item in recom)
                 {
-                    oks++;
+                    if (item.OkParaContactar && !item.Contactado)
+                    {
+                        oks++;
+                    }
                 }
-            }
 
-            <span>@oks</span>
+                <span>@oks</span>
                     }
                 </p>
                 <p>
                     Percentagem Ok's:
                     @{
-            int totalOks = 0;
-            int totalRecom = recom.Count();
-            double percentagemOks = 0;
-            foreach (var item in recom)
-            {
-                if (item.OkParaContactar)
+                int totalOks = 0;
+                int totalRecom = recom.Count();
+                double percentagemOks = 0;
+                foreach (var item in recom)
                 {
-                    totalOks++;
+                    if (item.OkParaContactar)
+                    {
+                        totalOks++;
+                    }
+
+                    percentagemOks = (totalOks * 100) / totalRecom;
                 }
 
-                percentagemOks = (totalOks * 100) / totalRecom;
-            }
-
-            <span>@percentagemOks%</span>
+                <span>@percentagemOks%</span>
                     }
                 </p>
             </div>

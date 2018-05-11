@@ -46,6 +46,7 @@ namespace rainbow.Backend.Controllers.Animais
             InternalClientId = cltId;
 
             ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente");
+            ViewBag.ccc = cltId;
             ViewBag.TipoAnimalId = new SelectList(db.TipoAnimals, "TipoAnimalId", "TipoAnimalDesignacao");
             return View();
         }
@@ -63,7 +64,8 @@ namespace rainbow.Backend.Controllers.Animais
 
                 db.AnimalEstimacaos.Add(animalEstimacao);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = animalEstimacao.ClientId }));
             }
 
             ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente", animalEstimacao.ClientId);
@@ -132,10 +134,13 @@ namespace rainbow.Backend.Controllers.Animais
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            int? clId;
             AnimalEstimacao animalEstimacao = await db.AnimalEstimacaos.FindAsync(id);
+            clId = animalEstimacao.ClientId;
             db.AnimalEstimacaos.Remove(animalEstimacao);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = clId }));
         }
 
         protected override void Dispose(bool disposing)
