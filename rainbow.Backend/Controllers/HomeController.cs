@@ -10,6 +10,7 @@ namespace rainbow.Backend.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             DataContext db = new DataContext();
