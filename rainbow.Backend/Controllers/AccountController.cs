@@ -136,7 +136,8 @@ namespace rainbow.Backend.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        [Authorize(Users="renato.sequeira@outstand.pt")]
         public ActionResult Register()
         {
             return View();
