@@ -10,18 +10,32 @@
     using System;
     using System.Linq;
     using rainbow.Domain.Client;
+    using System.Web.Routing;
 
     [Authorize]
     public class RecomendacoesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
         private static int? InternalClientId;
+        private static bool OldOkParaContactar;
+        private static bool OldContactado;
+        private static DateTime? DataOkLocal;
+        private static DateTime? DataContactoLocal;
 
         // GET: Recomendacoes
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(bool? okParaContactar, bool? DemoMarcada)
         {
-            var recomendacaos = db.Recomendacaos.Include(r => r.EstadoCivil).Include(r => r.RelacaoEntreContactos).Include(r => r.Title);
-            return View(await recomendacaos.ToListAsync());
+            if(okParaContactar == null && DemoMarcada == null)
+            {
+                var recomendacaos = db.Recomendacaos.Include(r => r.EstadoCivil).Include(r => r.RelacaoEntreContactos).Include(r => r.Title);
+                return View(await recomendacaos.ToListAsync());
+            }
+            else
+            {
+                return View(await db.Recomendacaos.Where(c =>
+                c.OkParaContactar == okParaContactar && c.DemoMarcada == DemoMarcada).ToListAsync());
+            }
+           
         }
 
         // GET: Recomendacoes/Details/5
@@ -53,6 +67,7 @@
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil");
             ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao");
             ViewBag.TitleId = new SelectList(db.Titles, "TitleId", "TitleName");
+            ViewBag.comp = comp;
             return View();
         }
 
@@ -63,6 +78,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ImagemRecomendacaoView view)
         {
+
             if (ModelState.IsValid)
             {
                 var pic = string.Empty;
@@ -79,7 +95,8 @@
 
                 db.Recomendacaos.Add(recomendacao);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = recomendacao.ClientId }));
             }
 
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", view.EstadoCivilId);
@@ -99,9 +116,7 @@
                 Localidade = view.Localidade,
                 NomeSr = view.NomeSr,
                 NomeSra = view.NomeSra,
-                ProfissaoId = view.ProfissaoId,
                 ProfissaoSr = view.ProfissaoSr,
-                ProfissaoSra = view.ProfissaoSra,
                 RecomendacaoId = view.RecomendacaoId,
                 RelacaoEntreContactos = view.RelacaoEntreContactos,
                 RelacaoId = view.RelacaoId,
@@ -114,7 +129,11 @@
                 ClientId = InternalClientId,
                 OkParaContactar = view.OkParaContactar,
                 Contactado = view.Contactado,
-                Obs = view.Obs
+                Obs = view.Obs,
+                DataContacto = view.DataContacto,
+                DataOk = view.DataOk,
+                ProfisaoSra = view.ProfisaoSra,
+                DemoMarcada = view.DemoMarcada
             };
         }
 
@@ -127,6 +146,12 @@
             }
 
             var recomendacao = await db.Recomendacaos.FindAsync(id);
+
+            InternalClientId = recomendacao.ClientId;
+            OldContactado = recomendacao.Contactado;
+            OldOkParaContactar = recomendacao.OkParaContactar;
+            DataContactoLocal = recomendacao.DataContacto;
+            DataOkLocal = recomendacao.DataOk;
 
             if (recomendacao == null)
             {
@@ -144,7 +169,11 @@
         private ImagemRecomendacaoView ToView(Recomendacao recomendacao)
         {
             InternalClientId = recomendacao.ClientId;
-
+            
+            OldContactado = recomendacao.Contactado;
+            OldOkParaContactar = recomendacao.OkParaContactar;
+           
+            
             return new ImagemRecomendacaoView
             {
                 EstadoCivil = recomendacao.EstadoCivil,
@@ -154,9 +183,7 @@
                 Localidade = recomendacao.Localidade,
                 NomeSr = recomendacao.NomeSr,
                 NomeSra = recomendacao.NomeSra,
-                ProfissaoId = recomendacao.ProfissaoId,
                 ProfissaoSr = recomendacao.ProfissaoSr,
-                ProfissaoSra = recomendacao.ProfissaoSra,
                 RecomendacaoId = recomendacao.RecomendacaoId,
                 RelacaoEntreContactos = recomendacao.RelacaoEntreContactos,
                 RelacaoId = recomendacao.RelacaoId,
@@ -168,7 +195,12 @@
                 Cliente = recomendacao.Cliente,
                 OkParaContactar = recomendacao.OkParaContactar,
                 Contactado = recomendacao.Contactado,
-                Obs = recomendacao.Obs
+                Obs = recomendacao.Obs,
+                ClientId = InternalClientId,
+                DataContacto = DataContactoLocal,
+                DataOk = DataOkLocal,
+                ProfisaoSra = recomendacao.ProfisaoSra,
+                DemoMarcada = recomendacao.DemoMarcada
             };
         }
 
@@ -193,9 +225,59 @@
                 var recomendacao = ToRecomendacao(view);
                 recomendacao.ScanFolhaDeContactos = pic;
 
+                recomendacao.ClientId = InternalClientId;
+
+                //se foi contactado e se o novo estado for diferente do anterior
+                //if (recomendacao.Contactado && (recomendacao.Contactado != OldContactado))
+                //{
+                //    DataContactoLocal = DateTime.Now;
+                //    recomendacao.DataContacto = DataContactoLocal;
+                //}
+
+                if (recomendacao.Contactado)
+                {
+                    if (recomendacao.Contactado != OldContactado)
+                    {
+                        DataContactoLocal = DateTime.Now;
+                        recomendacao.DataContacto = DataContactoLocal;
+                    }
+                    else
+                    {
+                        recomendacao.DataContacto = DataContactoLocal;
+                    }
+                }
+                else
+                {
+                    recomendacao.DataContacto = DataContactoLocal;
+                }
+
+                //if (recomendacao.OkParaContactar && (recomendacao.OkParaContactar != OldOkParaContactar))
+                //{
+                //    DataOkLocal = DateTime.Now;
+                //    recomendacao.DataOk = DataOkLocal;
+                //}
+
+                if (recomendacao.OkParaContactar)
+                {
+                    if (recomendacao.OkParaContactar != OldOkParaContactar)
+                    {
+                        DataOkLocal = DateTime.Now;
+                        recomendacao.DataOk = DataOkLocal;
+                    }
+                    else
+                    {
+                        recomendacao.DataOk = DataOkLocal;
+                    }
+                }
+                else
+                {
+                    recomendacao.DataOk = DataOkLocal;
+                }
+
                 db.Entry(recomendacao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = recomendacao.ClientId }));
             }
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", view.EstadoCivilId);
             ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao", view.RelacaoId);
@@ -223,10 +305,13 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            int? clId;
             Recomendacao recomendacao = await db.Recomendacaos.FindAsync(id);
+            clId = recomendacao.ClientId;
             db.Recomendacaos.Remove(recomendacao);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = clId }));
         }
 
         protected override void Dispose(bool disposing)

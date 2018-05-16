@@ -7,12 +7,16 @@
     using rainbow.Backend.Models;
     using rainbow.Domain.Demo;
     using System.Linq;
+    using System;
+    using System.Web.Routing;
 
     [Authorize]
     public class DemonstracoesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
         private static int? InternalClientId;
+        private static DateTime OldDataMarcacao;
+        private static DateTime? OldDataVisitaCasaAberta;
 
         // GET: Demonstracoes
         public async Task<ActionResult> Index()
@@ -45,6 +49,7 @@
             ViewBag.MarcadorId = new SelectList(db.Marcadors, "MarcadorId", "NomeMarcador");
             ViewBag.PremioId = new SelectList(db.Premios, "PremioId", "DescricaoPremio");
             ViewBag.TipoVisitaId = new SelectList(db.TipoVisitas, "TipoVisitaId", "NomeTipoVisita");
+            ViewBag.ccc = cltId;
             return View();
         }
 
@@ -55,13 +60,15 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Demonstracao demonstracao)
         {
+
             if (ModelState.IsValid)
             {
                 demonstracao.ClientId = InternalClientId;
 
                 db.Demonstracaos.Add(demonstracao);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = demonstracao.ClientId }));
             }
 
             ViewBag.CampanhaId = new SelectList(db.Campanhas, "CampanhaId", "DescricaoCampanha", demonstracao.CampanhaId);
@@ -80,12 +87,16 @@
             }
             Demonstracao demonstracao = await db.Demonstracaos.FindAsync(id);
 
-            InternalClientId = demonstracao.DemonstracaoId;
+            InternalClientId = demonstracao.ClientId;
+            OldDataMarcacao = demonstracao.DataMarcacao;
+            //OldDataVisitaCasaAberta = demonstracao.DataVisitaCasaAberta;
 
             if (demonstracao == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente", demonstracao.ClientId);
             ViewBag.CampanhaId = new SelectList(db.Campanhas, "CampanhaId", "DescricaoCampanha", demonstracao.CampanhaId);
             ViewBag.MarcadorId = new SelectList(db.Marcadors, "MarcadorId", "NomeMarcador", demonstracao.MarcadorId);
             ViewBag.PremioId = new SelectList(db.Premios, "PremioId", "DescricaoPremio", demonstracao.PremioId);
@@ -100,14 +111,22 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Demonstracao demonstracao)
         {
+            //if (demonstracao.DataVisitaCasaAberta == null && OldDataVisitaCasaAberta != null)
+            //{
+            //    demonstracao.DataVisitaCasaAberta = OldDataVisitaCasaAberta;
+            //}
+
             if (ModelState.IsValid)
             {
+                demonstracao.DataMarcacao = OldDataMarcacao;
                 demonstracao.ClientId = InternalClientId;
 
                 db.Entry(demonstracao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = demonstracao.ClientId }));
             }
+
             ViewBag.CampanhaId = new SelectList(db.Campanhas, "CampanhaId", "DescricaoCampanha", demonstracao.CampanhaId);
             ViewBag.MarcadorId = new SelectList(db.Marcadors, "MarcadorId", "NomeMarcador", demonstracao.MarcadorId);
             ViewBag.PremioId = new SelectList(db.Premios, "PremioId", "DescricaoPremio", demonstracao.PremioId);
@@ -135,10 +154,13 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            int? clId;
             Demonstracao demonstracao = await db.Demonstracaos.FindAsync(id);
+            clId = demonstracao.ClientId; 
             db.Demonstracaos.Remove(demonstracao);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = clId }));
         }
 
         protected override void Dispose(bool disposing)

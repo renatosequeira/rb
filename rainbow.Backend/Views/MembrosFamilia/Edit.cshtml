@@ -10,7 +10,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+
     <div class="form-horizontal">
         <h4>MembroFamilia</h4>
         <hr />
@@ -36,6 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MembroFamiliaDataNascimento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @*@Html.TextBoxFor(model => model.MembroFamiliaDataNascimento, "{0:dd/MM/yyyy}", new { @class = "form-control" })*@
                 @Html.EditorFor(model => model.MembroFamiliaDataNascimento, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MembroFamiliaDataNascimento, "", new { @class = "text-danger" })
             </div>
@@ -71,13 +73,13 @@
             </div>
         </div>
     </div>
-}
+    }
 
     <div>
         @*@Html.ActionLink("Back to List", "Index")*@
         @Html.ActionLink("Voltar", "Details", "Clientes", new { id = Model.ClientId }, new { @class = "btn btn-info btn-small" })
     </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

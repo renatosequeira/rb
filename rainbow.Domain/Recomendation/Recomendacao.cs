@@ -4,6 +4,7 @@
     using rainbow.Domain.Configurations;
     using System.ComponentModel.DataAnnotations;
     using rainbow.Domain.Client;
+    using System;
 
     public class Recomendacao
     {
@@ -17,10 +18,10 @@
         public string NomeSra { get; set; }
 
         [Display(Name = "Idade contacto principal")]
-        public int IdadeSr { get; set; }
+        public string IdadeSr { get; set; }
 
         [Display(Name = "Idade contacto secundário")]
-        public int IdadeSra { get; set; }
+        public string IdadeSra { get; set; }
 
         [Display(Name = "Telemóvel contacto principal")]
         public string TelemSr { get; set; }
@@ -33,21 +34,28 @@
         [Display(Name = "Aceitou contacto")]
         public bool OkParaContactar { get; set; }
 
+        [Display(Name = "Demo marcada")]
+        public bool DemoMarcada { get; set; }
 
+        [Display(Name = "Data OK")]
+        [DataType(DataType.Date)]
+        public DateTime? DataOk { get; set; }
+        
         public bool Contactado { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Data do contacto")]
+        public DateTime? DataContacto { get; set; }
 
         [Display(Name = "Notas")]
         [DataType(DataType.MultilineText)]
         public string Obs { get; set; }
 
         [Display(Name = "Profissão contacto principal")]
-        public int ProfissaoId { get; set; }
-        [JsonIgnore]
-        public virtual Profissao ProfissaoSr { get; set; }
+        public string ProfissaoSr { get; set; }
 
         [Display(Name = "Profissão contacto secundário")]
-        [JsonIgnore]
-        public virtual Profissao ProfissaoSra { get; set; }
+        public string ProfisaoSra { get; set; }
 
         [Display(Name = "Localidade")]
         public string Localidade { get; set; }
@@ -63,7 +71,7 @@
         public virtual RelacaoEntreContactos RelacaoEntreContactos { get; set; }
 
         [Display(Name = "Título")]
-        public int TitleId { get; set; }
+        public int? TitleId { get; set; }
         [JsonIgnore]
         public virtual Title Title { get; set; }
 

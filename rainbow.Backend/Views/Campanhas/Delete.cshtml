@@ -1,0 +1,56 @@
+﻿@model rainbow.Domain.Campaigns.Campanha
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Campanha</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DescricaoCampanha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoCampanha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInicioCampanha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInicioCampanha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFimCampanha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFimCampanha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoCampanha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoCampanha)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

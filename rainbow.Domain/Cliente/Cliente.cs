@@ -39,13 +39,15 @@
 
         [DataType(DataType.Date)]
         [Display(Name = "Data Nascimento")]
-        public DateTime DataNascimentoCliente { get; set; }
+        public DateTime? DataNascimentoCliente { get; set; }
 
         [Display(Name = "Idade")]
         public string IdadeCliente { get; set; }
 
         [Display(Name = "Morada")]
         public string MoradaCliente { get; set; }
+
+        public string Localidade { get; set; }
 
         [Display(Name = "CP")]
         public string CodigoPostalCliente { get; set; }

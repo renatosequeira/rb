@@ -124,14 +124,34 @@
 
         <dd class="recrutamento">
             @if (Model.ElegivelParaRecrutamento)
-            {
-                <img title="Eligível para recrutar" src="~/Content/Images/green-light.png" />
-            }
-            else
-            {
-                <img title="Não Eligível para recrutar" src="~/Content/Images/red-light.png" />
-            }
+        {
+            <img title="Eligível para recrutar" src="~/Content/Images/green-light.png" />
+    }
+    else
+    {
+        <img title="Não Eligível para recrutar" src="~/Content/Images/red-light.png" />
+}
         </dd>
+
+        <dd>
+            OK para contacto
+        </dd>
+
+        <dt>
+            @{
+        bool ok;
+        string OkString;
+        foreach (var item in Model.Recomendacao)
+        {
+            if (item.OkParaContactar)
+            {
+                ok = true;
+                OkString = "Ok";
+            }
+}
+
+            }
+        </dt>
 
     </dl>
 
@@ -189,13 +209,13 @@
             </dt>
             <dd>
                 @if (Model.ClienteRainbow)
-            {
-                <p>Sim</p>
-        }
-        else
         {
-            <p>Não</p>
-    }
+            <p>Sim</p>
+}
+else
+{
+        <p>Não</p>
+}
             </dd>
 
             <dt>
@@ -212,13 +232,13 @@
 
             <dd>
                 @if (Model.Recomendacao.Count > 0)
-            {
-                @Html.DisplayFor(model => model.Recomendacao.Count)
-        }
-        else
         {
-            <p style="color:red;">Sem recomendações</p>
-    }
+            @Html.DisplayFor(model => model.Recomendacao.Count)
+}
+else
+{
+        <p style="color:red;">Sem recomendações</p>
+}
             </dd>
 
             <dt>
@@ -227,15 +247,15 @@
 
             <dd>
                 @{
-                int contagem = 0;
-                foreach (var cliente in Model.Recomendacao)
+            int contagem = 0;
+            foreach (var cliente in Model.Recomendacao)
+            {
+                if (cliente.OkParaContactar)
                 {
-                    if (cliente.OkParaContactar)
-                    {
-                        contagem++;
-                    }
+                    contagem++;
                 }
-                <p>@contagem</p>
+            }
+            <p>@contagem</p>
                 }
             </dd>
 
@@ -245,16 +265,16 @@
 
             <dd>
                 @{
-                int NOK = 0;
+            int NOK = 0;
 
-                foreach (var cliente in Model.Recomendacao)
+            foreach (var cliente in Model.Recomendacao)
+            {
+                if (!cliente.OkParaContactar)
                 {
-                    if (!cliente.OkParaContactar)
-                    {
-                        NOK++;
-                    }
+                    NOK++;
                 }
-                <p>@NOK</p>
+            }
+            <p>@NOK</p>
                 }
             </dd>
 
@@ -263,17 +283,17 @@
             </dt>
             <dd>
                 @{
-                string ultimaDemo = null;
-                try
-                {
-                    ultimaDemo = Model.Demonstracao.LastOrDefault().DataMarcacao.ToShortDateString();
-                }
-                catch (Exception)
-                {
-                    <p>Sem demos efectuadas</p>
+            string ultimaDemo = null;
+            try
+            {
+                ultimaDemo = Model.Demonstracao.LastOrDefault().DataMarcacao.ToShortDateString();
             }
+            catch (Exception)
+            {
+                <p>Sem demos efectuadas</p>
+    }
 
-            <p>@ultimaDemo</p>
+        <p>@ultimaDemo</p>
                 }
             </dd>
 
@@ -282,16 +302,16 @@
             </dt>
             <dd>
                 @{
-                int filhos = 0;
+            int filhos = 0;
 
-                foreach (var membro in Model.MembroFamilia)
+            foreach (var membro in Model.MembroFamilia)
+            {
+                if (membro.TipoMembroFamiliaId == 1)
                 {
-                    if (membro.TipoMembroFamiliaId == 1)
-                    {
-                        filhos++;
-                    }
+                    filhos++;
                 }
-                <p>@filhos</p>
+            }
+            <p>@filhos</p>
                 }
             </dd>
 
@@ -300,13 +320,31 @@
             </dt>
             <dd>
                 @{
-                int animais = 0;
+            int animais = 0;
 
-                foreach (var animal in Model.AnimalEstimacao)
-                {
-                    animais++;
+            foreach (var animal in Model.AnimalEstimacao)
+            {
+                animais++;
+            }
+            <p>@animais</p>
                 }
-                <p>@animais</p>
+            </dd>
+
+            <dt>
+                Cliente Rainbow
+            </dt>
+            <dd>
+                @{
+                    if (Model.ClienteRainbow)
+                    {
+                        <p>Sim</p>
+                    }
+                    else
+                    {
+                        <p>Não</p>
+                    }
+
+
                 }
             </dd>
         </dl>
@@ -342,6 +380,13 @@
 
             <dd>
                 @Html.DisplayFor(model => model.CodigoPostalCliente)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Localidade)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Localidade)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.TelemovelCliente)
@@ -532,62 +577,63 @@
                     </td>
                     <td>
                         @{
-                        int difDays = Convert.ToInt32((demo.DataMarcacao - DateTime.Now).TotalDays); ;
-                        if (DateTime.Now < demo.DataMarcacao)
-                        {
-                            <p>Demo em @difDays dias</p>
-                    }
-                    else
-                    {
-                        if (demo.DemoFinalizada)
-                        {
-                            <p>Sim</p>
-                    }
-                    else
-                    {
-                        <p>Não</p>
-                }
-            }
+            int difDays = Convert.ToInt32((demo.DataMarcacao - DateTime.Now).TotalDays); ;
+            if (DateTime.Now < demo.DataMarcacao)
+            {
+                <p>Demo em @difDays dias</p>
+}
+else
+{
+if (demo.DemoFinalizada)
+{
+                <p>Sim</p>
+}
+else
+{
+                <p>Não</p>
+}
+}
 
                         }
                     </td>
 
                     <td>
                         @{
-                        if (demo.DemoDelegada)
-                        {
-                            <p>Sim</p>
-                    }
-                    else
-                    {
-                        <p>Não</p>
-                }
+            if (demo.DemoDelegada)
+            {
+                <p>Sim</p>
+}
+else
+{
+                <p>Não</p>
+}
                         }
                     </td>
 
                     <td>
                         @{
-                        if (demo.ClienteAceitouConviteParaCasaAberta)
-                        {
-                            <p>Sim</p>
-                    }
-                    else
-                    {
-                        <p>Não</p>
-                }
+            if (demo.ClienteAceitouConviteParaCasaAberta)
+            {
+                <p>Sim</p>
+}
+else
+{
+                <p>Não</p>
+}
                         }
                     </td>
 
                     <td class="SpecialNote">
                         @{
-                        if (!string.IsNullOrEmpty(demo.Obs))
-                        {
-                            <img src="~/Content/Images/special-notes.png" />
-                    }
+            if (!string.IsNullOrEmpty(demo.Obs))
+            {
+                <img src="~/Content/Images/special-notes.png" />
+}
                         }
                     </td>
 
                     <td style="width:10px;">@Html.ActionLink(" ", "Details", "Demonstracoes", new { id = demo.DemonstracaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Demonstracoes", new { id = demo.DemonstracaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
                 </tr>
         }
 
@@ -628,46 +674,47 @@
         {
             if (string.IsNullOrEmpty(contacto.NomeSr))
             {
-                <tr>
-                    <td><b>@contacto.NomeSra</b></td>
-                    <td>@contacto.IdadeSra</td>
-                    <td class="OkImage">
-                        @if (contacto.OkParaContactar)
-                    {
-                        <img src="~/Content/Images/green-light.png" />
-                }
-                else if (!contacto.OkParaContactar)
-                {
-                    <img src="~/Content/Images/red-light.png" />
-            }
-            else
+            <tr>
+                <td><b>@contacto.NomeSra</b></td>
+                <td>@contacto.IdadeSra</td>
+                <td class="OkImage">
+                    @if (contacto.OkParaContactar)
+        {
+            <img src="~/Content/Images/green-light.png" />
+}
+else if (!contacto.OkParaContactar)
+{
+            <img src="~/Content/Images/red-light.png" />
+}
+else
+{
+            <img src="~/Content/Images/blue-light.png" />
+}
+
+                </td>
+
+
+
+                <td class="SpecialNote">
+                    @if (!string.IsNullOrEmpty(contacto.Obs))
+        {
+            <img src="~/Content/Images/special-notes.png" />
+}
+                </td>
+
+                <td style="width:10px;">
+                    @if ((Convert.ToInt32(Model.IdadeCliente) >= 30) && (Convert.ToInt32(Model.IdadeCliente) <= 76))
+        {
+            if (Model.EstadoCivilId != 5)
             {
-                <img src="~/Content/Images/blue-light.png" />
-        }
+                <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+}
 
-                    </td>
-
-
-
-                    <td class="SpecialNote">
-                        @if (!string.IsNullOrEmpty(contacto.Obs))
-                    {
-                        <img src="~/Content/Images/special-notes.png" />
-                }
-                    </td>
-
-                    <td style="width:10px;">
-                        @if ((Convert.ToInt32(Model.IdadeCliente) >= 30) && (Convert.ToInt32(Model.IdadeCliente) <= 76))
-                    {
-                        if (Model.EstadoCivilId != 5)
-                        {
-                            <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
-                    }
-
-                }
-                    </td>
-                    <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                </tr>
+}
+                </td>
+                <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
+            </tr>
         }
         else if (string.IsNullOrEmpty(contacto.NomeSra))
         {
@@ -682,83 +729,85 @@
                 </td>
                 <td class="OkImage">
                     @if (contacto.OkParaContactar)
-                {
-                    <img src="~/Content/Images/green-light.png" />
-            }
-            else if (!contacto.OkParaContactar)
-            {
-                <img src="~/Content/Images/red-light.png" />
-        }
-        else
         {
+            <img src="~/Content/Images/green-light.png" />
+}
+else if (!contacto.OkParaContactar)
+{
+            <img src="~/Content/Images/red-light.png" />
+}
+else
+{
             <img src="~/Content/Images/blue-light.png" />
-    }
+}
 
                 </td>
                 <td class="SpecialNote">
                     @if (!string.IsNullOrEmpty(contacto.Obs))
-                {
-                    <img src="~/Content/Images/special-notes.png" />
-            }
+        {
+            <img src="~/Content/Images/special-notes.png" />
+}
                 </td>
                 <td style="width:10px;">
                     @if ((Convert.ToInt32(Model.IdadeCliente) >= 30) && (Convert.ToInt32(Model.IdadeCliente) <= 76))
-                {
-                    if (Model.EstadoCivilId != 5)
-                    {
-                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
-                }
+        {
+            if (Model.EstadoCivilId != 5)
+            {
+                <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+}
 
-            }
+}
                 </td>
                 <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
             </tr>
     }
     else
     {
-        <tr>
-            <td>
-                <b>
-                    @contacto.NomeSr
-                </b>
-            </td>
-            <td>
-                @contacto.IdadeSr
-            </td>
-            <td class="OkImage">
-                @if (contacto.OkParaContactar)
-            {
-                <img src="~/Content/Images/green-light.png" />
-        }
-        else if (!contacto.OkParaContactar)
+            <tr>
+                <td>
+                    <b>
+                        @contacto.NomeSr
+                    </b>
+                </td>
+                <td>
+                    @contacto.IdadeSr
+                </td>
+                <td class="OkImage">
+                    @if (contacto.OkParaContactar)
         {
+            <img src="~/Content/Images/green-light.png" />
+}
+else if (!contacto.OkParaContactar)
+{
             <img src="~/Content/Images/red-light.png" />
-    }
-    else
-    {
-        <img src="~/Content/Images/blue-light.png" />
+}
+else
+{
+            <img src="~/Content/Images/blue-light.png" />
 }
 
-            </td>
+                </td>
 
-            <td class="SpecialNote">
-                @if (!string.IsNullOrEmpty(contacto.Obs))
+                <td class="SpecialNote">
+                    @if (!string.IsNullOrEmpty(contacto.Obs))
+        {
+            <img src="~/Content/Images/special-notes.png" />
+}
+                </td>
+                <td style="width:10px;">
+                    @if ((Convert.ToInt32(Model.IdadeCliente) >= 30) && (Convert.ToInt32(Model.IdadeCliente) <= 76))
+        {
+            if (Model.EstadoCivilId != 5)
             {
-                <img src="~/Content/Images/special-notes.png" />
-        }
-            </td>
-            <td style="width:10px;">
-                @if ((Convert.ToInt32(Model.IdadeCliente) >= 30) && (Convert.ToInt32(Model.IdadeCliente) <= 76))
-            {
-                if (Model.EstadoCivilId != 5)
-                {
-                    <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
-            }
+                <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+}
 
-        }
-            </td>
-            <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-        </tr>
+}
+                </td>
+                <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
+            </tr>
 }
 
 

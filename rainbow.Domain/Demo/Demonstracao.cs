@@ -13,7 +13,8 @@
         [Key]
         public int DemonstracaoId { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DataType(DataType.Date)]
         [Display(Name = "Data marcação")]
         public DateTime DataMarcacao { get; set; }
 
@@ -31,6 +32,7 @@
         public string IdentificacaoVenda { get; set; } //deverá ser GUID
 
         [Display(Name = "Razão não fechado")]
+        [DataType(DataType.MultilineText)]
         public string RazaoNaoCompra { get; set; }
 
         [Display(Name = "Cliente convidado para casa aberta?")]
@@ -39,9 +41,10 @@
         [Display(Name = "Cliente aceitou convite para casa aberta")]
         public bool ClienteAceitouConviteParaCasaAberta { get; set; }
 
-        [Display(Name = "Data visita acordada com o cliente para casa aberta")]
-        [DataType(DataType.DateTime)]
-        public DateTime DataVisitaCasaAberta { get; set; }
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        //[Display(Name = "Data visita acordada com o cliente para casa aberta")]
+        //[DataType(DataType.Date)]
+        //public DateTime? DataVisitaCasaAberta { get; set; }
 
         [Display(Name = "Cliente recrutado?")]
         public bool SucessoRecrutamento { get; set; }

@@ -67,10 +67,18 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.ProfissaoId, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.ProfissaoSr, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.ProfissaoId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ProfissaoId, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ProfissaoSr, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProfissaoSr, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProfisaoSra, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ProfisaoSra, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProfisaoSra, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -134,6 +142,29 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.OkParaContactar, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox" data-toggle="toggle">
+                @Html.EditorFor(model => model.OkParaContactar)
+                @Html.ValidationMessageFor(model => model.OkParaContactar, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DemoMarcada, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox" data-toggle="toggle">
+                @Html.EditorFor(model => model.DemoMarcada)
+                @Html.ValidationMessageFor(model => model.DemoMarcada, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />
         </div>
@@ -142,9 +173,11 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Back to List", "Index")*@
+    @Html.ActionLink("Voltar", "Details", "Clientes", new { id = Model.ClientId }, new { @class = "btn btn-info btn-small" })
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
 }

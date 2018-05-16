@@ -88,14 +88,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DataVisitaCasaAberta, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataVisitaCasaAberta, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataVisitaCasaAberta, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.SucessoRecrutamento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
@@ -153,9 +145,22 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @{
+        int? clId = ViewBag.ccc;
+
+        if (clId == null)
+        {
+            @Html.ActionLink("Back to List", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("Voltar", "Details", "Clientes", new { id = ViewBag.ccc }, new { @class = "btn btn-info btn-small" })
+}
+        }
+
+
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

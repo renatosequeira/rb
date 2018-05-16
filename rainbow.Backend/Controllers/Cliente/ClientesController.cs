@@ -14,12 +14,14 @@
     public class ClientesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
+        private static DateTime? OldBirthDate;
+        private static int? OldIdade;
 
         // GET: Clientes
         public async Task<ActionResult> Index(string search)
         {
 
-            return View(await db.Clientes.Where(c => c.NomeCliente.StartsWith(search) || c.TelemovelCliente.StartsWith(search) || search == null).ToListAsync());
+            return View(await db.Clientes.Where(c => c.NomeCliente.StartsWith(search)|| c.TelemovelCliente.StartsWith(search) || search == null).OrderBy(n => n.NomeCliente).ToListAsync());
             
             //var clientes = db.Clientes.Include(c => c.EstadoCivil).Include(c => c.Profissao).Include(c => c.Title);
             //return View(await clientes.ToListAsync());
@@ -58,8 +60,19 @@
         {
             // Save today's date.
             var today = DateTime.Today;
-            // Calculate the age.
-            int idade = today.Year - cliente.DataNascimentoCliente.Year;
+            //// Calculate the age.
+            //int idade = today.Year - cliente.DataNascimentoCliente.Value.Year;
+
+            int idade;
+            try
+            {
+                idade = today.Year - cliente.DataNascimentoCliente.Value.Year;
+            }
+            catch (Exception)
+            {
+                idade = Convert.ToInt32(cliente.IdadeCliente);
+            }
+
             cliente.IdadeCliente = Convert.ToString(idade);
             // Go back to the year the person was born in case of a leap year
             if (cliente.DataNascimentoCliente > today.AddYears(idade)) idade--;
@@ -86,6 +99,9 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Cliente cliente = await db.Clientes.FindAsync(id);
+            OldBirthDate = cliente.DataNascimentoCliente;
+            OldIdade = Convert.ToInt32(cliente.IdadeCliente);
+
             if (cliente == null)
             {
                 return HttpNotFound();
@@ -105,11 +121,29 @@
         {
             // Save today's date.
             var today = DateTime.Today;
+
             // Calculate the age.
-            int idade = today.Year - cliente.DataNascimentoCliente.Year;
+            //int idade = today.Year - cliente.DataNascimentoCliente.Value.Year;
+
+
+            int idade;
+            try
+            {
+                idade = today.Year - cliente.DataNascimentoCliente.Value.Year;
+            }
+            catch (Exception)
+            {
+                idade = Convert.ToInt32(cliente.IdadeCliente);
+            }
+
             cliente.IdadeCliente = Convert.ToString(idade);
             // Go back to the year the person was born in case of a leap year
             if (cliente.DataNascimentoCliente > today.AddYears(idade)) idade--;
+
+            if(cliente.DataNascimentoCliente == null && (Convert.ToInt32(cliente.IdadeCliente) == OldIdade))
+            {
+                cliente.DataNascimentoCliente = OldBirthDate;
+            }
 
             if (ModelState.IsValid)
             {

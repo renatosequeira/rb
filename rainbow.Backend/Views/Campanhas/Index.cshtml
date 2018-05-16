@@ -1,0 +1,51 @@
+﻿@model IEnumerable<rainbow.Domain.Campaigns.Campanha>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DescricaoCampanha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataInicioCampanha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataFimCampanha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoCampanha)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescricaoCampanha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataInicioCampanha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataFimCampanha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoCampanha)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CampanhaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CampanhaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CampanhaId })
+        </td>
+    </tr>
+}
+
+</table>

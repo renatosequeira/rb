@@ -5,6 +5,7 @@
 @{
     List<rainbow.Domain.Client.Cliente> clt = Model.ToList()[0] as List<rainbow.Domain.Client.Cliente>;
     List<rainbow.Domain.Recomendation.Recomendacao> recom = Model.ToList()[1] as List<rainbow.Domain.Recomendation.Recomendacao>;
+    List<rainbow.Domain.Demo.Demonstracao> demo = Model.ToList()[2] as List<rainbow.Domain.Demo.Demonstracao>;
 }
 
 @{
@@ -23,25 +24,27 @@
             
             <div class="panel-heading">Contagem<span style="float: right;"><a href="#contagem" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
             <div class="panel-body collapse" id="contagem">
-                <p>Clientes: @clt.Count()</p>
-                <p>Total Recomendações: @recom.Count()</p>
+                <p><b>Clientes:</b> @clt.Count()</p>
+                <p><b>Total Recomendações:</b> <a href="~/Recomendacoes/"><span>@recom.Count()</span></a></p>
                 <p>
-                    OK's:
+                    <b>OK's:</b>
                     @{
-                int oks = 0;
-                foreach (var item in recom)
-                {
-                    if (item.OkParaContactar && !item.Contactado)
-                    {
-                        oks++;
-                    }
-                }
+        int oks = 0;
+        foreach (var item in recom)
+        {
+            if (item.OkParaContactar && !item.DemoMarcada)
+            {
+                oks++;
+            }
+        }
 
-                <span>@oks</span>
+                <a href="~/Recomendacoes?okParaContactar=true&DemoMarcada=false"><span>@oks</span></a>
+
+                @*<a href='@string.Format("~/Recomendacoes?/search=true")'/>*@
                     }
                 </p>
                 <p>
-                    Percentagem Ok's:
+                    <b>Percentagem Ok's:</b>
                     @{
                 int totalOks = 0;
                 int totalRecom = recom.Count();
@@ -56,19 +59,45 @@
                     percentagemOks = (totalOks * 100) / totalRecom;
                 }
 
-                <span>@percentagemOks%</span>
+                <span title="@percentagemOks% correspondente ao total de OK's face ao total de recomendações">@percentagemOks%</span>
                     }
                 </p>
             </div>
         </div>
 
-        
-
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <div class="panel panel-warning">
+
+            <div class="panel-heading">Racios<span style="float: right;"><a href="#racios" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+            <div class="panel-body collapse" id="racios">
+                <p><b>Ok's/ Demo: </b>
+                @{ 
+                    int contDemos = demo.Count();
+                    int contOks=0;
+                    int racioOksPorDemo;
+
+                    foreach (var item in recom)
+                    {
+                        if (item.OkParaContactar)
+                        {
+                            contOks++;
+                        }
+                    }
+
+                    racioOksPorDemo =  contOks/ contDemos;
+
+                    <span>@racioOksPorDemo</span>
+                }
+                </p>
+                <p><b>Recomendações/ Cliente:</b> 
+                @{ 
+                    int media = recom.Count() / clt.Count();
+                    <span>@media</span>
+                }
+                </p>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
         <h2>Web Hosting</h2>

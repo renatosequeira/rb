@@ -9,6 +9,7 @@
 
     public class MembroFamilia
     {
+
         [Key]
         public int MembroFamiliaId { get; set; }
 
@@ -21,6 +22,7 @@
         [Display(Name = "Apelido")]
         public string ApelidoMembroFamilia { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Data nascimento")]
         public DateTime? MembroFamiliaDataNascimento { get; set; }

@@ -108,14 +108,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DataVisitaCasaAberta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataVisitaCasaAberta)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.SucessoRecrutamento)
         </dt>
 
@@ -138,7 +130,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Voltar", "Details", "Clientes", new { id = Model.ClientId }, new { @class = "btn btn-info btn-small" })
         </div>
     }
 </div>

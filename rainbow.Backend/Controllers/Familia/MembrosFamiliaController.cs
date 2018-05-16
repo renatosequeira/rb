@@ -8,12 +8,16 @@
     using rainbow.Domain.Familia;
     using System;
     using System.Web.Routing;
+    using System.Threading;
 
     [Authorize]
     public class MembrosFamiliaController : Controller
     {
+
         private DataContextLocal db = new DataContextLocal();
         private static int? InternalClientId;
+        private static DateTime? DataNascTemp;
+        private static int? OldIdade;
 
         // GET: MembrosFamilia
         public async Task<ActionResult> Index()
@@ -47,6 +51,7 @@
             return View();
         }
 
+
         // POST: MembrosFamilia/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -59,7 +64,15 @@
 
             // Calculate the age.
 
-            int idade = today.Year - membroFamilia.MembroFamiliaDataNascimento.Value.Year;
+            int idade;
+            try
+            {
+               idade = today.Year - membroFamilia.MembroFamiliaDataNascimento.Value.Year;
+            }
+            catch (Exception)
+            {
+                idade = Convert.ToInt32(membroFamilia.MembroFamiliaIdade);                
+            }
 
             membroFamilia.MembroFamiliaIdade = Convert.ToString(idade);
             // Go back to the year the person was born in case of a leap year
@@ -89,12 +102,15 @@
             MembroFamilia membroFamilia = await db.MembroFamilias.FindAsync(id);
 
             InternalClientId = membroFamilia.ClientId;
+            DataNascTemp = membroFamilia.MembroFamiliaDataNascimento;
+            OldIdade = Convert.ToInt32(membroFamilia.MembroFamiliaIdade);
 
             if (membroFamilia == null)
             {
                 return HttpNotFound();
             }
             ViewBag.TipoMembroFamiliaId = new SelectList(db.TipoMembroFamilias, "TipoMembroFamiliaId", "NomeTipoMembroFamilia", membroFamilia.TipoMembroFamiliaId);
+
             return View(membroFamilia);
         }
 
@@ -105,19 +121,37 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(MembroFamilia membroFamilia)
         {
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+
             // Save today's date.
             var today = DateTime.Today;
+            //ModelState.Remove("MembroFamiliaDataNascimento");
 
             // Calculate the age.
 
-            int idade = today.Year - membroFamilia.MembroFamiliaDataNascimento.Value.Year;
+            int idade;
+
+            try
+            {
+                idade = today.Year - membroFamilia.MembroFamiliaDataNascimento.Value.Year;
+            }
+            catch (Exception)
+            {
+                idade = Convert.ToInt32(membroFamilia.MembroFamiliaIdade);
+            }
 
             membroFamilia.MembroFamiliaIdade = Convert.ToString(idade);
             // Go back to the year the person was born in case of a leap year
             if (membroFamilia.MembroFamiliaDataNascimento > today.AddYears(idade)) idade--;
 
+            if(membroFamilia.MembroFamiliaDataNascimento == null && (Convert.ToInt32(membroFamilia.MembroFamiliaIdade) == OldIdade))
+            {
+                membroFamilia.MembroFamiliaDataNascimento = DataNascTemp;
+            }
+
             if (ModelState.IsValid)
             {
+
                 membroFamilia.ClientId = InternalClientId;
 
                 db.Entry(membroFamilia).State = EntityState.Modified;
@@ -125,6 +159,7 @@
                 //return RedirectToAction("Index");
                 return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = membroFamilia.ClientId }));
             }
+           
             ViewBag.TipoMembroFamiliaId = new SelectList(db.TipoMembroFamilias, "TipoMembroFamiliaId", "NomeTipoMembroFamilia", membroFamilia.TipoMembroFamiliaId);
             return View(membroFamilia);
         }

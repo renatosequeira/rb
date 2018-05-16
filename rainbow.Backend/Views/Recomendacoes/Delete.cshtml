@@ -83,13 +83,7 @@
             @Html.DisplayFor(model => model.TelemSra)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfissaoId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProfissaoId)
-        </dd>
+        
 
         <dt>
             @Html.DisplayNameFor(model => model.Localidade)
@@ -104,9 +98,9 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Voltar", "Details", "Clientes", new { id = Model.ClientId }, new { @class = "btn btn-info btn-small" })
+    </div>
     }
 </div>

@@ -191,6 +191,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Animais\AnimaisEstimacaoController.cs" />
+    <Compile Include="Controllers\Campanha\CampanhasController.cs" />
     <Compile Include="Controllers\Cliente\ClientesController.cs" />
     <Compile Include="Controllers\Configurations\EstadosCivisController.cs" />
     <Compile Include="Controllers\Configurations\MarcadoresController.cs" />
@@ -244,6 +245,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -254,6 +256,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\bootstrap-toggle.less" />
     <None Include="Properties\PublishProfiles\rainbow.outstandservices.pt - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -266,7 +269,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -401,6 +406,12 @@
     <Content Include="Views\AnimaisEstimacao\Details.cshtml" />
     <Content Include="Views\AnimaisEstimacao\Edit.cshtml" />
     <Content Include="Views\AnimaisEstimacao\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Campanhas\Create.cshtml" />
+    <Content Include="Views\Campanhas\Delete.cshtml" />
+    <Content Include="Views\Campanhas\Details.cshtml" />
+    <Content Include="Views\Campanhas\Edit.cshtml" />
+    <Content Include="Views\Campanhas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

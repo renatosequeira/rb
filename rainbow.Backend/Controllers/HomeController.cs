@@ -16,6 +16,7 @@ namespace rainbow.Backend.Controllers
             List<object> myModel = new List<object>();
             myModel.Add(db.Clientes.ToList());
             myModel.Add(db.Recomendacaos.ToList());
+            myModel.Add(db.Demonstracaos.ToList());
             return View(myModel);
         }
 
