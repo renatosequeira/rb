@@ -703,9 +703,9 @@
                             <td style="width:10px;">
 
                                 @if ((Convert.ToInt32(contacto.IdadeSr) <= 30) && (Convert.ToInt32(contacto.IdadeSr) >= 76))
+                                {
+                                    if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
                                     {
-                                        if (Model.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
-                                        {
                                             <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
                                         }
 
@@ -750,7 +750,7 @@
                             <td style="width:10px;">
                                 @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
                                 {
-                                    if (Model.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
+                                    if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
                                     {
                                         <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
                                     }
@@ -797,7 +797,7 @@
                             <td style="width:10px;">
                                 @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
     {
-        if (Model.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
+        if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
         {
                             <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
 }
