@@ -87,13 +87,13 @@
 
         <td>
             @if ((Convert.ToInt32(item.IdadeCliente) >= 30) && (Convert.ToInt32(item.IdadeCliente) <= 76))
-        {
-            if (item.EstadoCivilId != 5)
             {
-                <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
-        }
+                if (item.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
+                {
+                    <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                }
 
-    }
+            }
         </td>
 
         <td style="text-align:center; width:10px;">
