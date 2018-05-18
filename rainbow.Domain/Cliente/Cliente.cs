@@ -69,7 +69,8 @@
         public string RecomendadoPor { get; set; }
 
         [Display(Name = "Data Adição")]
-        public DateTime DataAdicao { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? DataAdicao { get; set; }
 
         [Display(Name = "Estado Civil")]
         public int EstadoCivilId { get; set; }
