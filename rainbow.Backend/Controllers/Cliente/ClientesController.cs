@@ -18,6 +18,11 @@
         private static int? OldIdade;
 
         // GET: Clientes
+        public ActionResult ModalPopUp()
+        {
+            return View();
+        }
+
         public async Task<ActionResult> Index(string search)
         {
 
@@ -79,7 +84,7 @@
 
             if (ModelState.IsValid)
             {
-
+                cliente.DataAdicao = DateTime.Now;
                 db.Clientes.Add(cliente);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

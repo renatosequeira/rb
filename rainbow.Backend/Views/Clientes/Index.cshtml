@@ -12,19 +12,21 @@
 }
 
 <h2>Listagem de clientes</h2>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
 
 <br />
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary"})
-</p>
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
 
+</p>
 
 <p>
     @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
     {
         @Html.TextBox("search", ViewBag.CurrentFilter as string,
-         new { @class = "form-control", placeholder = "Procurar nome ou telemóvel", @type = "search" })
+                        new { @class = "form-control", placeholder = "Procurar nome ou telemóvel", @type = "search" })
     }
 </p>
 
@@ -56,69 +58,101 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoCivil.NomeEstadoCivil)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TelemovelCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdadeCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CodigoPostalCliente)
-        </td>
-
-        <td style="text-align:center;">
-            @if (item.ElegivelParaRecrutamento)
-        {
-            <img title="Eligível para recrutar" style="width:35px;" src="~/Content/Images/green-light.png" />
-    }
-    else
+    @foreach (var item in Model)
     {
-        <img title="Não Eligível para recrutar" style="width:35px;" src="~/Content/Images/red-light.png" />
-}
-        </td>
+        <tr>
+            <td id="nome">
 
-        <td>
-            @if ((Convert.ToInt32(item.IdadeCliente) >= 30) && (Convert.ToInt32(item.IdadeCliente) <= 76))
-            {
-                if (item.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
+                @Html.DisplayFor(modelItem => item.NomeCliente)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoCivil.NomeEstadoCivil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelemovelCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdadeCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoPostalCliente)
+            </td>
+
+            <td style="text-align:center;">
+                @if (item.ElegivelParaRecrutamento)
                 {
-                    <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                    <img title="Eligível para recrutar" style="width:35px;" src="~/Content/Images/green-light.png" />
                 }
+                else
+                {
+                    <img title="Não Eligível para recrutar" style="width:35px;" src="~/Content/Images/red-light.png" />
+                }
+            </td>
 
-            }
-        </td>
+            <td>
+                @if ((Convert.ToInt32(item.IdadeCliente) >= 30) && (Convert.ToInt32(item.IdadeCliente) <= 76))
+                {
+                    if (item.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
+                    {
+                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                    }
 
-        <td style="text-align:center; width:10px;">
-            @*@Html.ActionLink("Edit", "Edit", new { id = item.ClientId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ClientId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.ClientId })*@
-            <a href="@Url.Action("Edit", "Clientes", new { id=item.ClientId })" title="Editar empresa">
-                <img src="~/Content/Images/btn_edit.png" width="30" />
-            </a>
+                }
+            </td>
 
-        </td>
+            @*<td>
+                <a class="btn btn-default" data-toggle="modal" data-target=".bootstrapmodal" ><span class="fa fa-info"></span></a>
+            </td>*@
 
-        <td style="text-align:center; width:10px;">
-            <a href="@Url.Action("Details", "Clientes", new { id=item.ClientId })" title="Detalhes da empresa">
-                <img src="~/Content/Images/btn_details.png" width="30" />
-            </a>
-        </td>
+            <td style="text-align:center; width:10px;">
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.ClientId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ClientId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ClientId })*@
+                <a href="@Url.Action("Edit", "Clientes", new { id=item.ClientId })" title="Editar empresa">
+                    <img src="~/Content/Images/btn_edit.png" width="30" />
+                </a>
 
-        <td style="text-align:center;width:10px;">
-            <a href="@Url.Action("Delete", "Clientes", new { id=item.ClientId })" title="Apagar cliente">
-                <img src="~/Content/Images/btn_delete.png" width="30" />
-            </a>
-        </td>
+            </td>
 
-    </tr>
-}
+            <td style="text-align:center; width:10px;">
+                <a href="@Url.Action("Details", "Clientes", new { id=item.ClientId })" title="Detalhes da empresa">
+                    <img src="~/Content/Images/btn_details.png" width="30" />
+                </a>
+            </td>
+
+            <td style="text-align:center;width:10px;">
+                <a href="@Url.Action("Delete", "Clientes", new { id=item.ClientId })" title="Apagar cliente">
+                    <img src="~/Content/Images/btn_delete.png" width="30" />
+                </a>
+            </td>
+
+        </tr>
+
+
+    }
 
 </table>
+
+<div class="modal fade bootstrapmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close"><span>&times;</span></button>
+                <div class="modal-title">
+                    <h2>Modal</h2>
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

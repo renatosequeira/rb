@@ -7,6 +7,7 @@
 <h2>Edit</h2>
 
 
+
 @using (Html.BeginForm("Edit", "Recomendacoes", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -146,6 +147,7 @@
         <div class="col-md-10">
             <div class="checkbox" data-toggle="toggle">
                 @Html.EditorFor(model => model.OkParaContactar)
+
                 @Html.ValidationMessageFor(model => model.OkParaContactar, "", new { @class = "text-danger" })
 
             </div>
@@ -163,6 +165,45 @@
         </div>
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.Recrutamento, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Recrutamento)
+                @Html.ValidationMessageFor(model => model.Recrutamento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Filhos, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Filhos)
+                @Html.ValidationMessageFor(model => model.Filhos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Animais, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Animais)
+                @Html.ValidationMessageFor(model => model.Animais, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ContactoPrioritario, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.ContactoPrioritario)
+                @Html.ValidationMessageFor(model => model.ContactoPrioritario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

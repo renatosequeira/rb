@@ -60,6 +60,16 @@
         [Display(Name = "Localidade")]
         public string Localidade { get; set; }
 
+        [Display(Name = "Eligivel para recrutar?")]
+        public bool Recrutamento { get; set; }
+
+        public bool Filhos { get; set; }
+
+        public bool Animais { get; set; }
+
+        [Display(Name = "Contacto prioritário")]
+        public bool ContactoPrioritario { get; set; }
+
         [Display(Name = "Estado Civil")]
         public int EstadoCivilId { get; set; }
         [JsonIgnore]

@@ -56,12 +56,6 @@
         // GET: Recomendacoes/Create
         public ActionResult Create(int? comp)
         {
-            //if (comp == null)
-            //{
-            //    //return HttpNotFound();
-            //    Response.Redirect("~/Clientes");
-            //}
-
             InternalClientId = comp;
 
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil");
@@ -133,7 +127,10 @@
                 DataContacto = view.DataContacto,
                 DataOk = view.DataOk,
                 ProfisaoSra = view.ProfisaoSra,
-                DemoMarcada = view.DemoMarcada
+                DemoMarcada = view.DemoMarcada,
+                Animais = view.Animais,
+                Filhos = view.Filhos,
+                Recrutamento = view.Recrutamento
             };
         }
 
@@ -200,7 +197,10 @@
                 DataContacto = DataContactoLocal,
                 DataOk = DataOkLocal,
                 ProfisaoSra = recomendacao.ProfisaoSra,
-                DemoMarcada = recomendacao.DemoMarcada
+                DemoMarcada = recomendacao.DemoMarcada,
+                Animais = recomendacao.Animais,
+                Filhos = recomendacao.Filhos,
+                Recrutamento = recomendacao.Recrutamento
             };
         }
 

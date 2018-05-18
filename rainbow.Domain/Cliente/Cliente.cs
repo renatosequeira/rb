@@ -68,6 +68,9 @@
         [Display(Name = "Recomendado por:")]
         public string RecomendadoPor { get; set; }
 
+        [Display(Name = "Data Adição")]
+        public DateTime DataAdicao { get; set; }
+
         [Display(Name = "Estado Civil")]
         public int EstadoCivilId { get; set; }
         [JsonIgnore]
