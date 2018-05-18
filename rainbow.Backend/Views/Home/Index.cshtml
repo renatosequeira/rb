@@ -70,7 +70,7 @@
         <div class="panel panel-warning">
 
             <div class="panel-heading">Racios<span style="float: right;"><a href="#racios" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
-            <div class="panel-body collapse" id="racios">
+            <div class="panel-body" id="racios">
                 <p><b>Ok's/ Demo: </b>
                 @{ 
                     int contDemos = demo.Count();
@@ -100,8 +100,42 @@
         </div>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <div class="panel panel-success ">
+
+            <div class="panel-heading">Eventos de hoje<span style="float: right;"><a href="#eventos" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+            <div class="panel-body" id="eventos">
+
+                <table class="table">
+                    @{
+
+                        <tr>
+                            <th>
+                                Cliente
+                            </th>
+                            <th>
+                                Tipo evento
+                            </th>
+                        </tr>
+
+
+        foreach (var item in demo)
+        {
+            if (item.DataMarcacao == DateTime.Now.Date)
+            {
+                        <tr>
+
+                            <td>@item.Cliente.NomeCliente</td>
+                            <td>@item.TipoVisita.NomeTipoVisita</td>
+                            <td><a  class="fa fa-eye" href="~/Clientes/Details/@item.ClientId"></a></td>
+                        </tr>
+
+}
+
+}
+                    }
+
+                </table>
+            </div>
+        </div>
     </div>
 </div>
