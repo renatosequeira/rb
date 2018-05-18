@@ -58,10 +58,22 @@
         {
             InternalClientId = comp;
 
+            var cliente = db.Clientes.ToList();
+            string nome = "";
+
+            foreach (var item in cliente)
+            {
+                if(item.ClientId == comp)
+                {
+                    nome = item.NomeCliente;
+                }
+            }
+
+            
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil");
             ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao");
             ViewBag.TitleId = new SelectList(db.Titles, "TitleId", "TitleName");
-            ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente");
+            ViewBag.ClientId = nome;
             ViewBag.comp = comp;
             return View();
         }

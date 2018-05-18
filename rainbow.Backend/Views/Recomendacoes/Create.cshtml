@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Nova recomendação</h2>
+<h2>Nova recomendação de @ViewBag.ClientId</h2>
 
 @using (Html.BeginForm("Create", "Recomendacoes", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -16,7 +16,7 @@
 
     <div class="col-lg-6" style="float:left">
 
-        <h3 style="text-align:center;">Contacto principal</h3>
+        <h3 style="text-align:left;">Contacto principal</h3>
 
         <div class="form-group">
             @*@Html.LabelFor(model => model.NomeSr, htmlAttributes: new { @class = "control-label col-md-2" })*@
@@ -79,7 +79,7 @@
 
     <div class="col-lg-6" style="float:right;">
 
-        <h3 style="text-align:center;">Contacto secundário</h3>
+        <h3 style="text-align:left;">Contacto secundário</h3>
 
         <div class="form-group">
             @*@Html.LabelFor(model => model.NomeSra, htmlAttributes: new { @class = "control-label col-md-2" })*@
