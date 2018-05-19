@@ -26,7 +26,7 @@
         public async Task<ActionResult> Index(string search)
         {
 
-            return View(await db.Clientes.Where(c => c.NomeCliente.StartsWith(search)|| c.TelemovelCliente.StartsWith(search) || search == null).OrderBy(n => n.NomeCliente).ToListAsync());
+            return View(await db.Clientes.Where(c => c.NomeCliente.Contains(search)|| c.TelemovelCliente.Contains(search) || search == null).OrderBy(n => n.NomeCliente).ToListAsync());
             
             //var clientes = db.Clientes.Include(c => c.EstadoCivil).Include(c => c.Profissao).Include(c => c.Title);
             //return View(await clientes.ToListAsync());

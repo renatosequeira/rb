@@ -122,17 +122,45 @@
         {
             if (item.DataMarcacao == DateTime.Now.Date)
             {
-                        <tr>
+                <tr>
+                    <td>@item.Cliente.NomeCliente</td>
+                    <td>@item.TipoVisita.NomeTipoVisita</td>
+                    <td><a  class="fa fa-eye" href="~/Clientes/Details/@item.ClientId"></a></td>
+                </tr>
+                                        }
 
-                            <td>@item.Cliente.NomeCliente</td>
-                            <td>@item.TipoVisita.NomeTipoVisita</td>
-                            <td><a  class="fa fa-eye" href="~/Clientes/Details/@item.ClientId"></a></td>
-                        </tr>
+                                    }
 
+                                    foreach (var cliente in clt)
+                                    {
+                                        int BirthDay = 0;
+                                        int BirthMonth = 0;
+
+                                        try
+                                        {
+                                            BirthDay = cliente.DataNascimentoCliente.Value.Day;
+                                            BirthMonth = cliente.DataNascimentoCliente.Value.Month;
+                                        }
+                                        catch (Exception)
+                                        {
+
+
+                                        }
+
+                                        if(BirthDay == DateTime.Now.Day && BirthMonth == DateTime.Now.Month)
+                                        {
+                <tr>
+                    <td>@cliente.NomeCliente</td>
+                    <td>Aniversário</td>
+                    <td><a class="fa fa-eye" href="~/Clientes/Details/@cliente.ClientId"></a></td>
+                </tr>
+                                
+                                
                             }
-                          
                         }
-                    }
+        }
+
+                  
 
                 </table>
             </div>
