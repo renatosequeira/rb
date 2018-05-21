@@ -1,0 +1,58 @@
+﻿@model rainbow.Domain.Recrutamento.Recrutamento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Recrutamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DataRecrutamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataRecrutamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataEntrevista)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataEntrevista)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInicioCurso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInicioCurso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFimCurso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFimCurso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obs)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RecrutamentoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

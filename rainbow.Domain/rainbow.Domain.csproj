@@ -72,6 +72,7 @@
     <Compile Include="Premios\Premio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recomendation\Recomendacao.cs" />
+    <Compile Include="Recrutamento\Recrutamento.cs" />
     <Compile Include="Saude\Alergia.cs" />
     <Compile Include="Venda\Venda.cs" />
   </ItemGroup>

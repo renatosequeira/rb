@@ -1,0 +1,57 @@
+﻿@model IEnumerable<rainbow.Domain.Recrutamento.Recrutamento>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DataRecrutamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataEntrevista)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataInicioCurso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataFimCurso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Obs)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataRecrutamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataEntrevista)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataInicioCurso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataFimCurso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Obs)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RecrutamentoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RecrutamentoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RecrutamentoId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -5,31 +5,216 @@
         /*Bootstrap 3 override*/
         -webkit-appearance: searchfield-cancel-button !important;
     }
+
+    .ResumoClientes {
+        clear: both;
+        border: 1px solid lightgray;
+        max-height: 120px;
+        border-radius: 5px;
+        margin-bottom: 1em;
+    }
+
+    .RowHeader th {
+        text-align: center;
+    }
+
+    .Indicadores td {
+        text-align: center;
+        vertical-align: inherit !important;
+    }
+
+    .caixaProcura {
+        float: right;
+        margin-bottom: 1em;
+    }
+
+    .botaoCriar {
+        float: left !important;
+        margin-bottom: 0;
+    }
 </style>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Listagem de clientes</h2>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
-
 
 <br />
 
-<p>
-    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
+@Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary botaoCriar fa fa-user-plus fa-2x" })
 
-</p>
+@using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
+{
+    @Html.TextBox("search", ViewBag.CurrentFilter as string,
+                                        new { @class = "form-control caixaProcura", placeholder = "Procurar nome ou telemóvel", @type = "search" })
+}
 
-<p>
-    @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
-    {
-        @Html.TextBox("search", ViewBag.CurrentFilter as string,
-                        new { @class = "form-control", placeholder = "Procurar nome ou telemóvel", @type = "search" })
-    }
-</p>
+<div class="ResumoClientes col-lg-12">
+    <table class="table">
+        <thead>
+            <tr class="RowHeader">
+                <th style="color:blue;">
+                    Total
+                </th>
 
+                <th>
+                    Recrutados
+                </th>
+
+                <th>
+                    Casados
+                </th>
+
+                <th>
+                    Un. Facto
+                </th>
+
+                <th>
+                    Divorc.
+                </th>
+
+                <th>
+                    Cliente RB
+                </th>
+
+                <th>
+                    Idades
+                </th>
+            </tr>
+
+
+        </thead>
+
+        <tbody>
+            <tr class="Indicadores table-primary">
+                <td title="Número de clientes">
+                    <p>@Model.Count()</p>
+                </td>
+
+                <td title="Número de clientes recrutados">
+                    @{
+                        int Recruted = 0;
+
+                        foreach (var item in Model)
+                        {
+                            if(item.Recrutamento.Count() > 0)
+                            {
+                                Recruted++;
+                            }
+                        }
+
+                        <p>@Recruted</p>
+                    }
+                </td>
+
+                <td>
+                    @{
+                        int Casados = 0;
+
+                        foreach (var item in Model)
+                        {
+                            if (item.EstadoCivilId == 1)
+                            {
+                                Casados++;
+                            }
+                        }
+
+                        <p>@Casados</p>
+                    }
+                </td>
+
+                <td>
+                    @{
+                        int UniaoFacto = 0;
+
+                        foreach (var item in Model)
+                        {
+                            if (item.EstadoCivilId == 3)
+                            {
+                                UniaoFacto++;
+                            }
+                        }
+
+                        <p>@UniaoFacto</p>
+                    }
+                </td>
+
+                <td>
+                    @{
+                        int Divorciado = 0;
+
+                        foreach (var item in Model)
+                        {
+                            if (item.EstadoCivilId == 2)
+                            {
+                                Divorciado++;
+                            }
+                        }
+
+                        <p>@Divorciado</p>
+                    }
+                </td>
+
+                <td>
+                    @{
+                        int ClientesRb = 0;
+
+                        foreach (var item in Model)
+                        {
+                            if (item.ClienteRainbow)
+                            {
+                                ClientesRb++;
+                            }
+                        }
+
+                        <p>@ClientesRb</p>
+                    }
+                </td>
+
+                <td>
+                    @{
+                        int Ate25 = 0;
+                        int VinteCintoACinquenta = 0;
+                        int AcimaCinquenta = 0;
+
+                        foreach (var item in Model)
+                        {
+                            if (Convert.ToInt32(item.IdadeCliente) <= 25)
+                            {
+                                Ate25++;
+                            }
+                            if (Convert.ToInt32(item.IdadeCliente) > 25 && Convert.ToInt32(item.IdadeCliente) <= 50)
+                            {
+                                VinteCintoACinquenta++;
+                            }
+                            if (Convert.ToInt32(item.IdadeCliente) > 50)
+                            {
+                                AcimaCinquenta++;
+                            }
+                        }
+
+                        <p>
+                            @Ate25<br />
+                            @VinteCintoACinquenta<br />
+                            @AcimaCinquenta
+                        </p>
+
+
+                    }
+                </td>
+
+                <td>
+                    <p style="text-align:left;color:darkgray;">
+                        ~25<br />
+                        25~50<br />
+                        50+
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <table class="table col-lg-12 col-md-6 col-sm-6">
     <tr>
@@ -82,11 +267,11 @@
             <td style="text-align:center;">
                 @if (item.ElegivelParaRecrutamento)
                 {
-                    <img title="Eligível para recrutar" style="width:35px;" src="~/Content/Images/green-light.png" />
+                    <img title="Eligível para recrutar" style="width:25px;" src="~/Content/Images/green-light.png" />
                 }
                 else
                 {
-                    <img title="Não Eligível para recrutar" style="width:35px;" src="~/Content/Images/red-light.png" />
+                    <img title="Não Eligível para recrutar" style="width:25px;" src="~/Content/Images/red-light.png" />
                 }
             </td>
 
@@ -102,27 +287,27 @@
             </td>
 
             @*<td>
-                <a class="btn btn-default" data-toggle="modal" data-target=".bootstrapmodal" ><span class="fa fa-info"></span></a>
-            </td>*@
+                    <a class="btn btn-default" data-toggle="modal" data-target=".bootstrapmodal" ><span class="fa fa-info"></span></a>
+                </td>*@
 
             <td style="text-align:center; width:10px;">
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.ClientId }) |
                     @Html.ActionLink("Details", "Details", new { id = item.ClientId }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.ClientId })*@
-                <a href="@Url.Action("Edit", "Clientes", new { id=item.ClientId })" title="Editar empresa">
+                <a href="@Url.Action("Edit", "Clientes", new { id=item.ClientId })" title="Editar @item.NomeCliente">
                     <img src="~/Content/Images/btn_edit.png" width="30" />
                 </a>
 
             </td>
 
             <td style="text-align:center; width:10px;">
-                <a href="@Url.Action("Details", "Clientes", new { id=item.ClientId })" title="Detalhes da empresa">
+                <a href="@Url.Action("Details", "Clientes", new { id=item.ClientId })" title="Detalhes de @item.NomeCliente">
                     <img src="~/Content/Images/btn_details.png" width="30" />
                 </a>
             </td>
 
             <td style="text-align:center;width:10px;">
-                <a href="@Url.Action("Delete", "Clientes", new { id=item.ClientId })" title="Apagar cliente">
+                <a href="@Url.Action("Delete", "Clientes", new { id=item.ClientId })" title="Apagar @item.NomeCliente">
                     <img src="~/Content/Images/btn_delete.png" width="30" />
                 </a>
             </td>

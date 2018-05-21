@@ -75,6 +75,7 @@
             </div>
         </div>
 
+
     </div>
 
     <div class="col-lg-6" style="float:right;">
@@ -151,6 +152,16 @@
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Animais)
                     @Html.ValidationMessageFor(model => model.Animais, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClienteRB, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ClienteRB)
+                    @Html.ValidationMessageFor(model => model.ClienteRB, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>

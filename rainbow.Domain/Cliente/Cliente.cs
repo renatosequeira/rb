@@ -11,6 +11,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using rainbow.Domain.Recrutamento;
 
     public class Cliente
     {
@@ -98,6 +99,9 @@
 
         [JsonIgnore]
         public virtual ICollection<AnimalEstimacao> AnimalEstimacao { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Recrutamento> Recrutamento { get; set; }
 
         //alergias
     }

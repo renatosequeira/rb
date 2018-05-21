@@ -211,6 +211,7 @@
     <Compile Include="Controllers\PosVenda\AssistenciasController.cs" />
     <Compile Include="Controllers\Premio\PremiosController.cs" />
     <Compile Include="Controllers\Recomendation\RecomendacoesController.cs" />
+    <Compile Include="Controllers\Recrutamento\RecrutamentosController.cs" />
     <Compile Include="Controllers\Saude\AlergiasController.cs" />
     <Compile Include="Controllers\Venda\VendasController.cs" />
     <Compile Include="Global.asax.cs">
@@ -412,6 +413,11 @@
     <Content Include="Views\Campanhas\Details.cshtml" />
     <Content Include="Views\Campanhas\Edit.cshtml" />
     <Content Include="Views\Campanhas\Index.cshtml" />
+    <Content Include="Views\Recrutamentos\Create.cshtml" />
+    <Content Include="Views\Recrutamentos\Delete.cshtml" />
+    <Content Include="Views\Recrutamentos\Details.cshtml" />
+    <Content Include="Views\Recrutamentos\Edit.cshtml" />
+    <Content Include="Views\Recrutamentos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

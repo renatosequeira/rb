@@ -143,7 +143,9 @@
                 DemoMarcada = view.DemoMarcada,
                 Animais = view.Animais,
                 Filhos = view.Filhos,
-                Recrutamento = view.Recrutamento
+                Recrutamento = view.Recrutamento,
+                ClienteRB = view.ClienteRB,
+                ContactoPrioritario = view.ContactoPrioritario
             };
         }
 
@@ -213,7 +215,9 @@
                 DemoMarcada = recomendacao.DemoMarcada,
                 Animais = recomendacao.Animais,
                 Filhos = recomendacao.Filhos,
-                Recrutamento = recomendacao.Recrutamento
+                Recrutamento = recomendacao.Recrutamento,
+                ClienteRB = recomendacao.ClienteRB,
+                ContactoPrioritario = recomendacao.ContactoPrioritario
             };
         }
 

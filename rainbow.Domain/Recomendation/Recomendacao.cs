@@ -67,6 +67,9 @@
 
         public bool Animais { get; set; }
 
+        [Display(Name = "Cliente Rainbow?")]
+        public bool ClienteRB { get; set; }
+
         [Display(Name = "Contacto prioritário")]
         public bool ContactoPrioritario { get; set; }
 
