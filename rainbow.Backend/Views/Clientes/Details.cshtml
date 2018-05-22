@@ -750,13 +750,6 @@ else
 
                             </td>
 
-                            <td class="SpecialNote">
-                                @if (!string.IsNullOrEmpty(contacto.Obs))
-        {
-                        <img src="~/Content/Images/special-notes.png" />
-}
-                            </td>
-
                             <td>
                                 @*@contacto.DemonstracaoGuid*@
 
@@ -775,15 +768,21 @@ else
 
                             <td>
                                 @if (contacto.DemoExecutada)
-                                {
-                                     <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
-                                }
-                                else
-                                {
-                                     <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
-                                }
+        {
+                        <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
+}
+else
+{
+                        <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
+}
                             </td>
 
+                            <td class="SpecialNote">
+                                @if (!string.IsNullOrEmpty(contacto.Obs))
+        {
+                        <img src="~/Content/Images/special-notes.png" />
+}
+                            </td>
 
                             <td style="width:10px;">
                                 @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
@@ -827,13 +826,6 @@ else
 
                             </td>
 
-                            <td class="SpecialNote">
-                                @if (!string.IsNullOrEmpty(contacto.Obs))
-        {
-                        <img src="~/Content/Images/special-notes.png" />
-}
-                            </td>
-
                             <td>
                                 @*@contacto.DemonstracaoGuid*@
 
@@ -858,6 +850,13 @@ else
 else
 {
                         <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
+}
+                            </td>
+
+                            <td class="SpecialNote">
+                                @if (!string.IsNullOrEmpty(contacto.Obs))
+        {
+                        <img src="~/Content/Images/special-notes.png" />
 }
                             </td>
 
