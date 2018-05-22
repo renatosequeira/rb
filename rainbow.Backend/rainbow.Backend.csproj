@@ -236,11 +236,17 @@
     <Content Include="Content\Images\btn_delete.png" />
     <Content Include="Content\Images\btn_details.png" />
     <Content Include="Content\Images\btn_edit.png" />
+    <Content Include="Content\Images\finished_flag.png" />
     <Content Include="Content\Images\green-light.png" />
     <Content Include="Content\Images\Notes_180507_143741_948_1.jpg" />
+    <Content Include="Content\Images\off.png" />
+    <Content Include="Content\Images\on.png" />
     <Content Include="Content\Images\Qualified.png" />
     <Content Include="Content\Images\red-light.png" />
     <Content Include="Content\Images\special-notes.png" />
+    <Content Include="Content\Images\thumbs_down.png" />
+    <Content Include="Content\Images\thumbs_up.png" />
+    <Content Include="Content\Images\unfinished_flag.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

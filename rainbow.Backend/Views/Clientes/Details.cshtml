@@ -80,9 +80,6 @@
         </h2>
 
     </div>
-
-
-
     <hr />
     <dl class="dl-horizontal">
 
@@ -187,7 +184,7 @@
 </div>
 
 <!-- Tab content -->
-<div class="tab-content">
+<div class="tab-content" id="myTab">
 
     <div id="resumo" class="tab-pane fade in active">
         <div style="text-align: left;
@@ -299,7 +296,7 @@
             </dd>
 
             <dt>
-                Filhos
+                Filhos dependentes:
             </dt>
             <dd>
                 @{
@@ -321,13 +318,22 @@
             </dt>
             <dd>
                 @{
-                    int animais = 0;
+        int animais = 0;
 
-                    foreach (var animal in Model.AnimalEstimacao)
-                    {
-                        animais++;
-                    }
-                    <p>@animais</p>
+        foreach (var animal in Model.AnimalEstimacao)
+        {
+            animais++;
+        }
+            @*<p>@animais</p>*@
+
+if (animais > 0)
+{
+            <img style="width:30px;" title="Cliente tem animais de estimação" src="~/Content/Images/on.png" />
+}
+else
+{
+            <img style="width:30px;" title="Cliente não tem animais de estimação" src="~/Content/Images/off.png" />
+}
                 }
             </dd>
         </dl>
@@ -548,6 +554,7 @@
                     <th>Demo executada</th>
                     <th>Demo delegada</th>
                     <th>Casa aberta</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -606,6 +613,20 @@
                             }
                         </td>
 
+                        <td>
+                            @{
+        if (demo.DemoStatus)
+        {
+                        
+                        <img style="width:25px;" title="Demo fechada" src="~/Content/Images/finished_flag.png"/>
+}
+else
+{
+                        <img style="width:25px;"  title="Demo não fechada" src="~/Content/Images/unfinished_flag.png"/>
+}
+                            }
+                        </td>
+
                         <td class="SpecialNote">
                             @{
                                 if (!string.IsNullOrEmpty(demo.Obs))
@@ -649,6 +670,8 @@
                         <td>Nome</td>
                         <td>Idade</td>
                         <td>OK</td>
+                        <td>Data Demo</td>
+                        <td>Demo Executada</td>
                         <td></td>
                     </tr>
                 </thead>
@@ -660,6 +683,7 @@
                         <tr>
                             <td><b>@contacto.NomeSra</b></td>
                             <td>@contacto.IdadeSra</td>
+
                             <td class="OkImage">
                                 @if (contacto.OkParaContactar)
                                 {
@@ -709,38 +733,67 @@
                             <td>
                                 @contacto.IdadeSr
                             </td>
+
                             <td class="OkImage">
                                 @if (contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/green-light.png" />
-                                }
-                                else if (!contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/red-light.png" />
-                                }
-                                else
-                                {
-                                    <img src="~/Content/Images/blue-light.png" />
-                                }
+        {
+                        <img src="~/Content/Images/green-light.png" />
+}
+else if (!contacto.OkParaContactar)
+{
+                        <img src="~/Content/Images/red-light.png" />
+}
+else
+{
+                        <img src="~/Content/Images/blue-light.png" />
+}
 
                             </td>
 
                             <td class="SpecialNote">
                                 @if (!string.IsNullOrEmpty(contacto.Obs))
-                                {
-                                    <img src="~/Content/Images/special-notes.png" />
+        {
+                        <img src="~/Content/Images/special-notes.png" />
+}
+                            </td>
+
+                            <td>
+                                @*@contacto.DemonstracaoGuid*@
+
+                                @{
+            var demoId = contacto.DemonstracaoGuid;
+
+            foreach (var item in Model.Demonstracao)
+            {
+                if (item.DemoUniqueId == demoId)
+                {
+                        <p>@item.DataMarcacao.ToShortDateString()</p>
+}
+}
                                 }
                             </td>
 
+                            <td>
+                                @if (contacto.DemoExecutada)
+                                {
+                                     <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
+                                }
+                                else
+                                {
+                                     <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
+                                }
+                            </td>
+
+
                             <td style="width:10px;">
                                 @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
-                                {
-                                    if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
-                                    {
-                                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
-                                    }
+        {
+            if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
+            {
+                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+}
 
-                                }
+}
                             </td>
                             <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
                             <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
@@ -757,37 +810,66 @@
                             <td>
                                 @contacto.IdadeSr
                             </td>
+
                             <td class="OkImage">
                                 @if (contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/green-light.png" />
-                                }
-                                else if (!contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/red-light.png" />
-                                }
-                                else
-                                {
-                                    <img src="~/Content/Images/blue-light.png" />
-                                }
+        {
+                        <img src="~/Content/Images/green-light.png" />
+}
+else if (!contacto.OkParaContactar)
+{
+                        <img src="~/Content/Images/red-light.png" />
+}
+else
+{
+                        <img src="~/Content/Images/blue-light.png" />
+}
 
                             </td>
 
                             <td class="SpecialNote">
                                 @if (!string.IsNullOrEmpty(contacto.Obs))
-                                {
-                                    <img src="~/Content/Images/special-notes.png" />
+        {
+                        <img src="~/Content/Images/special-notes.png" />
+}
+                            </td>
+
+                            <td>
+                                @*@contacto.DemonstracaoGuid*@
+
+                                @{
+            var demoId = contacto.DemonstracaoGuid;
+
+            foreach (var item in Model.Demonstracao)
+            {
+                if (item.DemoUniqueId == demoId)
+                {
+                        <p>@item.DataMarcacao.ToShortDateString()</p>
+}
+}
                                 }
                             </td>
+
+                            <td>
+                                @if (contacto.DemoExecutada)
+        {
+                        <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
+}
+else
+{
+                        <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
+}
+                            </td>
+
                             <td style="width:10px;">
                                 @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
-                                {
-                                    if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
-                                    {
-                                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
-                                    }
+        {
+            if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
+            {
+                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+}
 
-                                }
+}
                             </td>
                             <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
                             <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
@@ -877,6 +959,7 @@
 </div>
 
 <script>
+
     function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");

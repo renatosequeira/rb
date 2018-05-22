@@ -9,6 +9,7 @@
     using System;
     using System.Web.Routing;
     using System.Threading;
+    using System.Linq;
 
     [Authorize]
     public class MembrosFamiliaController : Controller
@@ -46,8 +47,20 @@
         {
             InternalClientId = cltId;
 
+            var cliente = db.Clientes.ToList();
+            string nome = "";
+
+            foreach (var item in cliente)
+            {
+                if (item.ClientId == cltId)
+                {
+                    nome = item.NomeCliente;
+                }
+            }
+
             ViewBag.TipoMembroFamiliaId = new SelectList(db.TipoMembroFamilias, "TipoMembroFamiliaId", "NomeTipoMembroFamilia");
             ViewBag.ccc = cltId;
+            ViewBag.ClientName = nome;
             return View();
         }
 

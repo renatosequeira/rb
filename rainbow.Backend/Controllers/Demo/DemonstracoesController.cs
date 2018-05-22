@@ -17,6 +17,7 @@
         private static int? InternalClientId;
         private static DateTime OldDataMarcacao;
         private static DateTime? OldDataVisitaCasaAberta;
+        private static string OldDemoId;
 
         // GET: Demonstracoes
         public async Task<ActionResult> Index()
@@ -60,9 +61,11 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Demonstracao demonstracao)
         {
-
+            string guid = Guid.NewGuid().ToString("N");
+            
             if (ModelState.IsValid)
             {
+                demonstracao.DemoUniqueId = guid;
                 demonstracao.ClientId = InternalClientId;
 
                 db.Demonstracaos.Add(demonstracao);
@@ -89,6 +92,7 @@
 
             InternalClientId = demonstracao.ClientId;
             OldDataMarcacao = demonstracao.DataMarcacao;
+            OldDemoId = demonstracao.DemoUniqueId;
             //OldDataVisitaCasaAberta = demonstracao.DataVisitaCasaAberta;
 
             if (demonstracao == null)
@@ -111,15 +115,12 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Demonstracao demonstracao)
         {
-            //if (demonstracao.DataVisitaCasaAberta == null && OldDataVisitaCasaAberta != null)
-            //{
-            //    demonstracao.DataVisitaCasaAberta = OldDataVisitaCasaAberta;
-            //}
 
             if (ModelState.IsValid)
             {
                 demonstracao.DataMarcacao = OldDataMarcacao;
                 demonstracao.ClientId = InternalClientId;
+                demonstracao.DemoUniqueId = OldDemoId;
 
                 db.Entry(demonstracao).State = EntityState.Modified;
                 await db.SaveChangesAsync();

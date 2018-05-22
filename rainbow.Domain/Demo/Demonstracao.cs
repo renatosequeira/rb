@@ -41,6 +41,12 @@
         [Display(Name = "Cliente aceitou convite para casa aberta")]
         public bool ClienteAceitouConviteParaCasaAberta { get; set; }
 
+        [Display(Name = "ID da Demo")]
+        public string DemoUniqueId { get; set; }
+
+        [Display(Name = "Demo Status")]
+        public bool DemoStatus { get; set; }
+
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         //[Display(Name = "Data visita acordada com o cliente para casa aberta")]
         //[DataType(DataType.Date)]

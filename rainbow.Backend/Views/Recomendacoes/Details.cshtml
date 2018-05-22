@@ -170,7 +170,31 @@
             @Html.DisplayFor(model => model.ClienteRB)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.ClienteAceitouDemo)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.ClienteAceitouDemo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DemoExecutada)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.DemoExecutada)*@
+            @{
+        if (Model.DemoExecutada)
+        {
+            <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
+}
+else
+{
+        <img  style="width:25px;" title="Demo não executada" src="~/Content/Images/thumbs_down.png" />
+}
+            }
+        </dd>
     </dl>
 </div>
 <p>

@@ -276,13 +276,28 @@
             </td>
 
             <td>
-                @if ((Convert.ToInt32(item.IdadeCliente) >= 30) && (Convert.ToInt32(item.IdadeCliente) <= 76))
-                {
-                    if (item.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
-                    {
-                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
-                    }
+                @*@if ((Convert.ToInt32(item.IdadeCliente) >= 30) && (Convert.ToInt32(item.IdadeCliente) <= 76))
+        {
+            if (item.EstadoCivil.NomeEstadoCivil != "Solteiro(a)")
+            {
+                <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+            }
 
+        }*@
+
+                @{
+
+        foreach (var demo in item.Demonstracao)
+        {
+            if (demo.DemoStatus)
+            {
+                <img style="width:25px;" title="Cliente com demos fechadas" src="~/Content/Images/finished_flag.png" />
+}
+else
+{
+            <img style="width:25px;" title="Cliente com demos abertas" src="~/Content/Images/unfinished_flag.png" />
+}
+}
                 }
             </td>
 

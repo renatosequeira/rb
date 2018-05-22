@@ -21,6 +21,7 @@
         private static bool OldContactado;
         private static DateTime? DataOkLocal;
         private static DateTime? DataContactoLocal;
+        private static string DemoId;
 
         // GET: Recomendacoes
         public async Task<ActionResult> Index(bool? okParaContactar, bool? DemoMarcada)
@@ -56,6 +57,17 @@
         // GET: Recomendacoes/Create
         public ActionResult Create(int? comp)
         {
+            
+            var demo = db.Demonstracaos.ToList();
+
+            foreach (var item in demo)
+            {
+                if(item.ClientId == comp)
+                {
+                    DemoId = item.DemoUniqueId;
+                }
+            }
+
             InternalClientId = comp;
 
             var cliente = db.Clientes.ToList();
@@ -145,7 +157,10 @@
                 Filhos = view.Filhos,
                 Recrutamento = view.Recrutamento,
                 ClienteRB = view.ClienteRB,
-                ContactoPrioritario = view.ContactoPrioritario
+                ContactoPrioritario = view.ContactoPrioritario,
+                DemonstracaoGuid = DemoId,
+                ClienteAceitouDemo = view.ClienteAceitouDemo,
+                DemoExecutada = view.DemoExecutada
             };
         }
 
@@ -217,7 +232,9 @@
                 Filhos = recomendacao.Filhos,
                 Recrutamento = recomendacao.Recrutamento,
                 ClienteRB = recomendacao.ClienteRB,
-                ContactoPrioritario = recomendacao.ContactoPrioritario
+                ContactoPrioritario = recomendacao.ContactoPrioritario,
+                ClienteAceitouDemo = recomendacao.ClienteAceitouDemo,
+                DemoExecutada = recomendacao.DemoExecutada
             };
         }
 

@@ -43,6 +43,12 @@
         
         public bool Contactado { get; set; }
 
+        [Display(Name = "Demo Executada")]
+        public bool DemoExecutada { get; set; }
+
+        [Display(Name = "Cliente aceitou Demo")]
+        public bool ClienteAceitouDemo { get; set; }
+
         [DataType(DataType.Date)]
         [Display(Name = "Data do contacto")]
         public DateTime? DataContacto { get; set; }
@@ -72,6 +78,9 @@
 
         [Display(Name = "Contacto prioritário")]
         public bool ContactoPrioritario { get; set; }
+
+        [Display(Name = "ID da DEMO")]
+        public string DemonstracaoGuid { get; set; }
 
         [Display(Name = "Estado Civil")]
         public int EstadoCivilId { get; set; }
