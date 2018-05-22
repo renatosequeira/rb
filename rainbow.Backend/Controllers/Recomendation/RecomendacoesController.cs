@@ -179,6 +179,7 @@
             OldOkParaContactar = recomendacao.OkParaContactar;
             DataContactoLocal = recomendacao.DataContacto;
             DataOkLocal = recomendacao.DataOk;
+            DemoId = recomendacao.DemonstracaoGuid;
 
             if (recomendacao == null)
             {
@@ -260,13 +261,7 @@
                 recomendacao.ScanFolhaDeContactos = pic;
 
                 recomendacao.ClientId = InternalClientId;
-
-                //se foi contactado e se o novo estado for diferente do anterior
-                //if (recomendacao.Contactado && (recomendacao.Contactado != OldContactado))
-                //{
-                //    DataContactoLocal = DateTime.Now;
-                //    recomendacao.DataContacto = DataContactoLocal;
-                //}
+                recomendacao.DemonstracaoGuid = DemoId;
 
                 if (recomendacao.Contactado)
                 {
@@ -284,12 +279,6 @@
                 {
                     recomendacao.DataContacto = DataContactoLocal;
                 }
-
-                //if (recomendacao.OkParaContactar && (recomendacao.OkParaContactar != OldOkParaContactar))
-                //{
-                //    DataOkLocal = DateTime.Now;
-                //    recomendacao.DataOk = DataOkLocal;
-                //}
 
                 if (recomendacao.OkParaContactar)
                 {
