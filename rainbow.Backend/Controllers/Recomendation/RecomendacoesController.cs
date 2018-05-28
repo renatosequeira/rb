@@ -100,6 +100,11 @@
 
             if (ModelState.IsValid)
             {
+                if (view.OkParaContactar)
+                {
+                    view.DataOk = DateTime.Now;
+                }
+
                 var pic = string.Empty;
                 var folder = "~/Content/Images";
 

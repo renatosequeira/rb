@@ -5,6 +5,7 @@
 }
 
 <link href="~/Content/font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet" />
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 <style>
     body {
@@ -328,13 +329,16 @@
 
 if (animais > 0)
 {
-            <img style="width:30px;" title="Cliente tem animais de estimação" src="~/Content/Images/on.png" />
+            @*<img style="width:30px;" title="Cliente tem animais de estimação" src="~/Content/Images/on.png" />*@
+            <input type="checkbox" checked data-toggle="toggle" disabled="disabled" data-on="Tem animais" data-onstyle="success" data-size="mini">
 }
 else
 {
-            <img style="width:30px;" title="Cliente não tem animais de estimação" src="~/Content/Images/off.png" />
+            @*<img style="width:30px;" title="Cliente não tem animais de estimação" src="~/Content/Images/off.png" />*@
+            <input type="checkbox" data-toggle="toggle" disabled="disabled" data-off="Não tem animais" data-offstyle="danger" data-size="mini">
 }
                 }
+
             </dd>
         </dl>
 
@@ -615,15 +619,15 @@ else
 
                         <td>
                             @{
-        if (demo.DemoStatus)
-        {
-                        
-                        <img style="width:25px;" title="Demo fechada" src="~/Content/Images/finished_flag.png"/>
-}
-else
-{
-                        <img style="width:25px;"  title="Demo não fechada" src="~/Content/Images/unfinished_flag.png"/>
-}
+                                if (demo.DemoStatus)
+                                {
+
+                                    <img style="width:25px;" title="Demo fechada" src="~/Content/Images/finished_flag.png" />
+                                }
+                                else
+                                {
+                                    <img style="width:25px;" title="Demo não fechada" src="~/Content/Images/unfinished_flag.png" />
+                                }
                             }
                         </td>
 
@@ -736,17 +740,17 @@ else
 
                             <td class="OkImage">
                                 @if (contacto.OkParaContactar)
-        {
-                        <img src="~/Content/Images/green-light.png" />
-}
-else if (!contacto.OkParaContactar)
-{
-                        <img src="~/Content/Images/red-light.png" />
-}
-else
-{
-                        <img src="~/Content/Images/blue-light.png" />
-}
+                                {
+                                    <img src="~/Content/Images/green-light.png" />
+                                }
+                                else if (!contacto.OkParaContactar)
+                                {
+                                    <img src="~/Content/Images/red-light.png" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Images/blue-light.png" />
+                                }
 
                             </td>
 
@@ -754,45 +758,45 @@ else
                                 @*@contacto.DemonstracaoGuid*@
 
                                 @{
-            var demoId = contacto.DemonstracaoGuid;
+                                    var demoId = contacto.DemonstracaoGuid;
 
-            foreach (var item in Model.Demonstracao)
-            {
-                if (item.DemoUniqueId == demoId)
-                {
-                        <p>@item.DataMarcacao.ToShortDateString()</p>
-}
-}
+                                    foreach (var item in Model.Demonstracao)
+                                    {
+                                        if (item.DemoUniqueId == demoId)
+                                        {
+                                            <p>@item.DataMarcacao.ToShortDateString()</p>
+                                        }
+                                    }
                                 }
                             </td>
 
                             <td>
                                 @if (contacto.DemoExecutada)
-        {
-                        <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
-}
-else
-{
-                        <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
-}
+                                {
+                                    <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
+                                }
+                                else
+                                {
+                                    <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
+                                }
                             </td>
 
                             <td class="SpecialNote">
                                 @if (!string.IsNullOrEmpty(contacto.Obs))
-        {
-                        <img src="~/Content/Images/special-notes.png" />
-}
+                                {
+                                    <img src="~/Content/Images/special-notes.png" />
+                                }
                             </td>
 
                             <td style="width:10px;">
                                 @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
-        {
-            if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
-            {
-                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
-}
+                                {
+                                    if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
+                                    {
+                                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                                    }
 
-}
+                                }
                             </td>
                             <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
                             <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
@@ -812,17 +816,17 @@ else
 
                             <td class="OkImage">
                                 @if (contacto.OkParaContactar)
-        {
-                        <img src="~/Content/Images/green-light.png" />
-}
-else if (!contacto.OkParaContactar)
-{
-                        <img src="~/Content/Images/red-light.png" />
-}
-else
-{
-                        <img src="~/Content/Images/blue-light.png" />
-}
+                                {
+                                    <img src="~/Content/Images/green-light.png" />
+                                }
+                                else if (!contacto.OkParaContactar)
+                                {
+                                    <img src="~/Content/Images/red-light.png" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Images/blue-light.png" />
+                                }
 
                             </td>
 
@@ -830,45 +834,45 @@ else
                                 @*@contacto.DemonstracaoGuid*@
 
                                 @{
-            var demoId = contacto.DemonstracaoGuid;
+                                    var demoId = contacto.DemonstracaoGuid;
 
-            foreach (var item in Model.Demonstracao)
-            {
-                if (item.DemoUniqueId == demoId)
-                {
-                        <p>@item.DataMarcacao.ToShortDateString()</p>
-}
-}
+                                    foreach (var item in Model.Demonstracao)
+                                    {
+                                        if (item.DemoUniqueId == demoId)
+                                        {
+                                            <p>@item.DataMarcacao.ToShortDateString()</p>
+                                        }
+                                    }
                                 }
                             </td>
 
                             <td>
                                 @if (contacto.DemoExecutada)
-        {
-                        <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
-}
-else
-{
-                        <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
-}
+                                {
+                                    <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
+                                }
+                                else
+                                {
+                                    <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
+                                }
                             </td>
 
                             <td class="SpecialNote">
                                 @if (!string.IsNullOrEmpty(contacto.Obs))
-        {
-                        <img src="~/Content/Images/special-notes.png" />
-}
+                                {
+                                    <img src="~/Content/Images/special-notes.png" />
+                                }
                             </td>
 
                             <td style="width:10px;">
                                 @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
-        {
-            if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
-            {
-                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
-}
+                                {
+                                    if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
+                                    {
+                                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                                    }
 
-}
+                                }
                             </td>
                             <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
                             <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
@@ -920,21 +924,21 @@ else
             <tbody>
 
                 @foreach (var rec in Model.Recrutamento)
-            {
-                <tr>
-                    <td>
-                        <b>@rec.DataRecrutamento</b>
-                    </td>
-                    <td>
-                        @rec.DataInicioCurso
-                    </td>
-                    <td>
-                        @rec.DataFimCurso
-                    </td>
-                    <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recrutamentos", new { id = rec.RecrutamentoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recrutamentos", new { id = rec.RecrutamentoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
-                </tr>
-        }
+                {
+                    <tr>
+                        <td>
+                            <b>@rec.DataRecrutamento</b>
+                        </td>
+                        <td>
+                            @rec.DataInicioCurso
+                        </td>
+                        <td>
+                            @rec.DataFimCurso
+                        </td>
+                        <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recrutamentos", new { id = rec.RecrutamentoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                        <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recrutamentos", new { id = rec.RecrutamentoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
+                    </tr>
+                }
 
             </tbody>
         </table>
@@ -957,21 +961,57 @@ else
     </div>
 </div>
 
-<script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 
-    function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
 
-    document.getElementById("defaultOpen").click();
-</script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script>
+
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.getElementById("defaultOpen").click();
+    </script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            // Connect to 'change' event in order to toggle glyphs
+
+            $("[type='checkbox']").change(function () {
+
+                if ($(this).prop('checked')) {
+
+                    $(this).prev().addClass('glyphicon-ok-circle');
+
+                    $(this).prev().removeClass('glyphicon-unchecked');
+
+                }
+
+                else {
+
+                    $(this).prev().removeClass('glyphicon-ok-circle');
+
+                    $(this).prev().addClass('glyphicon-unchecked');
+
+                }
+
+            });
+
+        });
+
+    </script>
+}

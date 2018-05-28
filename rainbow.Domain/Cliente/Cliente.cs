@@ -39,6 +39,7 @@
         public string EmailCliente { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data Nascimento")]
         public DateTime? DataNascimentoCliente { get; set; }
 
