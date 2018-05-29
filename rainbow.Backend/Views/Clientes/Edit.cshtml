@@ -257,9 +257,23 @@
                     <span class="bold">Cancelar</span>
                 </a>
 
-                <input type="checkbox" data-toggle="toggle" value="@Model.ClienteRainbow" checked="@Model.ClienteRainbow" data-on="É cliente RB" data-off="Não é cliente RB" data-onstyle="success" data-offstyle="danger" data-style="slow">
-                <input type="checkbox" data-toggle="toggle" value="@Model.ElegivelParaRecrutamento" checked="@Model.ElegivelParaRecrutamento" data-on="Eligivel para recrutar" data-off="Não eligivel para recrutar" data-onstyle="success" data-offstyle="danger" data-style="slow">
-                <div style="float:right;">@Html.EditorFor(model => model.RecomendadoPor, new { htmlAttributes = new { @class = "form-control", placeholder = "Recomendado por", title = "Recomendado por" } })</div>
+
+                @Html.EditorFor(model => model.ClienteRainbow,
+new
+{
+htmlAttributes =
+new { data_toggle = "toggle", data_on = "É cliente RB", data_off = "Não é cliente RB", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+})
+
+                @Html.EditorFor(model => model.ElegivelParaRecrutamento,
+new
+{
+htmlAttributes =
+new { data_toggle = "toggle", data_on = "Eligivel para recrutar", data_off = "Não eligivel para recrutar", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+})
+
+                <div style="float:right;">@Html.EditorFor(model => model.RecomendadoPor, new { htmlAttributes = new { @class = "form-control", placeholder = "Recomendado por", title = "Recomendado por", @readonly = "readonly" } })</div>
+
 
             </div>
         </div>
@@ -460,6 +474,8 @@
 
         });
 
+
+     
     </script>
 
 

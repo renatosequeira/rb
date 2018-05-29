@@ -4,6 +4,8 @@
     ViewBag.Title = "Create";
 }
 
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 <h2>Nova recomendação de @ViewBag.ClientId</h2>
 
 @using (Html.BeginForm("Create", "Recomendacoes", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -127,6 +129,17 @@
             </div>
         </div>
 
+        @try
+    {
+        <input type="checkbox" data-toggle="toggle" id="ContactoPrioritario" name="ContactoPrioritario" value="@Model.ContactoPrioritario" checked="@Model.ContactoPrioritario" data-on="É cliente RB" data-off="Não é cliente RB" data-onstyle="success" data-offstyle="danger" data-style="slow">
+}
+catch (Exception)
+{
+
+
+}
+
+
         <div class="form-group">
             @Html.LabelFor(model => model.Recrutamento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -193,4 +206,37 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            // Connect to 'change' event in order to toggle glyphs
+
+            $("[type='checkbox']").change(function () {
+
+                if ($(this).prop('checked')) {
+
+                    $(this).prev().addClass('glyphicon-ok-circle');
+
+                    $(this).prev().removeClass('glyphicon-unchecked');
+
+                }
+
+                else {
+
+                    $(this).prev().removeClass('glyphicon-ok-circle');
+
+                    $(this).prev().addClass('glyphicon-unchecked');
+
+                }
+
+            });
+
+        });
+
+    </script>
+
 }

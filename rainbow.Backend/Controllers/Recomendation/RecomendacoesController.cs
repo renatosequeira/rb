@@ -57,7 +57,6 @@
         // GET: Recomendacoes/Create
         public ActionResult Create(int? comp)
         {
-            
             var demo = db.Demonstracaos.ToList();
 
             foreach (var item in demo)
@@ -81,6 +80,7 @@
                 }
             }
 
+            
             
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil");
             ViewBag.RelacaoId = new SelectList(db.RelacaoEntreContactos, "RelacaoId", "DescricaoRelacao");
