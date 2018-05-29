@@ -115,49 +115,64 @@
                             <th>
                                 Tipo evento
                             </th>
+                            <th>
+                                Data
+                            </th>
                         </tr>
 
 
-        foreach (var item in demo)
-        {
-            if (item.DataMarcacao == DateTime.Now.Date)
+    <!--DEMOS-->
+            foreach (var item in demo)
             {
-                <tr>
-                    <td>@item.Cliente.NomeCliente</td>
-                    <td>@item.TipoVisita.NomeTipoVisita</td>
-                    <td><a  class="fa fa-eye" href="~/Clientes/Details/@item.ClientId"></a></td>
-                </tr>
-                                        }
+                if (item.DataMarcacao == DateTime.Today || item.DataMarcacao == DateTime.Today.AddDays(1) || item.DataMarcacao == DateTime.Today.AddDays(2))
+                {
+                    <tr>
+                        <td>@item.Cliente.NomeCliente</td>
+                        <td>@item.TipoVisita.NomeTipoVisita</td>
+                        <td>@item.DataMarcacao.ToShortDateString()</td>
+                        <td><a  class="fa fa-eye" href="~/Clientes/Details/@item.ClientId"></a></td>
+                    </tr>
+                }
 
-                                    }
+            }
 
-                                    foreach (var cliente in clt)
-                                    {
-                                        int BirthDay = 0;
-                                        int BirthMonth = 0;
+    <!--ANIVERSÁRIOS-->
+            foreach (var cliente in clt)
+            {
+                int BirthDay = 0;
+                int BirthMonth = 0;
 
-                                        try
-                                        {
-                                            BirthDay = cliente.DataNascimentoCliente.Value.Day;
-                                            BirthMonth = cliente.DataNascimentoCliente.Value.Month;
-                                        }
-                                        catch (Exception)
-                                        {
+                try
+                {
+                    BirthDay = cliente.DataNascimentoCliente.Value.Day;
+                    BirthMonth = cliente.DataNascimentoCliente.Value.Month;
+                }
+                catch (Exception)
+                {
 
 
-                                        }
+                }
 
-                                        if(BirthDay == DateTime.Now.Day && BirthMonth == DateTime.Now.Month)
-                                        {
+                if(BirthDay == DateTime.Now.Day && BirthMonth == DateTime.Now.Month)
+                {
                 <tr>
                     <td>@cliente.NomeCliente</td>
                     <td>Aniversário</td>
+                    <td>Hoje</td>
                     <td><a class="fa fa-eye" href="~/Clientes/Details/@cliente.ClientId"></a></td>
-                </tr>
-                                
-                                
-                            }
-                        }
+                </tr>                   
+                }
+
+                if(BirthDay == DateTime.Today.AddDays(1).Day && BirthMonth == DateTime.Now.Month)
+                {
+                <tr>
+                    <td>@cliente.NomeCliente</td>
+                    <td>Aniversário</td>
+                    <td>Amanhã</td>
+                    <td><a class="fa fa-eye" href="~/Clientes/Details/@cliente.ClientId"></a></td>
+                </tr>                   
+                }
+            }
         }
 
                   
