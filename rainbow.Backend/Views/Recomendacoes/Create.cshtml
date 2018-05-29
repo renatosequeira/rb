@@ -120,75 +120,104 @@
     <div class="col-lg-12" style="clear:both">
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ContactoPrioritario, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.ContactoPrioritario, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.ContactoPrioritario)
+                    @*@Html.EditorFor(model => model.ContactoPrioritario)*@
+                    @Html.EditorFor(model => model.ContactoPrioritario,
+                        new
+                        {
+                        htmlAttributes =
+                        new { data_toggle = "toggle", data_on = "Prioritário", data_off = "Não prioritário", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+                        })
                     @Html.ValidationMessageFor(model => model.ContactoPrioritario, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
-        @try
-    {
-        <input type="checkbox" data-toggle="toggle" id="ContactoPrioritario" name="ContactoPrioritario" value="@Model.ContactoPrioritario" checked="@Model.ContactoPrioritario" data-on="É cliente RB" data-off="Não é cliente RB" data-onstyle="success" data-offstyle="danger" data-style="slow">
-}
-catch (Exception)
-{
-
-
-}
-
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Recrutamento, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Recrutamento, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Recrutamento)
+                    @*@Html.EditorFor(model => model.Recrutamento)*@
+                    @Html.EditorFor(model => model.Recrutamento,
+             new
+             {
+                 htmlAttributes =
+             new { data_toggle = "toggle", data_on = "Abordar para recrutamento", data_off = "Não abordar para recrutamento", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+             })
                     @Html.ValidationMessageFor(model => model.Recrutamento, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Filhos, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Filhos, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Filhos)
+                    @*@Html.EditorFor(model => model.Filhos)*@
+                    @Html.EditorFor(model => model.Filhos,
+             new
+             {
+                 htmlAttributes =
+             new { data_toggle = "toggle", data_on = "Tem filhos", data_off = "Não tem filhos", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+             })
                     @Html.ValidationMessageFor(model => model.Filhos, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Animais, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Animais, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Animais)
+                    @*@Html.EditorFor(model => model.Animais)*@
+                    @Html.EditorFor(model => model.Animais,
+             new
+             {
+                 htmlAttributes =
+             new { data_toggle = "toggle", data_on = "Tem animais", data_off = "Não tem animais", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+             })
                     @Html.ValidationMessageFor(model => model.Animais, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ClienteRB, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.ClienteRB, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.ClienteRB)
+                    @*@Html.EditorFor(model => model.ClienteRB)*@
+                    @Html.EditorFor(model => model.ClienteRB,
+             new
+             {
+                 htmlAttributes =
+             new { data_toggle = "toggle", data_on = "É cliente RB", data_off = "Não é cliente RB", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+             })
                     @Html.ValidationMessageFor(model => model.ClienteRB, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OkParaContactar, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.OkParaContactar, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.OkParaContactar)
+                    @*@Html.EditorFor(model => model.OkParaContactar)*@
+                    @Html.EditorFor(model => model.OkParaContactar,
+             new
+             {
+                 htmlAttributes =
+             new { data_toggle = "toggle", data_on = "Aceitou contacto", data_off = "Ainda não aceitou contacto", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+             })
                     @Html.ValidationMessageFor(model => model.OkParaContactar, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
+
+
+
     </div>
 
     <div class="form-group">
