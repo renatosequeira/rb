@@ -287,17 +287,45 @@
 
                 @{
 
-        foreach (var demo in item.Demonstracao)
-        {
-            if (demo.DemoStatus)
-            {
-                <img style="width:25px;" title="Cliente com demos fechadas" src="~/Content/Images/finished_flag.png" />
-}
-else
-{
-            <img style="width:25px;" title="Cliente com demos abertas" src="~/Content/Images/unfinished_flag.png" />
-}
-}
+                    foreach (var demo in item.Demonstracao)
+                    {
+                        bool fechoManual = false;
+                        int recomendacoesOk = 0;
+                        int recomendacoesComDemosTerminadas = 0;
+
+                        foreach (var recomendacao in item.Recomendacao)
+                        {
+                            if (demo.DemoUniqueId == recomendacao.DemonstracaoGuid)
+                            {
+                                if (demo.DemoStatus)
+                                {
+                                    fechoManual = true;
+                                }
+
+                                if (recomendacao.OkParaContactar)
+                                {
+                                    recomendacoesOk++;
+                                }
+
+                                if (recomendacao.OkParaContactar && recomendacao.DemoExecutada)
+                                {
+                                    recomendacoesComDemosTerminadas++;
+                                }
+
+                            }
+
+                        }
+
+                        if (recomendacoesOk == recomendacoesComDemosTerminadas && recomendacoesOk > 0 || fechoManual)
+                        {
+                            <img style="width:25px;" title="Cliente com demos fechadas" src="~/Content/Images/finished_flag.png" />
+                        }
+                        else
+                        {
+                            <img style="width:25px;" title="Cliente com demos abertas" src="~/Content/Images/unfinished_flag.png" />
+                        }
+
+                        }
                 }
             </td>
 
