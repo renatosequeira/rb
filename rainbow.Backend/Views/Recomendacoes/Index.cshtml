@@ -9,6 +9,24 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@*<p>
+    @Html.ActionLink("Export to CSV", "ExportToCSV")
+</p>
+
+<p>
+    @Html.ActionLink("Export to Excel", "ExportToExcel")
+</p>
+
+<p>
+    @Html.ActionLink("Export to XLSX", "ExportListUsingEPPlus")
+</p>*@
+
+<p>
+    @Html.ActionLink("Export to Excel", "ttt")
+</p>
+
+
 <table class="table">
     <tr>
         <th>
@@ -41,42 +59,43 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RelacaoEntreContactos.DescricaoRelacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeSr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeSra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdadeSr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdadeSra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TelemSr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TelemSra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Localidade)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RelacaoEntreContactos.DescricaoRelacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdadeSr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdadeSra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelemSr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelemSra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Localidade)
+            </td>
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.RecomendacaoId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.RecomendacaoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.RecomendacaoId })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.RecomendacaoId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RecomendacaoId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RecomendacaoId })
+            </td>
+        </tr>
+    }
 
 </table>
