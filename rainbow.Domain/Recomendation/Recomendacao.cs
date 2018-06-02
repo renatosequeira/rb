@@ -53,6 +53,10 @@
         [Display(Name = "Data do contacto")]
         public DateTime? DataContacto { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "Data da recomendação")]
+        public DateTime? DataRecomendacao { get; set; }
+
         [Display(Name = "Notas")]
         [DataType(DataType.MultilineText)]
         public string Obs { get; set; }

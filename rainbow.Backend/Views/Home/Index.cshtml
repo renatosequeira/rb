@@ -182,3 +182,71 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="panel panel-danger">
+
+            <div class="panel-heading">Últimos Ok's<span style="float: right;"><a href="#oks" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+            <div class="panel-body" id="oks">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Campanha</th>
+                            <th>Nome</th>
+                            <th>Data adição</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{ 
+                            var recomend = recom.ToList().OrderByDescending(d => d.DataOk);
+
+                            var counter = 1;
+
+                            foreach (var item in recomend)
+                            {
+                                var dataOk = item.DataOk;
+
+                                try
+                                {
+                                    dataOk = item.DataOk;
+                                }
+                                catch (Exception)
+                                {
+
+                                }
+
+                                if (dataOk != null)
+                                {
+
+                                        if(counter <= 5)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Cliente.NomeCliente
+                                                </td>
+                                                <td>
+                                                    @item.NomeSr
+                                                </td>
+                                                <td>
+                                                    @item.DataOk.Value.ToShortDateString()
+                                                </td>
+                                            </tr>
+                                    }
+
+                                    counter += 1;
+                                }
+
+                            }
+
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

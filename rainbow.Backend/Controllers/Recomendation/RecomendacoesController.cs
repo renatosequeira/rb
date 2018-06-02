@@ -348,7 +348,8 @@
                 ContactoPrioritario = view.ContactoPrioritario,
                 DemonstracaoGuid = DemoId,
                 ClienteAceitouDemo = view.ClienteAceitouDemo,
-                DemoExecutada = view.DemoExecutada
+                DemoExecutada = view.DemoExecutada,
+                DataRecomendacao = view.DataRecomendacao
             };
         }
 
@@ -423,7 +424,8 @@
                 ClienteRB = recomendacao.ClienteRB,
                 ContactoPrioritario = recomendacao.ContactoPrioritario,
                 ClienteAceitouDemo = recomendacao.ClienteAceitouDemo,
-                DemoExecutada = recomendacao.DemoExecutada
+                DemoExecutada = recomendacao.DemoExecutada,
+                DataRecomendacao = recomendacao.DataRecomendacao
             };
         }
 

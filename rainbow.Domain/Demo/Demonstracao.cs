@@ -47,6 +47,16 @@
         [Display(Name = "Demo Status")]
         public bool DemoStatus { get; set; }
 
+        public string ImagemRecomendacoes { get; set; }
+
+        public string ImagemRecomendacoes1 { get; set; }
+
+        public string ImagemRecomendacoes2 { get; set; }
+
+        public string ImagemRecomendacoes3 { get; set; }
+
+        public string ImagemFichaDeDemo { get; set; }
+
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         //[Display(Name = "Data visita acordada com o cliente para casa aberta")]
         //[DataType(DataType.Date)]
