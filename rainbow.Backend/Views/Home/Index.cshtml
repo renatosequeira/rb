@@ -102,7 +102,7 @@
     <div class="col-md-4">
         <div class="panel panel-success ">
 
-            <div class="panel-heading">Eventos de hoje<span style="float: right;"><a href="#eventos" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+            <div class="panel-heading">Eventos<span style="float: right;"><a href="#eventos" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
             <div class="panel-body" id="eventos">
 
                 <table class="table">
@@ -171,8 +171,47 @@
                     <td>Amanhã</td>
                     <td><a class="fa fa-eye" href="~/Clientes/Details/@cliente.ClientId"></a></td>
                 </tr>                   
-                }
-            }
+                            }
+                        }
+
+
+                        <!--SMS'S-->
+                        foreach (var demonstracao in demo)
+                        {
+                            TimeSpan diffDays = (DateTime.Now.Date - demonstracao.DataMarcacao);
+                            string daysString = diffDays.TotalDays.ToString();
+                            int daysInt = Convert.ToInt32(daysString);
+
+                            if((daysInt) >=1 && !demonstracao.SmsAgradecimento)
+                            {
+                                    <tr>
+                                        <td>@demonstracao.Cliente.NomeCliente</td>
+                                        <td>SMS agradecimento</td>
+                                        <td>Enviar SMS</td>
+                                        <td><a class="fa fa-eye" href="~/Clientes/Details/@demonstracao.ClientId"></a></td>
+                                    </tr>
+                            }
+
+                            if(daysInt >= 4 && demonstracao.SmsAgradecimento && !demonstracao.SmsFollowUp && !demonstracao.SmsFechoCampanha)
+                            {
+                                    <tr>
+                                        <td>@demonstracao.Cliente.NomeCliente</td>
+                                        <td>SMS FollowUp</td>
+                                        <td>Enviar SMS</td>
+                                        <td><a class="fa fa-eye" href="~/Clientes/Details/@demonstracao.ClientId"></a></td>
+                                    </tr>
+                            }
+
+                            if(daysInt >= 7 && demonstracao.SmsAgradecimento && demonstracao.SmsFollowUp && !demonstracao.SmsFechoCampanha)
+                            {
+                                    <tr>
+                                        <td>@demonstracao.Cliente.NomeCliente</td>
+                                        <td>SMS Fecho Campanha</td>
+                                        <td>Enviar SMS</td>
+                                        <td><a class="fa fa-eye" href="~/Clientes/Details/@demonstracao.ClientId"></a></td>
+                                    </tr>
+                            }
+                        }
         }
 
                   

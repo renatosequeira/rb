@@ -68,6 +68,15 @@
         [Display(Name = "Demo delegada?")]
         public bool DemoDelegada { get; set; }
 
+        [Display(Name = "SMS agradecimento")]
+        public bool SmsAgradecimento { get; set; }
+
+        [Display(Name ="SMS FollowUp")]
+        public bool SmsFollowUp { get; set; }
+
+        [Display(Name = "SMS Fecho campanha")]
+        public bool SmsFechoCampanha { get; set; }
+
         [Display(Name = "Notas")]
         [DataType(DataType.MultilineText)]
         public string Obs { get; set; }

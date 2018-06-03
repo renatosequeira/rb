@@ -502,6 +502,8 @@
             </tr>
         </tbody>
     </table>
+
+
 </div>
 
 <table class="display table col-lg-12 col-md-6 col-sm-6 sortable table-condensed table-striped table-hover">
@@ -532,8 +534,10 @@
             </th>
 
             <th></th>
+
+            <th></th>
         </tr>
-       
+
     </thead>
 
 
@@ -581,7 +585,9 @@
 
                         if (numeroOks > 0)
                         {
-                            <p style="text-align:center;">@numeroOks</p>
+                            <p class="popupimage" style="text-align:center;">@numeroOks</p>
+
+
                         }
                         else
                         {
@@ -644,6 +650,18 @@
                     }
                 </td>
 
+                <td>
+                    @{ 
+                        foreach (var demo in item.Demonstracao)
+                        {
+                            if (demo.ClienteComprou)
+                            {
+                                <img src="~/Content/Images/rainbow-image.png" width="20px;"/>
+                            }
+                        }
+                    }
+                </td>
+
                 @*<td>
                         <a class="btn btn-default" data-toggle="modal" data-target=".bootstrapmodal" ><span class="fa fa-info"></span></a>
                     </td>*@
@@ -675,35 +693,34 @@
 
     }
 
-    <tfoot>
-        <tr>
-            <th>Nome</th>
-        </tr>
-    </tfoot>
-
 </table>
 
-<div class="modal fade bootstrapmodal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button data-dismiss="modal" class="close"><span>&times;</span></button>
-                <div class="modal-title">
-                    <h2>Modal</h2>
+
+
+
+
+
+@*<div class="modal fade bootstrapmodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close"><span>&times;</span></button>
+                    <div class="modal-title">
+                        <h2>Modal</h2>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
 
-            <div class="modal-body">
-
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal">Fechar</button>
-            </div>
         </div>
-
-    </div>
-</div>
+    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -731,5 +748,6 @@
             });
         });
     </script>
+
 
 }

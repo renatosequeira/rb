@@ -196,6 +196,36 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.SmsAgradecimento, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.SmsAgradecimento)
+                @Html.ValidationMessageFor(model => model.SmsAgradecimento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SmsFollowUp, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.SmsFollowUp)
+                @Html.ValidationMessageFor(model => model.SmsFollowUp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SmsFechoCampanha, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.SmsFechoCampanha)
+                @Html.ValidationMessageFor(model => model.SmsFechoCampanha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.ImagemDemo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @{

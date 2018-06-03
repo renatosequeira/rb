@@ -686,7 +686,7 @@ else
                         <td>OK</td>
                         <td>Data Demo</td>
                         <td>Demo Executada</td>
-                        <td></td>
+                        <td>Prioridade</td>
                     </tr>
                 </thead>
 
@@ -791,6 +791,13 @@ else
                                 }
                             </td>
 
+                            <td>
+                                @if (contacto.ContactoPrioritario)
+                                {
+                                    <img src="~/Content/Images/dollar-sign.png" style="width:25px;" title="Cliente prioritário"/>
+                                }
+                            </td>
+
                             <td class="SpecialNote">
                                 @if (!string.IsNullOrEmpty(contacto.Obs))
                                 {
@@ -864,6 +871,13 @@ else
                                 else
                                 {
                                     <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
+                                }
+                            </td>
+
+                                                        <td>
+                                @if (contacto.ContactoPrioritario)
+                                {
+                                    <p class="fa fa-dollar fa-2x"></p>
                                 }
                             </td>
 

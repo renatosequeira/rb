@@ -147,7 +147,10 @@
                 RazaoNaoFinalizacao = view.RazaoNaoFinalizacao,
                 SucessoRecrutamento = view.SucessoRecrutamento,
                 TipoVisita = view.TipoVisita,
-                TipoVisitaId = view.TipoVisitaId
+                TipoVisitaId = view.TipoVisitaId,
+                SmsAgradecimento = view.SmsAgradecimento,
+                SmsFechoCampanha = view.SmsFechoCampanha,
+                SmsFollowUp = view.SmsFollowUp
             };
         }
 
@@ -219,7 +222,10 @@
                 RazaoNaoFinalizacao = demonstracao.RazaoNaoFinalizacao,
                 SucessoRecrutamento = demonstracao.SucessoRecrutamento,
                 TipoVisita = demonstracao.TipoVisita,
-                TipoVisitaId = demonstracao.TipoVisitaId
+                TipoVisitaId = demonstracao.TipoVisitaId,
+                SmsAgradecimento = demonstracao.SmsAgradecimento,
+                SmsFechoCampanha = demonstracao.SmsFechoCampanha,
+                SmsFollowUp = demonstracao.SmsFollowUp
             };
         }
 
