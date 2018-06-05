@@ -329,16 +329,17 @@
 
 @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
 {
-    @*@Html.TextBox("search", ViewBag.CurrentFilter as string,
-        new { @class = "form-control caixaProcura", placeholder = "Procurar nome ou telemóvel", @type = "search" })*@
-
+   
 
 <div class="col-lg-12">
     @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary botaoCriar fa fa-user-plus fa-2x" })
 
     @Html.CheckBox("status", true, new { id = "change", data_toggle = "toggle", data_on = "Cliente ativo", data_off = "Cliente inativo", type = "checkbox", onclick = "onclick()" })
 
-    <input class="form-control caixaProcura" id="myInput" type="text" placeholder="Procurar..">
+    @*<input class="form-control caixaProcura" id="myInput" type="text" placeholder="Procurar..">*@
+    @Html.TextBox("search", ViewBag.CurrentFilter as string,
+            new { id = "myInput", @class = "form-control caixaProcura", placeholder = "Procurar...", @type = "search", title="* - Todos os clientes (Ativos e Inativos)" })
+
 </div>
 
 }

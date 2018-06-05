@@ -25,10 +25,25 @@
 
         public async Task<ActionResult> Index(string search, bool? status = true)
         {
+            object resultado = null;
 
-                return View(await db.Clientes.Where(c => c.NomeCliente.Contains(search) && c.ClientStatus == status|| 
-                c.TelemovelCliente.Contains(search) && c.ClientStatus == status|| 
+            if (search == "*")
+            {
+                resultado = (await db.Clientes.OrderBy(n => n.NomeCliente).ToListAsync());
+            }
+            else
+            {
+                resultado = (await db.Clientes.Where(c => c.NomeCliente.Contains(search) && c.ClientStatus == status ||
+                c.TelemovelCliente.Contains(search) && c.ClientStatus == status ||
                 search == null && c.ClientStatus == status).OrderBy(n => n.NomeCliente).ToListAsync());
+
+            }
+
+            return View(resultado);
+
+            //return View(await db.Clientes.Where(c => c.NomeCliente.Contains(search) && c.ClientStatus == status||
+            //    c.TelemovelCliente.Contains(search) && c.ClientStatus == status|| 
+            //    search == null && c.ClientStatus == status).OrderBy(n => n.NomeCliente).ToListAsync());
             
             //var clientes = db.Clientes.Include(c => c.EstadoCivil).Include(c => c.Profissao).Include(c => c.Title);
             //return View(await clientes.ToListAsync());
