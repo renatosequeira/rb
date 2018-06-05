@@ -45,6 +45,8 @@
                 return HttpNotFound();
             }
 
+            UrlReferrer();
+
             DemoImagePath = demonstracao.ImagemFichaDeDemo;
             RecomendationImagePath = demonstracao.ImagemRecomendacoes;
             return View(demonstracao);
@@ -328,6 +330,7 @@
             {
                 return HttpNotFound();
             }
+
             return View(demonstracao);
         }
 
@@ -352,6 +355,23 @@
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult UrlReferrer()
+        {
+            if (this.Request.HttpMethod.Equals("Get", StringComparison.OrdinalIgnoreCase))
+            {
+                TempData["UrlReferrer"] = ViewBag.UrlReferrer = Request.UrlReferrer.ToString();
+            }
+            else
+            {
+                ViewBag.UrlReferrer = TempData["UrlReferrer"];
+
+                // Must re-set this value, because once we get the value from TempData, this value will be loss.
+                TempData["UrlReferrer"] = ViewBag.UrlReferrer;
+            }
+
+            return View();
         }
     }
 }

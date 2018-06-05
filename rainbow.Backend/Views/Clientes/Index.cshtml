@@ -30,19 +30,15 @@
 
     .botaoCriar {
         float: left !important;
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
+        margin-right:1em;
     }
 
 
-
-
-
-
-
-
-
-
-
+    .enableToggle{
+        float:right;
+    } 
+    
     .bootstrap-table .table {
         margin-bottom: 0 !important;
         border-bottom: 1px solid #dddddd;
@@ -325,20 +321,31 @@
 }
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 <br />
 
-@Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary botaoCriar fa fa-user-plus fa-2x" })
+
 
 @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
 {
     @*@Html.TextBox("search", ViewBag.CurrentFilter as string,
         new { @class = "form-control caixaProcura", placeholder = "Procurar nome ou telemóvel", @type = "search" })*@
 
+
+<div class="col-lg-12">
+    @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary botaoCriar fa fa-user-plus fa-2x" })
+
+    @Html.CheckBox("status", true, new { id = "change", data_toggle = "toggle", data_on = "Cliente ativo", data_off = "Cliente inativo", type = "checkbox", onclick = "onclick()" })
+
     <input class="form-control caixaProcura" id="myInput" type="text" placeholder="Procurar..">
+</div>
+
 }
 
-<div class="ResumoClientes col-lg-12 container">
+
+
+<div class="ResumoClientes col-lg-12 col-md-12 col-sm-12 container">
     <table class="table">
         <thead>
             <tr class="RowHeader">
@@ -506,7 +513,8 @@
 
 </div>
 
-<table class="display table col-lg-12 col-md-6 col-sm-6 sortable table-condensed table-striped table-hover">
+<table ref="mainTable" class="display table col-lg-12 col-md-12 col-sm-12 sortable table-condensed table-striped table-hover" cellSpacing="0" id="mainTable" data-show-toggle="true"
+       data-show-columns="true" data-search="true" data-pagination="true" data-filter-control="true">
 
     <thead>
         <tr>
@@ -529,7 +537,7 @@
                 Número de ok's
             </th>
 
-            <th style="text-align:center;">
+            <th style="text-align:center;" data-filter="state">
                 Estado
             </th>
 
@@ -614,6 +622,7 @@
                             int recomendacoesOk = 0;
                             int recomendacoesComDemosTerminadas = 0;
 
+
                             foreach (var recomendacao in item.Recomendacao)
                             {
                                 if (demo.DemoUniqueId == recomendacao.DemonstracaoGuid)
@@ -640,6 +649,7 @@
                             if (recomendacoesOk == recomendacoesComDemosTerminadas && recomendacoesOk > 0 || fechoManual)
                             {
                                 <img style="width:25px;" title="Cliente com demos fechadas" src="~/Content/Images/finished_flag.png" />
+
                             }
                             else
                             {
@@ -651,12 +661,12 @@
                 </td>
 
                 <td>
-                    @{ 
+                    @{
                         foreach (var demo in item.Demonstracao)
                         {
                             if (demo.ClienteComprou)
                             {
-                                <img src="~/Content/Images/rainbow-image.png" width="20px;"/>
+                                <img src="~/Content/Images/rainbow-image.png" width="20px;" />
                             }
                         }
                     }
@@ -695,36 +705,10 @@
 
 </table>
 
-
-
-
-
-
-@*<div class="modal fade bootstrapmodal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button data-dismiss="modal" class="close"><span>&times;</span></button>
-                    <div class="modal-title">
-                        <h2>Modal</h2>
-                    </div>
-                </div>
-
-                <div class="modal-body">
-
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-
-        </div>
-    </div>*@
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
@@ -740,14 +724,42 @@
         });
     </script>
 
-    <script type="text/javascript" charset="utf-8">
+    @*<script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
             $('#example').dataTable({
                 "bServerSide": true,
                 "sAjaxSource": "/Home/DataProviderAction"
             });
         });
+    </script>*@
+
+    <script>
+
+        $(document).ready(function () {
+
+            // Connect to 'change' event in order to toggle glyphs
+
+            $("[type='checkbox']").change(function () {
+
+                if ($(this).prop('checked')) {
+
+                    $(this).prev().addClass('glyphicon-ok-circle');
+
+                    $(this).prev().removeClass('glyphicon-unchecked');
+                    
+                }
+
+                else {
+
+                    $(this).prev().removeClass('glyphicon-ok-circle');
+
+                    $(this).prev().addClass('glyphicon-unchecked');
+
+                }
+
+            });
+
+        });
+
     </script>
-
-
 }

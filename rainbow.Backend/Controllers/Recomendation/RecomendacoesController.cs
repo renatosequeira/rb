@@ -303,7 +303,7 @@
                 db.Recomendacaos.Add(recomendacao);
                 await db.SaveChangesAsync();
                 //return RedirectToAction("Index");
-                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = recomendacao.ClientId }));
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = recomendacao.ClientId}));
             }
 
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", view.EstadoCivilId);

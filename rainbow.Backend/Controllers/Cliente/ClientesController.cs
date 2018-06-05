@@ -23,10 +23,12 @@
             return View();
         }
 
-        public async Task<ActionResult> Index(string search)
+        public async Task<ActionResult> Index(string search, bool? status = true)
         {
 
-            return View(await db.Clientes.Where(c => c.NomeCliente.Contains(search)|| c.TelemovelCliente.Contains(search) || search == null).OrderBy(n => n.NomeCliente).ToListAsync());
+                return View(await db.Clientes.Where(c => c.NomeCliente.Contains(search) && c.ClientStatus == status|| 
+                c.TelemovelCliente.Contains(search) && c.ClientStatus == status|| 
+                search == null && c.ClientStatus == status).OrderBy(n => n.NomeCliente).ToListAsync());
             
             //var clientes = db.Clientes.Include(c => c.EstadoCivil).Include(c => c.Profissao).Include(c => c.Title);
             //return View(await clientes.ToListAsync());
@@ -40,10 +42,12 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Cliente cliente = await db.Clientes.FindAsync(id);
+
             if (cliente == null)
             {
                 return HttpNotFound();
             }
+
             return View(cliente);
         }
 
@@ -84,6 +88,7 @@
 
             if (ModelState.IsValid)
             {
+                cliente.ClientStatus = true;
                 cliente.DataAdicao = DateTime.Now;
                 db.Clientes.Add(cliente);
                 await db.SaveChangesAsync();

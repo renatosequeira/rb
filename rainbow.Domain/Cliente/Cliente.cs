@@ -89,6 +89,9 @@
         [JsonIgnore]
         public virtual Title Title { get; set; }
 
+        [Display(Name = "Estado do cliente")]
+        public bool ClientStatus { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<Recomendacao> Recomendacao { get; set; }
 

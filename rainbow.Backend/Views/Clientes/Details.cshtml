@@ -131,10 +131,6 @@
             }
         </dd>
 
-        <dd>
-            OK para contacto
-        </dd>
-
         <dt>
             @{
                 bool ok;
@@ -319,24 +315,24 @@
             </dt>
             <dd>
                 @{
-        int animais = 0;
+                    int animais = 0;
 
-        foreach (var animal in Model.AnimalEstimacao)
-        {
-            animais++;
-        }
-            @*<p>@animais</p>*@
+                    foreach (var animal in Model.AnimalEstimacao)
+                    {
+                        animais++;
+                    }
+                    @*<p>@animais</p>*@
 
-if (animais > 0)
-{
-            @*<img style="width:30px;" title="Cliente tem animais de estimação" src="~/Content/Images/on.png" />*@
-            <input type="checkbox" checked data-toggle="toggle" disabled="disabled" data-on="Tem animais" data-onstyle="success" data-size="mini">
-}
-else
-{
-            @*<img style="width:30px;" title="Cliente não tem animais de estimação" src="~/Content/Images/off.png" />*@
-            <input type="checkbox" data-toggle="toggle" disabled="disabled" data-off="Não tem animais" data-offstyle="danger" data-size="mini">
-}
+                    if (animais > 0)
+                    {
+                        @*<img style="width:30px;" title="Cliente tem animais de estimação" src="~/Content/Images/on.png" />*@
+                        <input type="checkbox" checked data-toggle="toggle" disabled="disabled" data-on="Tem animais" data-onstyle="success" data-size="mini">
+                    }
+                    else
+                    {
+                        @*<img style="width:30px;" title="Cliente não tem animais de estimação" src="~/Content/Images/off.png" />*@
+                        <input type="checkbox" data-toggle="toggle" disabled="disabled" data-off="Não tem animais" data-offstyle="danger" data-size="mini">
+                    }
                 }
 
             </dd>
@@ -642,7 +638,7 @@ else
                         </td>
 
                         <td>
-                            @{ 
+                            @{
                                 if (!string.IsNullOrEmpty(demo.ImagemFichaDeDemo) || !string.IsNullOrEmpty(demo.ImagemRecomendacoes))
                                 {
                                     <p class="fa fa-image fa-2x" title="Demo com imagens registadas"></p>
@@ -672,6 +668,7 @@ else
                 Recomendações de @Model.NomeCliente
             </h2>
             <p style="margin-top:5px; float:right;">@Html.ActionLink(" ", "Create", "Recomendacoes", new { comp = Model.ClientId }, new { @class = "btn btn-default btn-small fa fa-plus" })</p>
+
         </div>
 
 
@@ -794,7 +791,7 @@ else
                             <td>
                                 @if (contacto.ContactoPrioritario)
                                 {
-                                    <img src="~/Content/Images/dollar-sign.png" style="width:25px;" title="Cliente prioritário"/>
+                                    <img src="~/Content/Images/dollar-sign.png" style="width:25px;" title="Cliente prioritário" />
                                 }
                             </td>
 
@@ -874,7 +871,7 @@ else
                                 }
                             </td>
 
-                                                        <td>
+                            <td>
                                 @if (contacto.ContactoPrioritario)
                                 {
                                     <p class="fa fa-dollar fa-2x"></p>

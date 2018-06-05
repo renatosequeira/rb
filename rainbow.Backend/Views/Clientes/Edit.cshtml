@@ -259,18 +259,25 @@
 
 
                 @Html.EditorFor(model => model.ClienteRainbow,
-new
-{
-htmlAttributes =
-new { data_toggle = "toggle", data_on = "É cliente RB", data_off = "Não é cliente RB", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
-})
+         new
+         {
+             htmlAttributes =
+         new { data_toggle = "toggle", data_on = "É cliente RB", data_off = "Não é cliente RB", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+         })
 
                 @Html.EditorFor(model => model.ElegivelParaRecrutamento,
-new
-{
-htmlAttributes =
-new { data_toggle = "toggle", data_on = "Eligivel para recrutar", data_off = "Não eligivel para recrutar", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
-})
+         new
+         {
+             htmlAttributes =
+         new { data_toggle = "toggle", data_on = "Eligivel para recrutar", data_off = "Não eligivel para recrutar", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+         })
+
+                @Html.EditorFor(model => model.ClientStatus,
+            new
+            {
+            htmlAttributes =
+            new { data_toggle = "toggle", data_on = "Cliente ativo", data_off = "Cliente inativo", type = "checkbox" }
+            })
 
                 <div style="float:right;">@Html.EditorFor(model => model.RecomendadoPor, new { htmlAttributes = new { @class = "form-control", placeholder = "Recomendado por", title = "Recomendado por", @readonly = "readonly" } })</div>
 
