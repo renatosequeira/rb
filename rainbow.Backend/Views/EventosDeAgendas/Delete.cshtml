@@ -1,0 +1,56 @@
+﻿@model rainbow.Domain.Agenda.EventosDeAgenda
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>EventosDeAgenda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.NomeCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.NomeCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescricaoEvento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoEvento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataEvento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataEvento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoDoEvento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoDoEvento)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

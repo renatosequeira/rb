@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agenda\EventosDeAgenda.cs" />
     <Compile Include="Animais\AnimalEstimacao.cs" />
     <Compile Include="Campaigns\Campanha.cs" />
     <Compile Include="Cliente\Cliente.cs" />

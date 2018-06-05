@@ -173,6 +173,7 @@
         <li><a data-toggle="tab" href="#recomendacoes"><i class="fa fa-user-plus fa-2x" aria-hidden="true" title="Recomendações"></i></a></li>
         <li><a data-toggle="tab" href="#vendas"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true" title="Vendas"></i></a></li>
         <li><a data-toggle="tab" href="#posVenda"><i class="fa fa-wrench fa-2x" aria-hidden="true" title="Pós-Venda"></i></a></li>
+        <li><a data-toggle="tab" href="#agenda"><i class="fa fa-calendar fa-2x" aria-hidden="true" title="Agenda"></i></a></li>
         <li><a data-toggle="tab" href="#recrutamento"><i class="fa fa-spinner fa-2x" aria-hidden="true" title="Recrutamento"></i></a></li>
         <li><a data-toggle="tab" href="#notas"><i class="fa fa-sticky-note-o fa-2x" aria-hidden="true" title="Notas"></i></a></li>
 
@@ -916,6 +917,82 @@
     <div id="posVenda" class="tab-pane fade">
         <h3>Pós-Venda</h3>
         <p>BREVEMENTE DISPONÍVEL</p>
+
+    </div>
+
+    <div id="agenda" class="tab-pane fade">
+        <div style="text-align: left;
+                        background-color: #666;
+                        padding: 10px;
+                        border-bottom-left-radius: 5px;
+                        border-bottom-right-radius: 5px;
+                        color: white;
+                        margin-top: 0;
+                        min-height:60px;">
+            <h2 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
+                Eventos de @Model.NomeCliente
+            </h2>
+            <p style="margin-top:5px; float:right;">@Html.ActionLink(" ", "Create", "EventosDeAgendas", new { comp = Model.ClientId }, new { @class = "btn btn-default btn-small fa fa-plus" })</p>
+
+        </div>
+
+        @{ 
+            if(Model.EventosDeAgenda.Count != 0)
+            {
+                <table class="table table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <td>Descrição</td>
+                            <td>Data limite</td>
+                            <td>Estado</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.EventosDeAgenda)
+                        {
+                            
+                            try
+                            {
+
+                            }
+                            catch (Exception)
+                            {
+
+                                throw;
+                            }
+
+                            <tr>
+                                <td>@item.DescricaoEvento</td>
+                                <td>@item.DataEvento.Value.ToShortDateString()</td>
+                                <td>
+                                @{ 
+                                    if(@item.EstadoDoEvento == true)
+                                    {
+                                        <p class="fa fa-check-square-o fa-2x" style="color:#00bb00;" title="Tarefa completa"></p>
+                                    }
+                                    else
+                                    {
+                                        <p class="fa fa-square-o fa-2x" style="color:red;" title="Tarefa em aberto"></p>
+                                    }
+                                }
+                                </td>
+
+                            <td style="width:10px;">@Html.ActionLink(" ", "Details", "EventosDeAgendas", new { id = item.EventosDeAgendaId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                            <td style="width:10px;">@Html.ActionLink(" ", "Delete", "EventosDeAgendas", new { id = item.EventosDeAgendaId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                                    }
+                                    else
+                                    {
+                                       <div class="col-lg-12">
+                                           <h1>
+                                               Não foram encontrados eventos para @Model.NomeCliente
+                                           </h1>
+                                       </div>
+                                    }
+        }
 
     </div>
 

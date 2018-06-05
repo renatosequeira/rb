@@ -12,6 +12,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using rainbow.Domain.Recrutamento;
+    using rainbow.Domain.Agenda;
 
     public class Cliente
     {
@@ -106,6 +107,9 @@
 
         [JsonIgnore]
         public virtual ICollection<Recrutamento> Recrutamento { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<EventosDeAgenda> EventosDeAgenda { get; set; }
 
         //alergias
     }

@@ -1,0 +1,50 @@
+﻿@model rainbow.Domain.Agenda.EventosDeAgenda
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EventosDeAgenda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.NomeCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.NomeCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescricaoEvento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoEvento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataEvento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataEvento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoDoEvento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoDoEvento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EventosDeAgendaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

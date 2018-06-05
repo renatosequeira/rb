@@ -6,6 +6,7 @@
     List<rainbow.Domain.Client.Cliente> clt = Model.ToList()[0] as List<rainbow.Domain.Client.Cliente>;
     List<rainbow.Domain.Recomendation.Recomendacao> recom = Model.ToList()[1] as List<rainbow.Domain.Recomendation.Recomendacao>;
     List<rainbow.Domain.Demo.Demonstracao> demo = Model.ToList()[2] as List<rainbow.Domain.Demo.Demonstracao>;
+    List<rainbow.Domain.Agenda.EventosDeAgenda> agenda = Model.ToList()[3] as List<rainbow.Domain.Agenda.EventosDeAgenda>;
 }
 
 @{
@@ -130,11 +131,32 @@
                         <td>@item.Cliente.NomeCliente</td>
                         <td>@item.TipoVisita.NomeTipoVisita</td>
                         <td>@item.DataMarcacao.ToShortDateString()</td>
+                        <td class="fa fa-eye"></td>
                         <td><a  class="fa fa-eye" href="~/Clientes/Details/@item.ClientId"></a></td>
                     </tr>
                 }
 
             }
+
+                        <!--AGENDAS-->
+                        foreach (var agendaItem in agenda)
+                        {
+                            if (!agendaItem.EstadoDoEvento)
+                            {
+                                if(agendaItem.DataEvento == DateTime.Today || agendaItem.DataEvento == DateTime.Today.AddDays(1) || agendaItem.DataEvento == DateTime.Today.AddDays(2))
+                                {
+                                     <tr>
+                                        <td>@agendaItem.Cliente.NomeCliente</td>
+                                        <td>@agendaItem.DescricaoEvento</td>
+                                        <td>@agendaItem.DataEvento.Value.ToShortDateString()</td>
+                                         <td class="fa fa-calendar-o"></td>
+                                        <td><a class="fa fa-eye" href="~/Clientes/Details/@agendaItem.ClientId"></a></td>
+                                    </tr>
+                                }
+                           
+                            }
+                        }
+
 
     <!--ANIVERSÁRIOS-->
             foreach (var cliente in clt)
@@ -159,6 +181,7 @@
                     <td>@cliente.NomeCliente</td>
                     <td>Aniversário</td>
                     <td>Hoje</td>
+                    <td class="fa fa-birthday-cake"></td>
                     <td><a class="fa fa-eye" href="~/Clientes/Details/@cliente.ClientId"></a></td>
                 </tr>                   
                 }
@@ -169,6 +192,7 @@
                     <td>@cliente.NomeCliente</td>
                     <td>Aniversário</td>
                     <td>Amanhã</td>
+                    <td class="fa fa-birthday-cake"></td>
                     <td><a class="fa fa-eye" href="~/Clientes/Details/@cliente.ClientId"></a></td>
                 </tr>                   
                             }
@@ -188,6 +212,7 @@
                                         <td>@demonstracao.Cliente.NomeCliente</td>
                                         <td>SMS agradecimento</td>
                                         <td>Enviar SMS</td>
+                                        <td class="fa fa-comment-o"></td>
                                         <td>
                                         <a class="fa fa-eye" href="~/Demonstracoes/Details/@demonstracao.DemonstracaoId"></a>
                                         </td>
@@ -200,8 +225,9 @@
                                         <td>@demonstracao.Cliente.NomeCliente</td>
                                         <td>SMS FollowUp</td>
                                         <td>Enviar SMS</td>
-                                                                                <td>
-                                        <a class="fa fa-eye" href="~/Demonstracoes/Details/@demonstracao.DemonstracaoId"></a>
+                                        <td class="fa fa-comment-o"></td>
+                                        <td>
+                                            <a class="fa fa-eye" href="~/Demonstracoes/Details/@demonstracao.DemonstracaoId"></a>
                                         </td>
                                     </tr>
                             }
@@ -212,8 +238,9 @@
                                         <td>@demonstracao.Cliente.NomeCliente</td>
                                         <td>SMS Fecho Campanha</td>
                                         <td>Enviar SMS</td>
+                                        <td class="fa fa-comment-o"></td>
                                         <td>
-                                        <a class="fa fa-eye" href="~/Demonstracoes/Details/@demonstracao.DemonstracaoId"></a>
+                                            <a class="fa fa-eye" href="~/Demonstracoes/Details/@demonstracao.DemonstracaoId"></a>
                                         </td>
                                     </tr>
                             }

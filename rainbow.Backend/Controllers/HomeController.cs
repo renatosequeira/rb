@@ -18,6 +18,7 @@ namespace rainbow.Backend.Controllers
             myModel.Add(db.Clientes.ToList());
             myModel.Add(db.Recomendacaos.ToList());
             myModel.Add(db.Demonstracaos.ToList());
+            myModel.Add(db.EventosDeAgendas.ToList());
             return View(myModel);
         }
 

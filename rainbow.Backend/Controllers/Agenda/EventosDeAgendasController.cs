@@ -8,130 +8,126 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using rainbow.Backend.Models;
-using rainbow.Domain.Recrutamento;
+using rainbow.Domain.Agenda;
 
-namespace rainbow.Backend.Controllers
+namespace rainbow.Backend.Controllers.Agenda
 {
-    public class RecrutamentosController : Controller
+    public class EventosDeAgendasController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
-        private static int? InternalClientId;
+        private static int? InternalClienteId;
+        private static DateTime? OldLimitDate;
 
-        // GET: Recrutamentos
+        // GET: EventosDeAgendas
         public async Task<ActionResult> Index()
         {
-            return View(await db.Recrutamentoes.ToListAsync());
+            var eventosDeAgendas = db.EventosDeAgendas.Include(e => e.Cliente);
+            return View(await eventosDeAgendas.ToListAsync());
         }
 
-        // GET: Recrutamentos/Details/5
+        // GET: EventosDeAgendas/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recrutamento recrutamento = await db.Recrutamentoes.FindAsync(id);
-            if (recrutamento == null)
+            EventosDeAgenda eventosDeAgenda = await db.EventosDeAgendas.FindAsync(id);
+            if (eventosDeAgenda == null)
             {
                 return HttpNotFound();
             }
-            return View(recrutamento);
+            return View(eventosDeAgenda);
         }
 
-        // GET: Recrutamentos/Create
+        // GET: EventosDeAgendas/Create
         public ActionResult Create(int? comp)
         {
-            InternalClientId = comp;
+            InternalClienteId = comp;
 
-            var cliente = db.Clientes.ToList();
-            string nome = "";
-
-            foreach (var item in cliente)
-            {
-                if (item.ClientId == comp)
-                {
-                    nome = item.NomeCliente;
-                }
-            }
-
-            ViewBag.ClientId = nome;
-            ViewBag.comp = comp;
+            ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente");
             return View();
         }
 
-        // POST: Recrutamentos/Create
+        // POST: EventosDeAgendas/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Recrutamento recrutamento)
+        public async Task<ActionResult> Create(EventosDeAgenda eventosDeAgenda)
         {
             if (ModelState.IsValid)
             {
-                recrutamento.ClientId = InternalClientId;
+                eventosDeAgenda.ClientId = InternalClienteId;
 
-                db.Recrutamentoes.Add(recrutamento);
+                db.EventosDeAgendas.Add(eventosDeAgenda);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(recrutamento);
+            ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente", eventosDeAgenda.ClientId);
+            return View(eventosDeAgenda);
         }
 
-        // GET: Recrutamentos/Edit/5
+        // GET: EventosDeAgendas/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recrutamento recrutamento = await db.Recrutamentoes.FindAsync(id);
+            EventosDeAgenda eventosDeAgenda = await db.EventosDeAgendas.FindAsync(id);
+            OldLimitDate = eventosDeAgenda.DataEvento;
 
-            if (recrutamento == null)
+            if (eventosDeAgenda == null)
             {
                 return HttpNotFound();
             }
-            return View(recrutamento);
+            ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente", eventosDeAgenda.ClientId);
+            return View(eventosDeAgenda);
         }
 
-        // POST: Recrutamentos/Edit/5
+        // POST: EventosDeAgendas/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Recrutamento recrutamento)
+        public async Task<ActionResult> Edit(EventosDeAgenda eventosDeAgenda)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(recrutamento).State = EntityState.Modified;
+                eventosDeAgenda.DataEvento = OldLimitDate;
+                
+                db.Entry(eventosDeAgenda).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(recrutamento);
+            ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente", eventosDeAgenda.ClientId);
+            return View(eventosDeAgenda);
         }
 
-        // GET: Recrutamentos/Delete/5
+        // GET: EventosDeAgendas/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recrutamento recrutamento = await db.Recrutamentoes.FindAsync(id);
-            if (recrutamento == null)
+            EventosDeAgenda eventosDeAgenda = await db.EventosDeAgendas.FindAsync(id);
+            if (eventosDeAgenda == null)
             {
                 return HttpNotFound();
             }
-            return View(recrutamento);
+            return View(eventosDeAgenda);
         }
 
-        // POST: Recrutamentos/Delete/5
+        // POST: EventosDeAgendas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Recrutamento recrutamento = await db.Recrutamentoes.FindAsync(id);
-            db.Recrutamentoes.Remove(recrutamento);
+            EventosDeAgenda eventosDeAgenda = await db.EventosDeAgendas.FindAsync(id);
+            db.EventosDeAgendas.Remove(eventosDeAgenda);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

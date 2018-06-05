@@ -50,5 +50,9 @@
         public System.Data.Entity.DbSet<rainbow.Domain.Saude.Alergia> Alergias { get; set; }
 
         public System.Data.Entity.DbSet<rainbow.Domain.Animais.AnimalEstimacao> AnimalEstimacaos { get; set; }
+
+        public System.Data.Entity.DbSet<rainbow.Domain.Recrutamento.Recrutamento> Recrutamentoes { get; set; }
+
+        public System.Data.Entity.DbSet<rainbow.Domain.Agenda.EventosDeAgenda> EventosDeAgendas { get; set; }
     }
 }

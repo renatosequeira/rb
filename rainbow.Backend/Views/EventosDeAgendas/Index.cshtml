@@ -1,0 +1,51 @@
+﻿@model IEnumerable<rainbow.Domain.Agenda.EventosDeAgenda>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente.NomeCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DescricaoEvento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataEvento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoDoEvento)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescricaoEvento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataEvento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoDoEvento)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EventosDeAgendaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EventosDeAgendaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EventosDeAgendaId })
+        </td>
+    </tr>
+}
+
+</table>
