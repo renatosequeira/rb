@@ -4,1112 +4,1471 @@
     ViewBag.Title = "Details";
 }
 
-<link href="~/Content/font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet" />
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
-<style>
-    body {
-        font-family: Arial;
-    }
+<!-- Bootstrap -->
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- Datatables -->
+<link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
-    /* Style the tab */
-    .tab {
-        overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-    }
+<!-- Custom Theme Style -->
+<link href="~/build/css/custom.min.css" rel="stylesheet">
 
-        /* Style the buttons inside the tab */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
-        }
+<!--Custom styles-->
+<link href="~/Content/customStyles.css" rel="stylesheet" />
 
-            /* Change background color of buttons on hover */
-            .tab button:hover {
-                background-color: #ddd;
-            }
+<link href="https://code.highcharts.com/css/highcharts.css" rel="stylesheet" />
 
-            /* Create an active/current tablink class */
-            .tab button.active {
-                background-color: #ccc;
-            }
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left" style="margin-top:10px;">
+                <h3 style="font-size:30px;" class="label label-success">@Model.NomeCliente.ToUpper()</h3>
+            </div>
 
-    /* Style the tab content */
-    .tabcontent {
-        display: none;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-top: none;
-    }
-
-    .OkImage img {
-        width: 25px;
-    }
-
-    .SpecialNote img {
-        width: 30px;
-        float: right;
-    }
-
-    .recrutamento img {
-        width: 25px;
-    }
-</style>
-
-<div>
-    <div>
-        <h2>
-            @Html.DisplayFor(model => model.Title.TitleName)
-            @Html.DisplayFor(model => model.NomeCliente)
-
-            @if ((Convert.ToInt32(Model.IdadeCliente) >= 30) && (Convert.ToInt32(Model.IdadeCliente) <= 76))
-            {
-                if (Model.EstadoCivilId != 5 && !string.IsNullOrEmpty(Model.TelemovelCliente))
-                {
-                    <img style="float:right; width:100px;" src="~/Content/Images/Qualified.png" />
-                }
-
-            }
-
-        </h2>
-
-    </div>
-    <hr />
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EstadoCivil.NomeEstadoCivil)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EstadoCivil.NomeEstadoCivil)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Profissao.NomeProfissao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Profissao.NomeProfissao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataNascimentoCliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataNascimentoCliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IdadeCliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IdadeCliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ElegivelParaRecrutamento)
-        </dt>
-
-        <dd class="recrutamento">
-            @if (Model.ElegivelParaRecrutamento)
-            {
-                <img title="Eligível para recrutar" src="~/Content/Images/green-light.png" />
-            }
-            else
-            {
-                <img title="Não Eligível para recrutar" src="~/Content/Images/red-light.png" />
-            }
-        </dd>
-
-        <dt>
-            @{
-                bool ok;
-                string OkString;
-                foreach (var item in Model.Recomendacao)
-                {
-                    if (item.OkParaContactar)
-                    {
-                        ok = true;
-                        OkString = "Ok";
-                    }
-                }
-
-            }
-        </dt>
-
-    </dl>
-
-
-</div>
-
-
-<p style="float: right;">
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }) |
-        @Html.ActionLink("Back to List", "Index") |*@
-    @Html.ActionLink(" ", "Edit", "Clientes", new { id = Model.ClientId }, new { @class = "btn btn-success btn-lg glyphicon glyphicon-edit", title = "Editar " + Model.NomeCliente }) |
-    @Html.ActionLink(" ", "Index", "Clientes", new { id = Model.ClientId }, new { @class = "btn btn-danger btn-lg glyphicon glyphicon-chevron-left", title = "Voltar" })
-</p>
-
-
-<!-- Tab links -->
-<div class="tab" style="clear:both;">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#resumo"><i class="fa fa-list fa-2x" aria-hidden="true" title="Resumo"></i></a></li>
-        <li><a data-toggle="tab" href="#contactos"><i class="fa fa-address-book fa-2x" aria-hidden="true" title="Contactos"></i></a></li>
-        <li><a data-toggle="tab" href="#dadosFinanceiros"><i class="fa fa-eur fa-2x" aria-hidden="true" title="Dados financeiros"></i></a></li>
-        <li><a data-toggle="tab" href="#dadosFamiliares"><i class="fa fa-users fa-2x" aria-hidden="true" title="Dados Familiares"></i></a></li>
-        <li><a data-toggle="tab" href="#animaisEstimacao"><i class="fa fa-paw fa-2x" aria-hidden="true" title="Animais de estimação"></i></a></li>
-        <li><a data-toggle="tab" href="#demos"><i class="fa fa-eye fa-2x" aria-hidden="true" title="Demos"></i></a></li>
-        <li><a data-toggle="tab" href="#recomendacoes"><i class="fa fa-user-plus fa-2x" aria-hidden="true" title="Recomendações"></i></a></li>
-        <li><a data-toggle="tab" href="#vendas"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true" title="Vendas"></i></a></li>
-        <li><a data-toggle="tab" href="#posVenda"><i class="fa fa-wrench fa-2x" aria-hidden="true" title="Pós-Venda"></i></a></li>
-        <li><a data-toggle="tab" href="#agenda"><i class="fa fa-calendar fa-2x" aria-hidden="true" title="Agenda"></i></a></li>
-        <li><a data-toggle="tab" href="#recrutamento"><i class="fa fa-spinner fa-2x" aria-hidden="true" title="Recrutamento"></i></a></li>
-        <li><a data-toggle="tab" href="#notas"><i class="fa fa-sticky-note-o fa-2x" aria-hidden="true" title="Notas"></i></a></li>
-
-    </ul>
-
-</div>
-
-<!-- Tab content -->
-<div class="tab-content" id="myTab">
-
-    <div id="resumo" class="tab-pane fade in active">
-        <div style="text-align: left;
-                        background-color: #428bca;
-                        padding: 10px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom-right-radius: 5px;
-                        color: white;
-                        margin-top: 0;
-                        min-height:55px;">
-            <h3 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
-                Resumo de @Model.NomeCliente
-            </h3>
-
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <dl class="dl-horizontal">
-            <dt>
-                Cliente Rainbow
-            </dt>
-            <dd>
-                @if (Model.ClienteRainbow)
-                {
-                    <p>Sim</p>
-                }
-                else
-                {
-                    <p>Não</p>
-                }
-            </dd>
+        <div class="clearfix"></div>
 
-            <dt>
-                Recomendado por:
-            </dt>
+        <!--INFORMAÇÕES GENÉRICAS-->
+        <div class="row">
 
-            <dd>
-                <p>@Model.RecomendadoPor</p>
-            </dd>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Informações genéricas de @Html.DisplayFor(model => model.NomeCliente)</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
 
-            <dt>
-                Recomendações
-            </dt>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i style="color:darkorange;" class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="/Clientes/Edit/@Model.ClientId">Editar @Model.NomeCliente</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Clientes/Delete/@Model.ClientId">Apagar @Model.NomeCliente</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div>
+                            <h2>
 
-            <dd>
-                @if (Model.Recomendacao.Count > 0)
-                {
-                    @Html.DisplayFor(model => model.Recomendacao.Count)
-                }
-                else
-                {
-                    <p style="color:red;">Sem recomendações</p>
-                }
-            </dd>
-
-            <dt>
-                <span style="color:green;">OK's</span>
-            </dt>
-
-            <dd>
-                @{
-                    int contagem = 0;
-                    foreach (var cliente in Model.Recomendacao)
-                    {
-                        if (cliente.OkParaContactar)
-                        {
-                            contagem++;
-                        }
-                    }
-                    <p>@contagem</p>
-                }
-            </dd>
-
-            <dt>
-                <span style="color: red;">Não OK's</span>
-            </dt>
-
-            <dd>
-                @{
-                    int NOK = 0;
-
-                    foreach (var cliente in Model.Recomendacao)
-                    {
-                        if (!cliente.OkParaContactar)
-                        {
-                            NOK++;
-                        }
-                    }
-                    <p>@NOK</p>
-                }
-            </dd>
-
-            <dt>
-                Data última Demo
-            </dt>
-            <dd>
-                @{
-                    string ultimaDemo = null;
-                    try
-                    {
-                        ultimaDemo = Model.Demonstracao.LastOrDefault().DataMarcacao.ToShortDateString();
-                    }
-                    catch (Exception)
-                    {
-                        <p>Sem demos efectuadas</p>
-                    }
-
-                    <p>@ultimaDemo</p>
-                }
-            </dd>
-
-            <dt>
-                Filhos dependentes:
-            </dt>
-            <dd>
-                @{
-                    int filhos = 0;
-
-                    foreach (var membro in Model.MembroFamilia)
-                    {
-                        if (membro.TipoMembroFamiliaId == 1)
-                        {
-                            filhos++;
-                        }
-                    }
-                    <p>@filhos</p>
-                }
-            </dd>
-
-            <dt>
-                Animais estimaçao
-            </dt>
-            <dd>
-                @{
-                    int animais = 0;
-
-                    foreach (var animal in Model.AnimalEstimacao)
-                    {
-                        animais++;
-                    }
-                    @*<p>@animais</p>*@
-
-                    if (animais > 0)
-                    {
-                        @*<img style="width:30px;" title="Cliente tem animais de estimação" src="~/Content/Images/on.png" />*@
-                        <input type="checkbox" checked data-toggle="toggle" disabled="disabled" data-on="Tem animais" data-onstyle="success" data-size="mini">
-                    }
-                    else
-                    {
-                        @*<img style="width:30px;" title="Cliente não tem animais de estimação" src="~/Content/Images/off.png" />*@
-                        <input type="checkbox" data-toggle="toggle" disabled="disabled" data-off="Não tem animais" data-offstyle="danger" data-size="mini">
-                    }
-                }
-
-            </dd>
-        </dl>
-
-    </div>
-
-    <div id="contactos" class="tab-pane fade">
-        <div style="text-align: left;
-                        background-color: #428bca;
-                        padding: 10px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom-right-radius: 5px;
-                        color: white;
-                        margin-top: 0;
-                        min-height:55px;">
-            <h3 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
-                Contactos de @Model.NomeCliente
-            </h3>
-
-        </div>
-
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.MoradaCliente)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.MoradaCliente)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.CodigoPostalCliente)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CodigoPostalCliente)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Localidade)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Localidade)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.TelemovelCliente)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TelemovelCliente)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ContactoAlternativoCliente)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ContactoAlternativoCliente)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.EmailCliente)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EmailCliente)
-            </dd>
-        </dl>
-    </div>
-
-    <div id="dadosFinanceiros" class="tab-pane fade">
-        <div style="text-align: left;
-                        background-color: #428bca;
-                        padding: 10px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom-right-radius: 5px;
-                        color: white;
-                        margin-top: 0;
-                        min-height:55px;">
-            <h3 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
-                Dados financeiros de @Model.NomeCliente
-            </h3>
-
-        </div>
-
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.NIB)
-            </dt>
-
-            <dd>
-                @if (string.IsNullOrEmpty(Model.NIB))
-                {
-                    <p>IBAN não inserido. Clique @Html.ActionLink("aqui", "Edit", new { id = Model.ClientId }) para editar o cliente.</p>
-                }
-                else
-                {
-                    @Html.DisplayFor(model => model.NIB)
-                }
-            </dd>
-        </dl>
-    </div>
-
-    <div id="dadosFamiliares" class="tab-pane fade">
-        <div style="text-align: left;
-                        background-color: #666;
-                        padding: 10px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom-right-radius: 5px;
-                        color: white;
-                        margin-top: 0;
-                        min-height:60px;">
-            <h2 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
-                Família de @Model.NomeCliente
-            </h2>
-            <p style="margin-top:5px; float:right;">@Html.ActionLink(" ", "Create", "MembrosFamilia", new { cltId = Model.ClientId }, new { @class = "btn btn-default btn-small fa fa-plus" })</p>
-        </div>
-
-        <br />
-
-        <table class="table table-striped table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Apelido</th>
-                    <th scope="col">Idade</th>
-                    <th scope="col">Parentesco</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var membroFamilia in Model.MembroFamilia)
-                {
-                    <tr>
-                        <td>
-                            <b>@membroFamilia.NomeMembroFamilia</b>
-                        </td>
-                        <td>
-                            @membroFamilia.ApelidoMembroFamilia
-                        </td>
-                        <td>
-                            @membroFamilia.MembroFamiliaIdade
-                        </td>
-                        <td>
-                            @membroFamilia.TipoMembroFamilia.NomeTipoMembroFamilia
-                        </td>
-                        <td style="width:10px;">@Html.ActionLink(" ", "Details", "MembrosFamilia", new { id = membroFamilia.MembroFamiliaId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                        <td style="width:10px;">@Html.ActionLink(" ", "Delete", "MembrosFamilia", new { id = membroFamilia.MembroFamiliaId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-    </div>
-
-    <div id="animaisEstimacao" class="tab-pane fade">
-        <div style="text-align: left;
-                        background-color: #666;
-                        padding: 10px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom-right-radius: 5px;
-                        color: white;
-                        margin-top: 0;
-                        min-height:60px;">
-            <h2 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
-                Animais de @Model.NomeCliente
-            </h2>
-            <p style="margin-top:5px; float:right;">@Html.ActionLink(" ", "Create", "AnimaisEstimacao", new { cltId = Model.ClientId }, new { @class = "btn btn-default btn-small fa fa-plus" })</p>
-        </div>
-
-        <br />
-
-        <table class="table table-responsive table-hover table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">Raça</th>
-
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var animal in Model.AnimalEstimacao)
-                {
-                    <tr>
-                        <td>
-                            <b>@animal.TipoAnimal.TipoAnimalDesignacao</b>
-                        </td>
-
-                        <td style="width:10px;">@Html.ActionLink(" ", "Details", "AnimaisEstimacao", new { id = animal.AnimalEstimacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                        <td style="width:10px;">@Html.ActionLink(" ", "Delete", "AnimaisEstimacao", new { id = animal.AnimalEstimacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-    </div>
-
-    <div id="demos" class="tab-pane fade">
-        <div style="text-align: left;
-                        background-color: #666;
-                        padding: 10px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom-right-radius: 5px;
-                        color: white;
-                        margin-top: 0;
-                        min-height:60px;">
-            <h2 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
-                Demonstrações de @Model.NomeCliente
-            </h2>
-            <p style="margin-top:5px; float:right;">@Html.ActionLink(" ", "Create", "Demonstracoes", new { cltId = Model.ClientId }, new { @class = "btn btn-default btn-small fa fa-plus" })</p>
-        </div>
-
-        <br />
-
-        <table class="table table-responsive table-hover table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">Data Marcação</th>
-                    <th>Demo executada</th>
-                    <th>Demo delegada</th>
-                    <th>Casa aberta</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var demo in Model.Demonstracao)
-                {
-                    <tr>
-                        <td>
-                            <b>@demo.DataMarcacao.ToShortDateString()</b>
-                        </td>
-                        <td>
-                            @{
-                                int difDays = Convert.ToInt32((demo.DataMarcacao - DateTime.Now).TotalDays); ;
-                                if (DateTime.Now < demo.DataMarcacao)
+                                @if ((Convert.ToInt32(Model.IdadeCliente) >= 30) && (Convert.ToInt32(Model.IdadeCliente) <= 76))
                                 {
-                                    <p>Demo em @difDays dias</p>
-                                }
-                                else
-                                {
-                                    if (demo.DemoFinalizada)
+                                    if (Model.EstadoCivilId != 5 && !string.IsNullOrEmpty(Model.TelemovelCliente))
                                     {
-                                        <p>Sim</p>
-                                    }
-                                    else
-                                    {
-                                        <p>Não</p>
-                                    }
-                                }
-
-                            }
-                        </td>
-
-                        <td>
-                            @{
-                                if (demo.DemoDelegada)
-                                {
-                                    <p>Sim</p>
-                                }
-                                else
-                                {
-                                    <p>Não</p>
-                                }
-                            }
-                        </td>
-
-                        <td>
-                            @{
-                                if (demo.ClienteAceitouConviteParaCasaAberta)
-                                {
-                                    <p>Sim</p>
-                                }
-                                else
-                                {
-                                    <p>Não</p>
-                                }
-                            }
-                        </td>
-
-                        <td>
-                            @{
-                                if (demo.DemoStatus)
-                                {
-
-                                    <img style="width:25px;" title="Demo fechada" src="~/Content/Images/finished_flag.png" />
-                                }
-                                else
-                                {
-                                    <img style="width:25px;" title="Demo não fechada" src="~/Content/Images/unfinished_flag.png" />
-                                }
-                            }
-                        </td>
-
-                        <td class="SpecialNote">
-                            @{
-                                if (!string.IsNullOrEmpty(demo.Obs))
-                                {
-                                    <img src="~/Content/Images/special-notes.png" />
-                                }
-                            }
-                        </td>
-
-                        <td>
-                            @{
-                                if (!string.IsNullOrEmpty(demo.ImagemFichaDeDemo) || !string.IsNullOrEmpty(demo.ImagemRecomendacoes))
-                                {
-                                    <p class="fa fa-image fa-2x" title="Demo com imagens registadas"></p>
-                                }
-                            }
-                        </td>
-
-                        <td style="width:10px;">@Html.ActionLink(" ", "Details", "Demonstracoes", new { id = demo.DemonstracaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                        <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Demonstracoes", new { id = demo.DemonstracaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-    </div>
-
-    <div id="recomendacoes" class="tab-pane fade">
-        <div style="text-align: left;
-                        background-color: #666;
-                        padding: 10px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom-right-radius: 5px;
-                        color: white;
-                        margin-top: 0;
-                        min-height:60px;">
-            <h2 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
-                Recomendações de @Model.NomeCliente
-            </h2>
-            <p style="margin-top:5px; float:right;">@Html.ActionLink(" ", "Create", "Recomendacoes", new { comp = Model.ClientId }, new { @class = "btn btn-default btn-small fa fa-plus" })</p>
-
-        </div>
-
-
-        @if (Model.Recomendacao != null)
-        {
-
-            <table class="table table-responsive table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <td>Nome</td>
-                        <td>Idade</td>
-                        <td>OK</td>
-                        <td>Data Demo</td>
-                        <td>Demo Executada</td>
-                        <td>Prioridade</td>
-                    </tr>
-                </thead>
-
-                @foreach (var contacto in Model.Recomendacao.OrderBy(c => c.NomeSr))
-                {
-                    if (string.IsNullOrEmpty(contacto.NomeSr))
-                    {
-                        <tr>
-                            <td><b>@contacto.NomeSra</b></td>
-                            <td>@contacto.IdadeSra</td>
-
-                            <td class="OkImage">
-                                @if (contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/green-light.png" />
-                                }
-                                else if (!contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/red-light.png" />
-                                }
-                                else
-                                {
-                                    <img src="~/Content/Images/blue-light.png" />
-                                }
-
-                            </td>
-
-                            <td class="SpecialNote">
-                                @if (!string.IsNullOrEmpty(contacto.Obs))
-                                {
-                                    <img src="~/Content/Images/special-notes.png" />
-                                }
-                            </td>
-
-                            <td style="width:10px;">
-
-                                @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
-                                {
-                                    if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" || !String.IsNullOrEmpty(Model.TelemovelCliente))
-                                    {
-                                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                                        <img style="float:right; width:100px;" src="~/Content/Images/Qualified.png" />
                                     }
 
                                 }
-                            </td>
-                            <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                            <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
-                        </tr>
-                    }
-                    else if (string.IsNullOrEmpty(contacto.NomeSra))
-                    {
-                        <tr>
-                            <td>
-                                <b>
-                                    @contacto.NomeSr
-                                </b>
-                            </td>
-                            <td>
-                                @contacto.IdadeSr
-                            </td>
 
-                            <td class="OkImage">
-                                @if (contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/green-light.png" />
-                                }
-                                else if (!contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/red-light.png" />
-                                }
-                                else
-                                {
-                                    <img src="~/Content/Images/blue-light.png" />
-                                }
+                            </h2>
 
-                            </td>
+                        </div>
 
-                            <td>
-                                @*@contacto.DemonstracaoGuid*@
+                    </div>
+
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab_content10" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Pessoal</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content11" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Contactos</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content12" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Dados Financeiros</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content13" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Comercial</a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+
+                                <div class="clearfix"></div>
+
+                                <!--PESSOAL-->
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content10" aria-labelledby="home-tab">
+                                    <dl class="dl-horizontal dadosCliente" style="float:left;">
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.DataNascimentoCliente)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.DataNascimentoCliente) <i class="fa fa-long-arrow-right" aria-hidden="true"></i> @Html.DisplayFor(model => model.IdadeCliente) anos
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.EstadoCivil.NomeEstadoCivil)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.EstadoCivil.NomeEstadoCivil)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.Profissao.NomeProfissao)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.Profissao.NomeProfissao)
+                                        </dd>
+
+                                        <dt>
+                                            Filhos dependentes
+                                        </dt>
+                                        <dd>
+                                            @{
+                                                int filhos = 0;
+
+                                                foreach (var membro in Model.MembroFamilia)
+                                                {
+                                                    if (membro.TipoMembroFamiliaId == 1)
+                                                    {
+                                                        filhos++;
+                                                    }
+                                                }
+
+                                                if (filhos > 0)
+                                                {
+                                                    string result = "";
+                                                    if (filhos == 1)
+                                                    {
+                                                        result = "filho";
+                                                    }
+                                                    else if (filhos > 1)
+                                                    {
+                                                        result = "filhos";
+                                                    }
+                                                    <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00"></i>
+                                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                                    <span> @filhos  @result</span>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkgray"></i>
+                                                }
+
+                                            }
+                                        </dd>
+
+                                        <dt>
+                                            Animais estimaçao
+                                        </dt>
+                                        <dd>
+                                            @{
+                                                int animais = 0;
+
+                                                foreach (var animal in Model.AnimalEstimacao)
+                                                {
+                                                    animais++;
+                                                }
+
+                                                if (animais > 0)
+                                                {
+                                                    string result = "";
+                                                    if (animais == 1)
+                                                    {
+                                                        result = "animal";
+                                                    }
+                                                    else if (animais > 1)
+                                                    {
+                                                        result = "animais";
+                                                    }
+                                                    <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00"></i>
+                                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                                    <span> @animais  @result</span>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkgray"></i>
+                                                }
+
+
+                                                @*if (animais > 0)
+                                                    {
+                                                        <input type="checkbox" checked data-toggle="toggle" disabled="disabled" data-on="Tem animais" data-onstyle="success" data-size="mini">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" data-toggle="toggle" disabled="disabled" data-off="Não tem animais" data-offstyle="danger" data-size="mini">
+                                                    }*@
+                                            }
+
+                                        </dd>
+
+                                    </dl>
+                                </div>
+                                <!--/PESSOAL-->
+                                <!--CONTACTOS-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content11" aria-labelledby="profile-tab">
+                                    <dl class="dl-horizontal dadosCliente">
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.MoradaCliente)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.MoradaCliente)
+                                        </dd>
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.CodigoPostalCliente)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.CodigoPostalCliente)
+                                        </dd>
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.Localidade)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.Localidade)
+                                        </dd>
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.TelemovelCliente)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.TelemovelCliente)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.ContactoAlternativoCliente)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.ContactoAlternativoCliente)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.EmailCliente)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.EmailCliente)
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <!--/CONTACTOS-->
+                                <!--DADOS FINANCEIROS-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content12" aria-labelledby="profile-tab">
+                                    <dl class="dl-horizontal dadosCliente">
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.NIB)
+                                        </dt>
+
+                                        <dd>
+                                            @if (string.IsNullOrEmpty(Model.NIB))
+                                            {
+                                                <p>IBAN não inserido. Clique @Html.ActionLink("aqui", "Edit", new { id = Model.ClientId }) para editar o cliente.</p>
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(model => model.NIB)
+                                            }
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <!--/DADOS FINANCEIROS-->
+                                <!--COMERCIAL-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content13" aria-labelledby="profile-tab">
+                                    <dl class="dl-horizontal dadosCliente">
+                                        <dt>
+                                            Recomendado por
+                                        </dt>
+
+
+
+                                        <dd>
+                                            <b class="labelInfoSize2">@Model.RecomendadoPor</b>
+                                        </dd>
+
+                                        <dt>
+                                            Cliente Rainbow
+                                        </dt>
+
+                                        <dd title="Não comprou">
+                                            @{
+                                                int compras = 0;
+                                                string dataUltimaCompra = "";
+
+                                                foreach (var item in Model.Demonstracao)
+                                                {
+                                                    if (item.ClienteComprou)
+                                                    {
+                                                        compras++;
+                                                        dataUltimaCompra = item.DataMarcacao.Date.ToShortDateString();
+                                                    }
+                                                }
+
+                                                if (compras > 0)
+                                                {
+                                                    <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00" title="Cliente comprou em @dataUltimaCompra"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkgray"></i>
+                                                }
+                                            }
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.ElegivelParaRecrutamento)
+                                        </dt>
+
+                                        <dd class="recrutamento">
+                                            @if (Model.ElegivelParaRecrutamento)
+                                            {
+                                                @*<img title="Eligível para recrutar" src="~/Content/Images/green-light.png" />*@
+                                                <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00"></i>
+                                            }
+                                            else
+                                            {
+                                                @*<img title="Não Eligível para recrutar" src="~/Content/Images/red-light.png" />*@
+                                                <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkred"></i>
+                                            }
+                                        </dd>
+
+
+                                        <dt>
+                                            Recomendações
+                                        </dt>
+
+                                        <dd>
+                                            @if (Model.Recomendacao.Count > 0)
+                                            {
+                                                @Html.DisplayFor(model => model.Recomendacao.Count)
+                                            }
+                                            else
+                                            {
+                                                <p style="color:red;">Sem recomendações</p>
+                                            }
+                                        </dd>
+
+                                        <dt>
+                                            <span style="color:green;">OK's</span>
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                int contagem = 0;
+                                                foreach (var cliente in Model.Recomendacao)
+                                                {
+                                                    if (cliente.OkParaContactar)
+                                                    {
+                                                        contagem++;
+                                                    }
+                                                }
+                                                @contagem
+                                            }
+                                        </dd>
+
+                                        <dt>
+                                            <span style="color: red;">Não OK's</span>
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                int NOK = 0;
+
+                                                foreach (var cliente in Model.Recomendacao)
+                                                {
+                                                    if (!cliente.OkParaContactar)
+                                                    {
+                                                        NOK++;
+                                                    }
+                                                }
+                                                @NOK
+                                            }
+                                        </dd>
+
+                                        <dt>
+                                            Data última Demo
+                                        </dt>
+                                        <dd>
+                                            @{
+                                                string ultimaDemo = null;
+                                                try
+                                                {
+                                                    ultimaDemo = Model.Demonstracao.LastOrDefault().DataMarcacao.ToShortDateString();
+                                                }
+                                                catch (Exception)
+                                                {
+                                                    <p>Sem demos efectuadas</p>
+                                                }
+
+                                                <p>@ultimaDemo</p>
+                                            }
+                                        </dd>
+
+
+                                    </dl>
+                                </div>
+                                <!--/COMERCIAL-->
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!--INFORMAÇÕES GERAIS-->
+        <div class="row">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Informações gerais de @Html.DisplayFor(model => model.NomeCliente)</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i style="color:#00bb00;" class="fa fa-plus"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="~/MembrosFamilia/Create?cltId=@Model.ClientId">Membro família</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/AnimaisEstimacao/Create?cltId=@Model.ClientId">Animal estimação</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Família</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Animais</a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <!--MEMBROS DA FAMÍLIA-->
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+
+                                    <!-- start recent activity -->
+                                    <ul class="messages">
+                                        @foreach (var item in Model.MembroFamilia)
+                                        {
+
+                                            <li>
+                                                <img src="~/Content/Images/boy_avatar.png" class="avatar" alt="Avatar">
+                                                <div class="message_date">
+                                                    @try
+                                                    {
+                                                        <h3 class="date text-info">@item.MembroFamiliaDataNascimento.Value.Day</h3>
+                                                        <p class="month">@item.MembroFamiliaDataNascimento.Value.Month</p>
+                                                    }
+                                                    catch (Exception)
+                                                    {
+
+                                                        <h3 class="date text-info">--</h3>
+                                                        <p class="month">Jan</p>
+                                                    }
+
+
+                                                </div>
+
+                                                <div class="message_wrapper">
+                                                    <a href="/MembrosFamilia/Details/@item.MembroFamiliaId"><h4 class="heading">@item.NomeMembroFamilia @item.ApelidoMembroFamilia <i class="fa fa-link" aria-hidden="true"></i></h4></a>
+                                                    <blockquote class="message">@item.TipoMembroFamilia.NomeTipoMembroFamilia</blockquote>
+                                                    <br />
+                                                </div>
+
+                                            </li>
+
+                                        }
+
+                                    </ul>
+                                    <!-- end recent activity -->
+
+                                </div>
+                                <!--/MEMBROS DA FAMÍLIA-->
+                                <!--ANIMAIS-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+
+                                    <!-- start recent activity -->
+                                    <ul class="messages">
+                                        @foreach (var item in Model.AnimalEstimacao)
+                                        {
+                                            <li>
+                                                <img src="~/Content/Images/boy_avatar.png" class="avatar" alt="Avatar">
+
+                                                <div class="message_wrapper">
+                                                    <h4 class="heading">@item.NomeAnimalEstimacao</h4>
+                                                    <blockquote class="message">@item.TipoAnimal.TipoAnimalDesignacao</blockquote>
+                                                    <br />
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                    <!-- end recent activity -->
+                                </div>
+                                <!--/ANIMAIS-->
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <!--INFORMAÇÕES COMERCIAIS-->
+        <div class="row">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Informações comerciais de @Html.DisplayFor(model => model.NomeCliente)</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i style="color:#00bb00;" class="fa fa-plus"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="/Demonstracoes/Create?cltId=@Model.ClientId">Demonstração</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Recomendacoes/Create?cltId=@Model.ClientId">Recomendação</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Venda</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Pós-Venda</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Recrutamentos/Create?comp=@Model.ClientId">Recrutamento</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab_content3" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Demonstrações</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content4" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Recomendações</a>
+                                </li>
 
                                 @{
-                                    var demoId = contacto.DemonstracaoGuid;
+                                    int contadorVendas = 0;
 
                                     foreach (var item in Model.Demonstracao)
                                     {
-                                        if (item.DemoUniqueId == demoId)
+                                        if (item.ClienteComprou)
                                         {
-                                            <p>@item.DataMarcacao.ToShortDateString()</p>
+                                            contadorVendas++;
                                         }
                                     }
-                                }
-                            </td>
 
-                            <td>
-                                @if (contacto.DemoExecutada)
-                                {
-                                    <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
-                                }
-                                else
-                                {
-                                    <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
-                                }
-                            </td>
-
-                            <td>
-                                @if (contacto.ContactoPrioritario)
-                                {
-                                    <img src="~/Content/Images/dollar-sign.png" style="width:25px;" title="Cliente prioritário" />
-                                }
-                            </td>
-
-                            <td class="SpecialNote">
-                                @if (!string.IsNullOrEmpty(contacto.Obs))
-                                {
-                                    <img src="~/Content/Images/special-notes.png" />
-                                }
-                            </td>
-
-                            <td style="width:10px;">
-                                @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
-                                {
-                                    if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
+                                    if (contadorVendas > 0)
                                     {
-                                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                                        <li role="presentation" class="">
+                                            <a href="#tab_content5" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Venda</a>
+                                        </li>
                                     }
-
                                 }
-                            </td>
-                            <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                            <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
-                        </tr>
-                    }
-                    else
-                    {
-                        <tr>
-                            <td>
-                                <b>
-                                    @contacto.NomeSr
-                                </b>
-                            </td>
-                            <td>
-                                @contacto.IdadeSr
-                            </td>
-
-                            <td class="OkImage">
-                                @if (contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/green-light.png" />
-                                }
-                                else if (!contacto.OkParaContactar)
-                                {
-                                    <img src="~/Content/Images/red-light.png" />
-                                }
-                                else
-                                {
-                                    <img src="~/Content/Images/blue-light.png" />
-                                }
-
-                            </td>
-
-                            <td>
-                                @*@contacto.DemonstracaoGuid*@
 
                                 @{
-                                    var demoId = contacto.DemonstracaoGuid;
+                                    int contadorPosVenda = 0;
 
                                     foreach (var item in Model.Demonstracao)
                                     {
-                                        if (item.DemoUniqueId == demoId)
+                                        if (item.TipoVisitaId == 3 || item.TipoVisitaId == 4 || item.TipoVisitaId == 2)
                                         {
-                                            <p>@item.DataMarcacao.ToShortDateString()</p>
+                                            contadorPosVenda++;
                                         }
                                     }
-                                }
-                            </td>
 
-                            <td>
-                                @if (contacto.DemoExecutada)
-                                {
-                                    <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
-                                }
-                                else
-                                {
-                                    <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
-                                }
-                            </td>
-
-                            <td>
-                                @if (contacto.ContactoPrioritario)
-                                {
-                                    <p class="fa fa-dollar fa-2x"></p>
-                                }
-                            </td>
-
-                            <td class="SpecialNote">
-                                @if (!string.IsNullOrEmpty(contacto.Obs))
-                                {
-                                    <img src="~/Content/Images/special-notes.png" />
-                                }
-                            </td>
-
-                            <td style="width:10px;">
-                                @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
-                                {
-                                    if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
+                                    if (contadorPosVenda > 0)
                                     {
-                                        <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                                        <li role="presentation" class="">
+                                            <a href="#tab_content6" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Pós-Venda</a>
+                                        </li>
+                                    }
+                                }
+
+                                @{
+                                    int contadorRecrutamento = 0;
+
+                                    foreach (var item in Model.Demonstracao)
+                                    {
+                                        if (item.SucessoRecrutamento)
+                                        {
+                                            contadorRecrutamento++;
+                                        }
                                     }
 
+                                    if (contadorRecrutamento > 0)
+                                    {
+                                        <li role="presentation" class="">
+                                            <a href="#tab_content9" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Recrutamento</a>
+                                        </li>
+                                    }
                                 }
-                            </td>
-                            <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                            <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
-                        </tr>
-                    }
 
 
-                }
-            </table>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <!--DEMONSTRAÇÕES-->
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content3" aria-labelledby="home-tab">
 
-        }
-    </div>
+                                    <table class="data table table-striped no-margin">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Data Marcação</th>
+                                                <th>Demo executada</th>
+                                                <th>Demo delegada</th>
+                                                <th>Casa aberta</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-    <div id="vendas" class="tab-pane fade">
-        <h3>Vendas</h3>
-        <p>BREVEMENTE DISPONÍVEL</p>
+                                            @foreach (var demo in Model.Demonstracao)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <b>@demo.DataMarcacao.ToShortDateString()</b>
+                                                    </td>
+                                                    <td>
+                                                        @{
+                                                            int difDays = Convert.ToInt32((demo.DataMarcacao - DateTime.Now).TotalDays); ;
+                                                            if (DateTime.Now < demo.DataMarcacao)
+                                                            {
+                                                                <p>Demo em @difDays dias</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                if (demo.DemoFinalizada)
+                                                                {
+                                                                    <p>Sim</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>Não</p>
+                                                                }
+                                                            }
 
-    </div>
+                                                        }
+                                                    </td>
 
-    <div id="posVenda" class="tab-pane fade">
-        <h3>Pós-Venda</h3>
-        <p>BREVEMENTE DISPONÍVEL</p>
+                                                    <td>
+                                                        @{
+                                                            if (demo.DemoDelegada)
+                                                            {
+                                                                <p>Sim</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>Não</p>
+                                                            }
+                                                        }
+                                                    </td>
 
-    </div>
+                                                    <td>
+                                                        @{
+                                                            if (demo.ClienteAceitouConviteParaCasaAberta)
+                                                            {
+                                                                <p>Sim</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>Não</p>
+                                                            }
+                                                        }
+                                                    </td>
 
-    <div id="agenda" class="tab-pane fade">
-        <div style="text-align: left;
-                        background-color: #666;
-                        padding: 10px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom-right-radius: 5px;
-                        color: white;
-                        margin-top: 0;
-                        min-height:60px;">
-            <h2 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
-                Eventos de @Model.NomeCliente
-            </h2>
-            <p style="margin-top:5px; float:right;">@Html.ActionLink(" ", "Create", "EventosDeAgendas", new { comp = Model.ClientId }, new { @class = "btn btn-default btn-small fa fa-plus" })</p>
+                                                    <td>
+                                                        @{
+                                                            if (demo.DemoStatus)
+                                                            {
+
+                                                                <img style="width:25px;" title="Demo fechada" src="~/Content/Images/finished_flag.png" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <img style="width:25px;" title="Demo não fechada" src="~/Content/Images/unfinished_flag.png" />
+                                                            }
+                                                        }
+                                                    </td>
+
+                                                    <td class="SpecialNote">
+                                                        @{
+                                                            if (!string.IsNullOrEmpty(demo.Obs))
+                                                            {
+                                                                <img src="~/Content/Images/special-notes.png" />
+                                                            }
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        @{
+                                                            if (!string.IsNullOrEmpty(demo.ImagemFichaDeDemo) || !string.IsNullOrEmpty(demo.ImagemRecomendacoes))
+                                                            {
+                                                                <p class="fa fa-image fa-2x" title="Demo com imagens registadas"></p>
+                                                            }
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button" aria-expanded="false">
+                                                                <i class="fa fa-cog" aria-hidden="true"></i> <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdownLeft" role="menu">
+                                                                <li>
+                                                                    <a href="/Demonstracoes/Details/@demo.DemonstracaoId">Detalhes de @demo.DataMarcacao.ToShortDateString()</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/Demonstracoes/Edit/@demo.DemonstracaoId">Editar demo de @demo.DataMarcacao.ToShortDateString()</a>
+                                                                </li>
+
+                                                                <li class="divider"></li>
+                                                                <li>
+                                                                    <a href="#" data-toggle="modal" data-target=".apagar-cliente-sm">Apagar demo de @demo.DataMarcacao.ToShortDateString()</a>
+                                                                    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>*@
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+
+                                                    @*<td style="width:10px;">@Html.ActionLink(" ", "Details", "Demonstracoes", new { id = demo.DemonstracaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Demonstracoes", new { id = demo.DemonstracaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                                <!--/DEMONSTRAÇÕES-->
+
+                                <div class="clearfix"></div>
+
+                                <!--RECOMENDAÇÕES-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="tab">
+
+                                    <!-- start user projects -->
+                                    <table class="data table table-striped no-margin">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <td>Nome</td>
+                                                <td>Idade</td>
+                                                <td>OK</td>
+                                                <td>Data Demo</td>
+                                                <td>Demo Executada</td>
+                                                <td>Prioridade</td>
+                                            </tr>
+                                        </thead>
+
+                                        @foreach (var contacto in Model.Recomendacao.OrderBy(c => c.NomeSr))
+                                        {
+                                            if (string.IsNullOrEmpty(contacto.NomeSr))
+                                            {
+                                                <tr>
+                                                    <td><b>@contacto.NomeSra</b></td>
+                                                    <td>@contacto.IdadeSra</td>
+
+                                                    <td class="OkImage">
+                                                        @if (contacto.OkParaContactar)
+                                                        {
+                                                            <img src="~/Content/Images/green-light.png" />
+                                                        }
+                                                        else if (!contacto.OkParaContactar)
+                                                        {
+                                                            <img src="~/Content/Images/red-light.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/Content/Images/blue-light.png" />
+                                                        }
+
+                                                    </td>
+
+                                                    <td class="SpecialNote">
+                                                        @if (!string.IsNullOrEmpty(contacto.Obs))
+                                                        {
+                                                            <img src="~/Content/Images/special-notes.png" />
+                                                        }
+                                                    </td>
+
+                                                    <td style="width:10px;">
+
+                                                        @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
+                                                        {
+                                                            if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" || !String.IsNullOrEmpty(Model.TelemovelCliente))
+                                                            {
+                                                                <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                                                            }
+
+                                                        }
+                                                    </td>
+
+                                                    <!--BOTÕES-->
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button" aria-expanded="false">
+                                                                <i class="fa fa-cog" aria-hidden="true"></i> <span class="caret"></span>
+                                                            </button>
+                                                            <ul role="menu" class="dropdown-menu dropdownLeft">
+                                                                <li>
+                                                                    <a href="/Recomendacoes/Details/@contacto.RecomendacaoId">Detalhes de @contacto.NomeSr</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/Recomendacoes/Edit/@contacto.RecomendacaoId">Editar @contacto.NomeSr</a>
+                                                                </li>
+
+                                                                <li class="divider"></li>
+                                                                <li>
+                                                                    <a href="/Recomendacoes/Delete/@contacto.RecomendacaoId">Apagar @contacto.NomeSr</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                    @*<td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
+                                                </tr>
+                                            }
+                                            else if (string.IsNullOrEmpty(contacto.NomeSra))
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <b>
+                                                            @contacto.NomeSr
+                                                        </b>
+                                                    </td>
+                                                    <td>
+                                                        @contacto.IdadeSr
+                                                    </td>
+
+                                                    <td class="OkImage">
+                                                        @if (contacto.OkParaContactar)
+                                                        {
+                                                            <img src="~/Content/Images/green-light.png" />
+                                                        }
+                                                        else if (!contacto.OkParaContactar)
+                                                        {
+                                                            <img src="~/Content/Images/red-light.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/Content/Images/blue-light.png" />
+                                                        }
+
+                                                    </td>
+
+                                                    <td>
+                                                        @*@contacto.DemonstracaoGuid*@
+
+                                                        @{
+                                                            var demoId = contacto.DemonstracaoGuid;
+
+                                                            foreach (var item in Model.Demonstracao)
+                                                            {
+                                                                if (item.DemoUniqueId == demoId)
+                                                                {
+                                                                    <p>@item.DataMarcacao.ToShortDateString()</p>
+                                                                }
+                                                            }
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        @if (contacto.DemoExecutada)
+                                                        {
+                                                            <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        @if (contacto.ContactoPrioritario)
+                                                        {
+                                                            <img src="~/Content/Images/dollar-sign.png" style="width:25px;" title="Cliente prioritário" />
+                                                        }
+                                                    </td>
+
+                                                    <td class="SpecialNote">
+                                                        @if (!string.IsNullOrEmpty(contacto.Obs))
+                                                        {
+                                                            <img src="~/Content/Images/special-notes.png" />
+                                                        }
+                                                    </td>
+
+                                                    <td style="width:10px;">
+                                                        @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
+                                                        {
+                                                            if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
+                                                            {
+                                                                <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                                                            }
+
+                                                        }
+                                                    </td>
+
+                                                    <!--BOTÕES-->
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button" aria-expanded="false">
+                                                                <i class="fa fa-cog" aria-hidden="true"></i> <span class="caret"></span>
+                                                            </button>
+                                                            <ul role="menu" class="dropdown-menu dropdownLeft">
+                                                                <li>
+                                                                    <a href="/Recomendacoes/Details/@contacto.RecomendacaoId">Detalhes de @contacto.NomeSr</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/Recomendacoes/Edit/@contacto.RecomendacaoId">Editar @contacto.NomeSr</a>
+                                                                </li>
+
+                                                                <li class="divider"></li>
+                                                                <li>
+                                                                    <a href="/Recomendacoes/Delete/@contacto.RecomendacaoId">Apagar @contacto.NomeSr</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                    @*<td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <b>
+                                                            @contacto.NomeSr
+                                                        </b>
+                                                    </td>
+                                                    <td>
+                                                        @contacto.IdadeSr
+                                                    </td>
+
+                                                    <td class="OkImage">
+                                                        @if (contacto.OkParaContactar)
+                                                        {
+                                                            <img src="~/Content/Images/green-light.png" />
+                                                        }
+                                                        else if (!contacto.OkParaContactar)
+                                                        {
+                                                            <img src="~/Content/Images/red-light.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/Content/Images/blue-light.png" />
+                                                        }
+
+                                                    </td>
+
+                                                    <td>
+                                                        @*@contacto.DemonstracaoGuid*@
+
+                                                        @{
+                                                            var demoId = contacto.DemonstracaoGuid;
+
+                                                            foreach (var item in Model.Demonstracao)
+                                                            {
+                                                                if (item.DemoUniqueId == demoId)
+                                                                {
+                                                                    <p>@item.DataMarcacao.ToShortDateString()</p>
+                                                                }
+                                                            }
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        @if (contacto.DemoExecutada)
+                                                        {
+                                                            <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img style="width:25px;" title="Demo Não executada" src="~/Content/Images/thumbs_down.png" />
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        @if (contacto.ContactoPrioritario)
+                                                        {
+                                                            <p class="fa fa-dollar fa-2x"></p>
+                                                        }
+                                                    </td>
+
+                                                    <td class="SpecialNote">
+                                                        @if (!string.IsNullOrEmpty(contacto.Obs))
+                                                        {
+                                                            <img src="~/Content/Images/special-notes.png" />
+                                                        }
+                                                    </td>
+
+                                                    <td style="width:10px;">
+                                                        @if ((Convert.ToInt32(contacto.IdadeSr) >= 30) && (Convert.ToInt32(contacto.IdadeSr) <= 76))
+                                                        {
+                                                            if (contacto.EstadoCivil.NomeEstadoCivil != "Solteiro(a)" && !string.IsNullOrEmpty(contacto.TelemSr))
+                                                            {
+                                                                <img style="float:right; width:50px;" src="~/Content/Images/Qualified.png" />
+                                                            }
+
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button" aria-expanded="false">
+                                                                <i class="fa fa-cog" aria-hidden="true"></i> <span class="caret"></span>
+                                                            </button>
+                                                            <ul role="menu" class="dropdown-menu dropdownLeft">
+                                                                <li>
+                                                                    <a href="/Recomendacoes/Details/@contacto.RecomendacaoId">Detalhes de @contacto.NomeSr</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/Recomendacoes/Edit/@contacto.RecomendacaoId">Editar @contacto.NomeSr</a>
+                                                                </li>
+
+                                                                <li class="divider"></li>
+                                                                <li>
+                                                                    <a href="/Recomendacoes/Delete/@contacto.RecomendacaoId">Apagar @contacto.NomeSr</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                    @*<td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
+                                                </tr>
+                                            }
+
+
+                                        }
+                                    </table>
+                                    <!-- end user projects -->
+
+                                </div>
+                                <!--/RECOMENDAÇÕES-->
+
+                                <div class="clearfix"></div>
+
+                                <!--VENDAS-->
+
+
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="tab">
+                                    <h1>BREVEMENTE DISPONÍVEL</h1>
+                                </div>
+
+
+                                <!--/VENDAS-->
+                                <div class="clearfix"></div>
+                                <!--PÓS-VENDA-->
+
+
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="tab">
+                                    <h1>BREVEMENTE DISPONÍVEL</h1>
+                                </div>
+
+
+                                <!--/PÓS-VENDA-->
+                                <div class="clearfix"></div>
+                                <!--RECRUTAMENTO-->
+
+
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content9" aria-labelledby="tab">
+                                    <table class="data table table-striped no-margin">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Data Recrutamento</th>
+                                                <th scope="col">Data Inicio Curso</th>
+                                                <th scope="col">Data Final Curso</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var rec in Model.Recrutamento)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <b>@rec.DataRecrutamento</b>
+                                                    </td>
+                                                    <td>
+                                                        @rec.DataInicioCurso
+                                                    </td>
+                                                    <td>
+                                                        @rec.DataFimCurso
+                                                    </td>
+                                                    <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recrutamentos", new { id = rec.RecrutamentoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                                                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recrutamentos", new { id = rec.RecrutamentoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <!--/RECRUTAMENTO-->
+
+                            </div>
+                        </div>
+
+                        <!-- modals -->
+
+                        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Text in a modal</h4>
+                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade apagar-cliente-sm" tabindex="-1" role="dialog" aria-hidden="true">
+
+                            @{
+
+
+
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel2">Apagar @Model.NomeCliente</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>Detalhes de @Model.NomeCliente</h4>
+                                            <p>Idade: @Model.IdadeCliente</p>
+                                            <p>Localidade: @Model.Localidade</p>
+                                            <p>Contactos fornecidos: @Model.Recomendacao.Count()</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                        <!-- /modals -->
+                    </div>
+
+
+                </div>
+            </div>
 
         </div>
 
-        @{ 
-            if(Model.EventosDeAgenda.Count != 0)
-            {
-                <table class="table table-responsive table-hover">
-                    <thead>
-                        <tr>
-                            <td>Descrição</td>
-                            <td>Data limite</td>
-                            <td>Estado</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.EventosDeAgenda)
-                        {
-                            
-                            try
-                            {
+        <!--INFORMAÇÕES DE EVENTOS-->
+        <div class="row">
 
-                            }
-                            catch (Exception)
-                            {
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Eventos de @Html.DisplayFor(model => model.NomeCliente)</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
 
-                                throw;
-                            }
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i style="color:#00bb00;" class="fa fa-plus"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="~/EventosDeAgendas/Create?cltId=@Model.ClientId">Novo evento</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
 
-                            <tr>
-                                <td>@item.DescricaoEvento</td>
-                                <td>@item.DataEvento.Value.ToShortDateString()</td>
-                                <td>
-                                @{ 
-                                    if(@item.EstadoDoEvento == true)
-                                    {
-                                        <p class="fa fa-check-square-o fa-2x" style="color:#00bb00;" title="Tarefa completa"></p>
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="">
+                                    <a href="#tab_content7" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="true">Eventos</a>
+                                </li>
+
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+
+                                <div class="clearfix"></div>
+
+                                <!--EVENTOS-->
+
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content7" aria-labelledby="home-tab">
+                                    @{
+                                        if (Model.EventosDeAgenda.Count != 0)
+                                        {
+                                            <table class="table table-responsive table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Descrição</td>
+                                                        <td>Data limite</td>
+                                                        <td>Estado</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.EventosDeAgenda)
+                                                    {
+
+                                                        try
+                                                        {
+
+                                                        }
+                                                        catch (Exception)
+                                                        {
+
+                                                            throw;
+                                                        }
+
+                                                        <tr>
+                                                            <td>@item.DescricaoEvento</td>
+                                                            <td>@item.DataEvento.Value.ToShortDateString()</td>
+                                                            <td>
+                                                                @{
+                                                                    if (@item.EstadoDoEvento == true)
+                                                                    {
+                                                                        <p class="fa fa-check-square-o fa-2x" style="color:#00bb00;" title="Tarefa completa"></p>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <p class="fa fa-square-o fa-2x" style="color:red;" title="Tarefa em aberto"></p>
+                                                                    }
+                                                                }
+                                                            </td>
+
+                                                            @*<td style="width:10px;">@Html.ActionLink(" ", "Details", "EventosDeAgendas", new { id = item.EventosDeAgendaId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
+                                                                <td style="width:10px;">@Html.ActionLink(" ", "Delete", "EventosDeAgendas", new { id = item.EventosDeAgendaId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
+
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button" aria-expanded="false">
+                                                                        <i class="fa fa-cog" aria-hidden="true"></i> <span class="caret"></span>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdownLeft" role="menu">
+                                                                        <li>
+                                                                            <a href="/EventosDeAgendas/Details/@item.EventosDeAgendaId">Detalhes</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="/EventosDeAgendas/Edit/@item.EventosDeAgendaId">Editar</a>
+                                                                        </li>
+
+                                                                        <li class="divider"></li>
+                                                                        <li>
+                                                                            <a href="/EventosDeAgendas/Delete/@item.EventosDeAgendaId">Apagar</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-lg-12">
+                                                <h1>
+                                                    Não foram encontrados eventos para @Model.NomeCliente
+                                                </h1>
+                                            </div>
+                                        }
                                     }
-                                    else
-                                    {
-                                        <p class="fa fa-square-o fa-2x" style="color:red;" title="Tarefa em aberto"></p>
-                                    }
-                                }
-                                </td>
+                                </div>
 
-                            <td style="width:10px;">@Html.ActionLink(" ", "Details", "EventosDeAgendas", new { id = item.EventosDeAgendaId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                            <td style="width:10px;">@Html.ActionLink(" ", "Delete", "EventosDeAgendas", new { id = item.EventosDeAgendaId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                                    }
-                                    else
-                                    {
-                                       <div class="col-lg-12">
-                                           <h1>
-                                               Não foram encontrados eventos para @Model.NomeCliente
-                                           </h1>
-                                       </div>
-                                    }
-        }
 
-    </div>
+                                <!--/EVENTOS-->
 
-    <div id="recrutamento" class="tab-pane fade">
-        <div style="text-align: left;
-                        background-color: #666;
-                        padding: 10px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom-right-radius: 5px;
-                        color: white;
-                        margin-top: 0;
-                        min-height:60px;">
-            <h2 style="margin-top:0; margin-bottom:0;padding:3px; float:left;">
-                Recrutamento de @Model.NomeCliente
-            </h2>
-            <p style="margin-top:5px; float:right;">@Html.ActionLink(" ", "Create", "Recrutamentos", new { comp = Model.ClientId }, new { @class = "btn btn-default btn-small fa fa-plus" })</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
         </div>
 
-        <table class="table table-striped table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">Data Recrutamento</th>
-                    <th scope="col">Data Inicio Curso</th>
-                    <th scope="col">Data Final Curso</th>
-                </tr>
-            </thead>
-            <tbody>
+        <!--NOTAS-->
+        <div class="row">
 
-                @foreach (var rec in Model.Recrutamento)
-                {
-                    <tr>
-                        <td>
-                            <b>@rec.DataRecrutamento</b>
-                        </td>
-                        <td>
-                            @rec.DataInicioCurso
-                        </td>
-                        <td>
-                            @rec.DataFimCurso
-                        </td>
-                        <td style="width:10px;">@Html.ActionLink(" ", "Details", "Recrutamentos", new { id = rec.RecrutamentoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                        <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recrutamentos", new { id = rec.RecrutamentoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>
-                    </tr>
-                }
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Notas de @Html.DisplayFor(model => model.NomeCliente)</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
 
-            </tbody>
-        </table>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i style="color:darkorange;" class="fa fa-pencil"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="~/Clientes/Edit/@Model.ClientId">Editar @Model.NomeCliente</a>
+                                    </li>
+                                </ul>
+                            </li>
 
-    </div>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
 
-    <div id="notas" class="tab-pane fade">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="">
+                                    <a href="#tab_content13" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="true">Notas</a>
+                                </li>
 
-        @{
-            if (string.IsNullOrEmpty(Model.Obs))
-            {
-                <p>Sem notas disponíveis.</p>
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.Obs)
-            }
-        }
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+
+                                <div class="clearfix"></div>
+
+                                <!--NOTAS-->
+
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content13" aria-labelledby="home-tab">
+                                    @{
+                                        if (string.IsNullOrEmpty(Model.Obs))
+                                        {
+                                            <p>Sem notas disponíveis.</p>
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(model => model.Obs)
+                                        }
+                                    }
+                                </div>
+
+
+                                <!--/NOTAS-->
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
 
     </div>
 </div>
+
+
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 
-
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script>
-
-        function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
-        document.getElementById("defaultOpen").click();
-    </script>
-
-    <script>
-
-        $(document).ready(function () {
-
-            // Connect to 'change' event in order to toggle glyphs
-
-            $("[type='checkbox']").change(function () {
-
-                if ($(this).prop('checked')) {
-
-                    $(this).prev().addClass('glyphicon-ok-circle');
-
-                    $(this).prev().removeClass('glyphicon-unchecked');
-
-                }
-
-                else {
-
-                    $(this).prev().removeClass('glyphicon-ok-circle');
-
-                    $(this).prev().addClass('glyphicon-unchecked');
-
-                }
-
-            });
-
-        });
-
-    </script>
+    <script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="~/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
 }

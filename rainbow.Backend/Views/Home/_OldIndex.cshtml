@@ -1,0 +1,328 @@
+﻿@model IEnumerable<object>
+
+@*https://www.youtube.com/watch?v=AsUWnheMOos*@
+
+@{
+                /**/
+
+                List<rainbow.Domain.Client.Cliente> clt = Model.ToList()[0] as List<rainbow.Domain.Client.Cliente>;
+                List<rainbow.Domain.Recomendation.Recomendacao> recom = Model.ToList()[1] as List<rainbow.Domain.Recomendation.Recomendacao>;
+                List<rainbow.Domain.Demo.Demonstracao> demo = Model.ToList()[2] as List<rainbow.Domain.Demo.Demonstracao>;
+                List<rainbow.Domain.Agenda.EventosDeAgenda> agenda = Model.ToList()[3] as List<rainbow.Domain.Agenda.EventosDeAgenda>;
+}
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="jumbotron">
+    <h1>RCM Dashboard</h1>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">Contagem<span style="float: right;"><a href="#contagem" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+            <div class="panel-body" id="contagem">
+                <p><b>Clientes:</b> @clt.Count()</p>
+                <p><b>Total Recomendações:</b> <a href="~/Recomendacoes/"><span>@recom.Count()</span></a></p>
+                <p>
+                    <b>OK's:</b>
+                    @{
+                        int oks = 0;
+                        foreach (var item in recom)
+                        {
+                            if (item.OkParaContactar && !item.DemoMarcada)
+                            {
+                                oks++;
+                            }
+                        }
+
+                        <a href="~/Recomendacoes?okParaContactar=true&DemoMarcada=false&demoExecutada=false"><span>@oks</span></a>
+
+                        @*<a href='@string.Format("~/Recomendacoes?/search=true")'/>*@
+                    }
+                </p>
+                <p>
+                    <b>Percentagem Ok's:</b>
+                    @{
+                        int totalOks = 0;
+                        int totalRecom = recom.Count();
+                        double percentagemOks = 0;
+                        foreach (var item in recom)
+                        {
+                            if (item.OkParaContactar)
+                            {
+                                totalOks++;
+                            }
+
+                            percentagemOks = (totalOks * 100) / totalRecom;
+                        }
+
+                        <span title="@percentagemOks% correspondente ao total de OK's face ao total de recomendações">@percentagemOks%</span>
+                    }
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-warning">
+
+            <div class="panel-heading">Racios<span style="float: right;"><a href="#racios" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+            <div class="panel-body" id="racios">
+                <p>
+                    <b>Ok's/ Demo: </b>
+                    @{
+                        int contDemos = demo.Count();
+                        int contOks = 0;
+                        int racioOksPorDemo;
+
+                        foreach (var item in recom)
+                        {
+                            if (item.OkParaContactar)
+                            {
+                                contOks++;
+                            }
+                        }
+
+                        racioOksPorDemo = contOks / contDemos;
+
+                        <span>@racioOksPorDemo</span>
+                    }
+                </p>
+                <p>
+                    <b>Recomendações/ Cliente:</b>
+                    @{
+                        int media = recom.Count() / clt.Count();
+                        <span>@media</span>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-success ">
+
+            <div class="panel-heading">Eventos<span style="float: right;"><a href="#eventos" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+            <div class="panel-body" id="eventos">
+
+                <table class="table">
+                    @{
+
+                        <tr>
+                            <th>
+                                Cliente
+                            </th>
+                            <th>
+                                Tipo evento
+                            </th>
+                            <th>
+                                Data
+                            </th>
+                        </tr>
+
+
+                        <!--DEMOS-->
+                        foreach (var item in demo)
+                        {
+                            if (item.DataMarcacao == DateTime.Today || item.DataMarcacao == DateTime.Today.AddDays(1) || item.DataMarcacao == DateTime.Today.AddDays(2))
+                            {
+                                <tr>
+                                    <td>@item.Cliente.NomeCliente</td>
+                                    <td>@item.TipoVisita.NomeTipoVisita</td>
+                                    <td>@item.DataMarcacao.ToShortDateString()</td>
+                                    <td class="fa fa-eye"></td>
+                                    <td><a class="fa fa-eye" href="~/Clientes/Details/@item.ClientId"></a></td>
+                                </tr>
+                            }
+
+                        }
+
+                        <!--AGENDAS-->
+                        foreach (var agendaItem in agenda)
+                        {
+                            if (!agendaItem.EstadoDoEvento)
+                            {
+                                if (agendaItem.DataEvento == DateTime.Today || agendaItem.DataEvento == DateTime.Today.AddDays(1) || agendaItem.DataEvento == DateTime.Today.AddDays(2))
+                                {
+                                    <tr>
+                                        <td>@agendaItem.Cliente.NomeCliente</td>
+                                        <td>@agendaItem.DescricaoEvento</td>
+                                        <td>@agendaItem.DataEvento.Value.ToShortDateString()</td>
+                                        <td class="fa fa-calendar-o"></td>
+                                        <td><a class="fa fa-eye" href="~/Clientes/Details/@agendaItem.ClientId"></a></td>
+                                    </tr>
+                                }
+
+                            }
+                        }
+
+
+                        <!--ANIVERSÁRIOS-->
+                        foreach (var cliente in clt)
+                        {
+                            int BirthDay = 0;
+                            int BirthMonth = 0;
+
+                            try
+                            {
+                                BirthDay = cliente.DataNascimentoCliente.Value.Day;
+                                BirthMonth = cliente.DataNascimentoCliente.Value.Month;
+                            }
+                            catch (Exception)
+                            {
+
+
+                            }
+
+                            if (BirthDay == DateTime.Now.Day && BirthMonth == DateTime.Now.Month)
+                            {
+                                <tr>
+                                    <td>@cliente.NomeCliente</td>
+                                    <td>Aniversário</td>
+                                    <td>Hoje</td>
+                                    <td class="fa fa-birthday-cake"></td>
+                                    <td><a class="fa fa-eye" href="~/Clientes/Details/@cliente.ClientId"></a></td>
+                                </tr>
+                            }
+
+                            if (BirthDay == DateTime.Today.AddDays(1).Day && BirthMonth == DateTime.Now.Month)
+                            {
+                                <tr>
+                                    <td>@cliente.NomeCliente</td>
+                                    <td>Aniversário</td>
+                                    <td>Amanhã</td>
+                                    <td class="fa fa-birthday-cake"></td>
+                                    <td><a class="fa fa-eye" href="~/Clientes/Details/@cliente.ClientId"></a></td>
+                                </tr>
+                            }
+                        }
+
+
+                        <!--SMS'S-->
+                        foreach (var demonstracao in demo)
+                        {
+                            TimeSpan diffDays = (DateTime.Now.Date - demonstracao.DataMarcacao);
+                            string daysString = diffDays.TotalDays.ToString();
+                            int daysInt = Convert.ToInt32(daysString);
+
+                            if ((daysInt) >= 1 && !demonstracao.SmsAgradecimento)
+                            {
+                                <tr>
+                                    <td>@demonstracao.Cliente.NomeCliente</td>
+                                    <td>SMS agradecimento</td>
+                                    <td>Enviar SMS</td>
+                                    <td class="fa fa-comment-o"></td>
+                                    <td>
+                                        <a class="fa fa-eye" href="~/Demonstracoes/Details/@demonstracao.DemonstracaoId"></a>
+                                    </td>
+                                </tr>
+                            }
+
+                            if (daysInt >= 4 && demonstracao.SmsAgradecimento && !demonstracao.SmsFollowUp && !demonstracao.SmsFechoCampanha)
+                            {
+                                <tr>
+                                    <td>@demonstracao.Cliente.NomeCliente</td>
+                                    <td>SMS FollowUp</td>
+                                    <td>Enviar SMS</td>
+                                    <td class="fa fa-comment-o"></td>
+                                    <td>
+                                        <a class="fa fa-eye" href="~/Demonstracoes/Details/@demonstracao.DemonstracaoId"></a>
+                                    </td>
+                                </tr>
+                            }
+
+                            if (daysInt >= 7 && demonstracao.SmsAgradecimento && demonstracao.SmsFollowUp && !demonstracao.SmsFechoCampanha)
+                            {
+                                <tr>
+                                    <td>@demonstracao.Cliente.NomeCliente</td>
+                                    <td>SMS Fecho Campanha</td>
+                                    <td>Enviar SMS</td>
+                                    <td class="fa fa-comment-o"></td>
+                                    <td>
+                                        <a class="fa fa-eye" href="~/Demonstracoes/Details/@demonstracao.DemonstracaoId"></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="panel panel-danger">
+
+            <div class="panel-heading">Últimos Ok's<span style="float: right;"><a href="#oks" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+            <div class="panel-body" id="oks">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Campanha</th>
+                            <th>Nome</th>
+                            <th>Data adição</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            var recomend = recom.ToList().OrderByDescending(d => d.DataOk);
+
+                            var counter = 1;
+
+                            foreach (var item in recomend)
+                            {
+                                var dataOk = item.DataOk;
+
+                                try
+                                {
+                                    dataOk = item.DataOk;
+                                }
+                                catch (Exception)
+                                {
+
+                                }
+
+                                if (dataOk != null)
+                                {
+
+                                    if (counter <= 5)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Cliente.NomeCliente
+                                            </td>
+                                            <td>
+                                                @item.NomeSr
+                                            </td>
+                                            <td>
+                                                @item.DataOk.Value.ToShortDateString()
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    counter += 1;
+                                }
+
+                            }
+
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

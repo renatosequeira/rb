@@ -1,489 +1,343 @@
 ﻿@model rainbow.Domain.Client.Cliente
 
+
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar";
 }
 
+<!-- Bootstrap -->
+<link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link href="~/build/css/custom.min.css" rel="stylesheet">
+
+<!-- iCheck -->
+<link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-wysiwyg -->
+@*<link href="~/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">*@
+<!-- Select2 -->
+<link href="~/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+<!-- Switchery -->
+<link href="~/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+<!-- starrr -->
+<link href="~/vendors/starrr/dist/starrr.css" rel="stylesheet">
+<!-- bootstrap-daterangepicker -->
+<link href="~/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<style>
-    .slow .toggle-group {
-        transition: left 0.7s;
-        -webkit-transition: left 0.7s;
-    }
 
-    .fast .toggle-group {
-        transition: left 0.1s;
-        -webkit-transition: left 0.1s;
-    }
+<!--Custom styles-->
+<link href="~/Content/customStyles.css" rel="stylesheet" />
 
-    .quick .toggle-group {
-        transition: none;
-        -webkit-transition: none;
-    }
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
-    .NomeField {
-        max-width: 100%;
-        display: block;
-        width: 90%;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .TitleSelector {
-        margin-right: 5px;
-        float: left;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .DataNascimentoField {
-        float: left;
-        margin-right: 5px;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .IdadeField {
-        float: left;
-        display: block;
-        width: 75px;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .MoradaField {
-        max-width: 100%;
-        display: block;
-        width: 100%;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .TelemovelField {
-        margin-right: 5px;
-        float: left;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .ContactoAlternativoField {
-        float: left;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .LocalidadeField {
-        float: left;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .CPField {
-        margin-right: 5px;
-        float: left;
-        display: block;
-        width: 100px;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .Notas {
-        max-width: 100% !important;
-        min-height: 50px;
-        float: left;
-        display: block;
-        width: 100%;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .Labels{
-        width:20px;
-        float:left;
-        margin-left:1em;
-        margin-right:1em;
-        text-align:center;
-    }
-</style>
-
-
-<h2>Edit</h2>
 
 
 @using (Html.BeginForm())
 {
-
-
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Cliente</h4>
-    <hr />
+    <!-- page content -->
+<div class="right_col form-horizontal" role="main" id="rrr">
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ClientId)
 
-    <!--OUTROS-->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Cliente<span style="float: right;"><a href="#outros" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
-            <div class="panel-body" id="outros">
-
-                <button type="submit" class="btn btn-success">
-                    <span class="fa fa-save"></span> Guardar
-                </button>
-
-                <a href="@Url.Action("Index","Clientes")" class="btn btn-small btn-warning">
-                    <i class="ace-icon fa fa-ban"></i>
-                    <span class="bold">Cancelar</span>
-                </a>
-
-
-                @Html.EditorFor(model => model.ClienteRainbow,
-         new
-         {
-             htmlAttributes =
-         new { data_toggle = "toggle", data_on = "É cliente RB", data_off = "Não é cliente RB", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
-         })
-
-                @Html.EditorFor(model => model.ElegivelParaRecrutamento,
-         new
-         {
-             htmlAttributes =
-         new { data_toggle = "toggle", data_on = "Eligivel para recrutar", data_off = "Não eligivel para recrutar", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
-         })
-
-                @Html.EditorFor(model => model.ClientStatus,
-            new
-            {
-            htmlAttributes =
-            new { data_toggle = "toggle", data_on = "Cliente ativo", data_off = "Cliente inativo", type = "checkbox" }
-            })
-
-                <div style="float:right;">@Html.EditorFor(model => model.RecomendadoPor, new { htmlAttributes = new { @class = "form-control", placeholder = "Recomendado por", title = "Recomendado por", @readonly = "readonly" } })</div>
-
-
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Clientes</h3>
             </div>
-        </div>
-    </div>
 
-    <!--DADOS GERAIS-->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-
-        <div class="panel panel-primary">
-
-            <div class="panel-heading">Dados Gerais<span style="float: right;"><a href="#dadosgerais" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
-            <div class="panel-body" id="dadosgerais">
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        @Html.DropDownList("TitleId", null, htmlAttributes: new { @class = "form-control TitleSelector" })
-                        @Html.EditorFor(model => model.NomeCliente, new { htmlAttributes = new { @class = "form-control NomeField", placeholder = "Nome cliente" } })
-                        @Html.ValidationMessageFor(model => model.NomeCliente, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <p class="fa fa-birthday-cake fa-2x Labels col-md-2"></p>
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.DataNascimentoCliente, @"{0:yyyy\/MM\/dd}", new { @class = "datepicker form-control DataNascimentoField", placeholder = "Data nascimento aaaa/mm/dd" })
-                        @Html.EditorFor(model => model.IdadeCliente, new { htmlAttributes = new { @class = "form-control IdadeField" } })
-                        @*@Html.EditorFor(model => model.DataNascimentoCliente, new { htmlAttributes = new { @class = "form-control" } })*@
-                        @Html.ValidationMessageFor(model => model.DataNascimentoCliente, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.EstadoCivilId, "EstadoCivilId", htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <p class="fa fa-handshake-o fa-2x Labels col-md-2""></p>
-                    <div class="col-md-10">
-                        @Html.DropDownList("EstadoCivilId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.EstadoCivilId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.ProfissaoId, "ProfissaoId", htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <p class="fa fa-id-badge fa-2x Labels col-md-2""></p>
-                    <div class="col-md-10">
-                        @Html.DropDownList("ProfissaoId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.ProfissaoId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-    <!--CONTACTOS-->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Contactos<span style="float: right;"><a href="#contactos" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
-            <div class="panel-body" id="contactos">
-
-                <div class="form-group">
-                    @*@Html.Label(" ", htmlAttributes: new { @class = "col-md-2 fa fa-mobile fa-2x Labels" })*@
-                    <p class="fa fa-mobile fa-2x Labels col-md-2"></p>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.TelemovelCliente, new { htmlAttributes = new { @class = "form-control TelemovelField", placeholder = "Telemóvel", title="Telemóvel cliente" } })
-                        @Html.ValidationMessageFor(model => model.TelemovelCliente, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @*@Html.Label(" ", htmlAttributes: new { @class = "col-md-2 fa fa-phone fa-2x Labels" })*@
-                    <p class="fa fa-phone fa-2x Labels col-md-2"></p>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.ContactoAlternativoCliente, new { htmlAttributes = new { @class = "form-control LocalidadeField", placeholder = "Contacto alternativo", title = "Contacto alternativo" } })
-                        @Html.ValidationMessageFor(model => model.ContactoAlternativoCliente, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.EmailCliente, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    @*@Html.Label(" ", htmlAttributes: new { @class = "col-md-2 fa fa-at fa-2x Labels" })*@
-                    <p class="fa fa-at fa-2x Labels col-md-2"></p>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EmailCliente, new { htmlAttributes = new { @class = "form-control", placeholder = "Email", title = "Email" } })
-                        @Html.ValidationMessageFor(model => model.EmailCliente, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.MoradaCliente, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    @*@Html.Label(" ", htmlAttributes: new { @class = "col-md-2 fa fa-map-marker fa-2x Labels" })*@
-                    <p class="fa fa-map-marker fa-2x Labels col-md-2"></p>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.MoradaCliente, new { htmlAttributes = new { @class = "form-control MoradaField", placeholder = "Morada", title = "Morada" } })
-                        @Html.ValidationMessageFor(model => model.MoradaCliente, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.Localidade, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    @*@Html.Label(" ", htmlAttributes: new { @class = "col-md-2 fa fa-map-marker fa-2x Labels" })*@
-                    <p class="fa fa-map-marker fa-2x Labels col-md-2"></p>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Localidade, new { htmlAttributes = new { @class = "form-control LocalidadeField", placeholder = "Localidade", title = "Localidade" } })
-                        @Html.ValidationMessageFor(model => model.Localidade, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <p class="fa fa-map-marker fa-2x Labels col-md-2"></p>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CodigoPostalCliente, new { htmlAttributes = new { @class = "form-control CPField", placeholder = "CP", title = "Código postal" } })
-                        @Html.ValidationMessageFor(model => model.CodigoPostalCliente, "", new { @class = "text-danger" })
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="clearfix"></div>
 
-    <!--DADOS BANCÁRIOS-->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Dados bancários<span style="float: right;"><a href="#dadosbancarios" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
-            <div class="panel-body" id="dadosbancarios">
+        <div class="row">
 
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.NIB, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <p class="fa fa-university fa-2x Labels"></p>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.NIB, new { htmlAttributes = new { @class = "form-control", placeholder = "IBAN" } })
-                        @Html.ValidationMessageFor(model => model.NIB, "", new { @class = "text-danger" })
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Editar @Model.NomeCliente</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Settings 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <!-- Client details -->
+                        <!--OUTROS-->
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Cliente<span style="float: right;"><a href="#outros" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+                                <div class="panel-body" id="outros">
+
+                                    <button type="submit" class="btn btn-success" onclick="return confirm('Tem a certeza que deseja guardar @Model.NomeCliente ?')">
+                                        <span class="fa fa-save"></span> Guardar
+                                    </button>
+
+                                    <a href="@Url.Action("Index","Clientes")" class="btn btn-small btn-warning">
+                                        <i class="ace-icon fa fa-ban"></i>
+                                        <span class="bold">Cancelar</span>
+                                    </a>
+
+                                    @Html.EditorFor(model => model.ClienteRainbow,
+                             new
+                             {
+                                 htmlAttributes =
+                             new { data_toggle = "toggle", data_on = "É cliente RB", data_off = "Não é cliente RB", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+                             })
+
+                                    @Html.EditorFor(model => model.ElegivelParaRecrutamento,
+                             new
+                             {
+                                 htmlAttributes =
+                             new { data_toggle = "toggle", data_on = "Eligivel para recrutar", data_off = "Não eligivel para recrutar", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+                             })
+
+                                    @Html.EditorFor(model => model.ClientStatus,
+                                new
+                                {
+                                htmlAttributes =
+                                new { data_toggle = "toggle", data_on = "Cliente ativo", data_off = "Cliente inativo", type = "checkbox" }
+                                })
+
+                                    <div style="float:right;">@Html.EditorFor(model => model.RecomendadoPor, new { htmlAttributes = new { @class = "form-control", placeholder = "Recomendado por", title = "Recomendado por" } })</div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--DADOS GERAIS-->
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                            <div class="panel panel-primary">
+
+                                <div class="panel-heading">Dados Gerais<span style="float: right;"><a href="#dadosgerais" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+                                <div class="panel-body" id="dadosgerais">
+
+                                    <div class="form-group">
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.EditorFor(model => model.NomeCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10 novoClienteMorada", placeholder = "Nome cliente" } })
+                                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                            @Html.ValidationMessageFor(model => model.NomeCliente, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6">
+                                            <input class="date-picker form-control col-md-7 col-xs-12 text-box single-line has-feedback-left camposNormais" data-val="true" data-val-date="The field Data Nascimento must be a date." id="DataNascimentoCliente" name="DataNascimentoCliente" type="date">
+                                            <span class="fa fa-birthday-cake form-control-feedback left" aria-hidden="true"></span>
+
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            @Html.EditorFor(model => model.IdadeCliente, new { htmlAttributes = new { @class = "form-control col-md-5 col-xs-5 camposNormais idade", placeholder = "Idade" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" data-toggle="tooltip" data-placement="top" title="Estado civil">
+                                        <div class="col-md-8 col-sm-8">
+
+                                            @Html.DropDownList("EstadoCivilId", null, htmlAttributes: new { @class = "form-control has-feedback-left estadoCivil", tabindex = "-1" })
+                                            <span class="fa fa-angellist form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group" data-toggle="tooltip" data-placement="top" title="Profissão">
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.DropDownList("ProfissaoId", null, htmlAttributes: new { @class = "form-control has-feedback-left profissao" })
+                                            <span class="fa fa-group form-control-feedback left" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Tooltip left"></span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--CONTACTOS-->
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Contactos<span style="float: right;"><a href="#contactos" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+                                <div class="panel-body" id="contactos">
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12">
+                                            @Html.EditorFor(model => model.MoradaCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10 novoClienteMorada", placeholder = "Morada" } })
+
+                                            <span class="fa fa-map-o form-control-feedback left" aria-hidden="true"></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4 col-sm-4">
+                                            @Html.EditorFor(model => model.CodigoPostalCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "CP" } })
+
+                                            <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
+
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.EditorFor(model => model.Localidade, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "Localidade" } })
+
+                                            <span class="fa fa-map-pin form-control-feedback right" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6">
+                                            @Html.EditorFor(model => model.TelemovelCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "Telemóvel" } })
+                                            @Html.ValidationMessageFor(model => model.TelemovelCliente, "", new { @class = "text-danger" })
+                                            <span class="fa fa-mobile form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            @Html.EditorFor(model => model.ContactoAlternativoCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "Contacto Alternativo" } })
+                                            <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6">
+                                            @Html.EditorFor(model => model.EmailCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left", placeholder = "Email" } })
+                                            <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--DADOS BANCÁRIOS-->
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Dados bancários<span style="float: right;"><a href="#dadosbancarios" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+                                <div class="panel-body" id="dadosbancarios">
+
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12">
+                                            @Html.EditorFor(model => model.NIB, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10 novoClienteMorada", placeholder = "IBAN" } })
+
+                                            <span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--NOTAS-->
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Notas<span style="float: right;"><a href="#notas" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+                                <div class="panel-body" id="notas">
+                                    <div class="form-group">
+                                        @*@Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control has-feedback-left notas", placeholder = "Notas" } })
+                                                <span class="fa fa-comment-o form-control-feedback left" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Client Details -->
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!--NOTAS-->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Notas<span style="float: right;"><a href="#notas" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
-            <div class="panel-body" id="notas">
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control Notas", placeholder = "NOTAS" } })
-                        @Html.ValidationMessageFor(model => model.Obs, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*<div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>*@
 </div>
+    <!-- /page content -->
 }
 
-@*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
 
-    
+    <!-- FastClick -->
+    <script src="~/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/vendors/nprogress/nprogress.js"></script>
+    <!-- jQuery Smart Wizard -->
+    <script src="~/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+    <!-- Custom Theme Scripts -->
+    @*<script src="/build/js/custom.min.js"></script>*@
+
+
+    <!-- bootstrap-progressbar -->
+    <script src="~/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/vendors/iCheck/icheck.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="~/vendors/moment/min/moment.min.js"></script>
+    <script src="~/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-wysiwyg -->
+    <script src="~/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="~/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+    <script src="~/vendors/google-code-prettify/src/prettify.js"></script>
+    <!-- jQuery Tags Input -->
+    <script src="~/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+    <!-- Switchery -->
+    <script src="~/vendors/switchery/dist/switchery.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/vendors/select2/dist/js/select2.full.min.js"></script>
+    <!-- Parsley -->
+    <script src="~/vendors/parsleyjs/dist/parsley.min.js"></script>
+    <!-- Autosize -->
+    <script src="~/vendors/autosize/dist/autosize.min.js"></script>
+    <!-- jQuery autocomplete -->
+    <script src="~/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+    <!-- starrr -->
+    <script src="~/vendors/starrr/dist/starrr.js"></script>
+
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
     <script>
-
-        $(document).ready(function () {
-
-            // Connect to 'change' event in order to toggle glyphs
-
-            $("[type='checkbox']").change(function () {
-
-                if ($(this).prop('checked')) {
-
-                    $(this).prev().addClass('glyphicon-ok-circle');
-
-                    $(this).prev().removeClass('glyphicon-unchecked');
-
+        $(function () {
+            $("#delete_button").click(function () {
+                if (confirm("Click OK to continue?")) {
+                    $('form#delete').submit();
                 }
-
-                else {
-
-                    $(this).prev().removeClass('glyphicon-ok-circle');
-
-                    $(this).prev().addClass('glyphicon-unchecked');
-
-                }
-
             });
-
         });
-
-
-     
     </script>
-
-
 }
+

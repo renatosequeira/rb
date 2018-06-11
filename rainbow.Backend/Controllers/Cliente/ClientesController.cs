@@ -9,6 +9,7 @@
     using System;
     using System.Linq;
     using System.Web.Routing;
+    using System.Web.Helpers;
 
     [Authorize]
     public class ClientesController : Controller
@@ -101,6 +102,8 @@
             // Go back to the year the person was born in case of a leap year
             if (cliente.DataNascimentoCliente > today.AddYears(idade)) idade--;
 
+            cliente.TitleId = 1;
+
             if (ModelState.IsValid)
             {
                 cliente.ClientStatus = true;
@@ -109,6 +112,8 @@
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
 
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", cliente.EstadoCivilId);
             ViewBag.ProfissaoId = new SelectList(db.Profissaos, "ProfissaoId", "NomeProfissao", cliente.ProfissaoId);
@@ -170,6 +175,8 @@
                 cliente.DataNascimentoCliente = OldBirthDate;
             }
 
+            cliente.TitleId = 1;
+
             if (ModelState.IsValid)
             {
             
@@ -178,6 +185,9 @@
                 //return RedirectToAction("Index");
                 return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = cliente.ClientId }));
             }
+
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", cliente.EstadoCivilId);
             ViewBag.ProfissaoId = new SelectList(db.Profissaos, "ProfissaoId", "NomeProfissao", cliente.ProfissaoId);
             ViewBag.TitleId = new SelectList(db.Titles, "TitleId", "TitleName", cliente.TitleId);
@@ -217,6 +227,57 @@
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult DemosChart()
+        {
+
+            var demos = db.Demonstracaos.Where(d => d.DemoFinalizada == true );
+
+            int demosAbril = 0;
+            int demosMaio = 0;
+            int demosJunho = 0;
+            int demosJulho = 0;
+
+
+            foreach (var item in demos)
+            {
+                int mes = item.DataMarcacao.Month;
+
+                switch (mes)
+                {
+                    case 4:
+                        demosAbril++;
+                        break;
+
+                    case 5:
+                        demosMaio++;
+                        break;
+
+                    case 6:
+                        demosJunho++;
+                        break;
+
+                    case 7:
+                        demosJulho++;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            new Chart(width: 800, height: 200).AddSeries(chartType: "column",
+                xValue: new[] { "Abril","Maio", "Junho", "Julho" },
+                yValues: new[] { demosAbril, demosMaio, demosJulho, demosJulho }).Write("png").AddSeries(chartType: "column",
+                xValue: new[] { "Abril", "Maio", "Junho", "Julho" },
+                yValues: new[] { demosMaio, demosMaio, demosJulho, demosJulho }).Write("png");
+
+            new Chart(width: 800, height: 200).AddSeries(chartType: "column",
+    xValue: new[] { "Abril", "Maio", "Junho", "Julho" },
+    yValues: new[] { demosAbril, demosMaio, demosJulho, demosJulho }).Write("png");
+
+            return null;
         }
     }
 }

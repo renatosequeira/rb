@@ -1,382 +1,322 @@
 ﻿@model rainbow.Domain.Client.Cliente
 
+
 @{
+    /**/
+
     ViewBag.Title = "Novo cliente";
 }
 
-<style>
-    .NomeField {
-        max-width: 100%;
-        display: block;
-        width: 90%;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
+<!-- Bootstrap -->
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 
-    .TitleSelector {
-        margin-right: 5px;
-        float: left;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
 
-    .DataNascimentoField {
-        float: left;
-        margin-right: 5px;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-wysiwyg -->
+@*<link href="~/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">*@
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+<!-- Switchery -->
+<link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+<!-- starrr -->
+<link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+<!-- bootstrap-daterangepicker -->
+<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-    .IdadeField {
-        float: left;
-        display: block;
-        width: 75px;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
-    .MoradaField {
-        max-width: 100%;
-        display: block;
-        width: 100%;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .TelemovelField {
-        margin-right: 5px;
-        float: left;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .ContactoAlternativoField {
-        float: left;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .LocalidadeField {
-        float: left;
-        display: block;
-        width: auto;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .CPField {
-        margin-right: 5px;
-        float: left;
-        display: block;
-        width: 100px;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-
-    .Notas {
-        max-width: 100% !important;
-        min-height: 50px;
-        float: left;
-        display: block;
-        width: 100%;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555555;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    }
-</style>
-
+<!--Custom styles-->
+<link href="~/Content/customStyles.css" rel="stylesheet" />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Novo cliente</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Clientes</h3>
+                </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-12">
-
-            <div class="panel panel-success ">
-
-                <div class="panel-heading">Dados gerais<span style="float: right;"><a href="#dadosGerais" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
-                <div class="panel-body" id="dadosGerais">
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            @Html.DropDownList("TitleId", null, htmlAttributes: new { @class = "TitleSelector" })
-                            @Html.EditorFor(model => model.NomeCliente, new { htmlAttributes = new { @class = "NomeField", placeholder = "Nome cliente", onchange = "OnChangeEvent()" } })
-                            @Html.ValidationMessageFor(model => model.NomeCliente, "", new { @class = "text-danger" })
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
 
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.DataNascimentoCliente, new { htmlAttributes = new { @class = "DataNascimentoField" } })
-                            @Html.EditorFor(model => model.IdadeCliente, new { htmlAttributes = new { @class = "IdadeField", placeholder = "Idade" } })
-                            @Html.ValidationMessageFor(model => model.DataNascimentoCliente, "", new { @class = "text-danger" })
+            <div class="row">
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Novo cliente</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="#">Settings 1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
                         </div>
-                    </div>
+                        <div class="x_content">
 
-                    <div class="form-group">
+                            @*<h2>Example: Vertical Style</h2>*@
 
-                        <div class="col-md-10">
-                            @Html.DropDownList("EstadoCivilId", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.EstadoCivilId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                            <!-- Tabs -->
+                            <div id="wizard_verticle" class="form_wizard wizard_verticle">
+                                <ul class="list-unstyled wizard_steps">
+                                    <li>
+                                        <a href="#step-11">
+                                            <span class="step_no">1</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-22">
+                                            <span class="step_no">2</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-33">
+                                            <span class="step_no">3</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-44">
+                                            <span class="step_no">4</span>
+                                        </a>
+                                    </li>
+                                </ul>
 
-                    <div class="form-group">
+                                <div id="step-11">
+                                    <h2 class="StepTitle">Informação pessoal</h2>
+                                    <form class="form-horizontal form-label-left">
 
-                        <div class="col-md-10">
-                            @Html.DropDownList("ProfissaoId", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.ProfissaoId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                                        <span class="section">Insira as informações pessoais do cliente</span>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ElegivelParaRecrutamento, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            <div class="checkbox">
-                                @Html.EditorFor(model => model.ElegivelParaRecrutamento)
-                                @Html.ValidationMessageFor(model => model.ElegivelParaRecrutamento, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-sm-8">
+                                                <input class="form-control col-md-7 col-xs-12 text-box single-line has-feedback-left camposNormais" data-val="true" data-val-maxlength="The field Nome is limited to 50 characters lenght!" data-val-maxlength-max="50" data-val-required="The field Nome is required!" id="NomeCliente" name="NomeCliente" onchange="OnChangeEvent()" placeholder="Nome cliente" type="text" value="">
+                                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                                @Html.ValidationMessageFor(model => model.NomeCliente, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6">
+                                                <input class="date-picker form-control col-md-7 col-xs-12 text-box single-line has-feedback-left camposNormais" data-val="true" data-val-date="The field Data Nascimento must be a date." id="DataNascimentoCliente" name="DataNascimentoCliente" type="date">
+                                                <span class="fa fa-birthday-cake form-control-feedback left" aria-hidden="true"></span>
+
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                @Html.EditorFor(model => model.IdadeCliente, new { htmlAttributes = new { @class = "form-control col-md-5 col-xs-5 camposNormais idade", placeholder = "Idade" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" data-toggle="tooltip" data-placement="top" title="Estado civil">
+                                            <div class="col-md-8 col-sm-8">
+
+                                                @Html.DropDownList("EstadoCivilId", null, htmlAttributes: new { @class = "form-control has-feedback-left estadoCivil", tabindex = "-1" })
+                                                <span class="fa fa-angellist form-control-feedback left" aria-hidden="true"></span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group" data-toggle="tooltip" data-placement="top" title="Profissão">
+                                            <div class="col-md-8 col-sm-8">
+                                                @Html.DropDownList("ProfissaoId", null, htmlAttributes: new { @class = "form-control has-feedback-left profissao" })
+                                                <span class="fa fa-group form-control-feedback left" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Tooltip left"></span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12 col-sm-12">
+                                                @Html.EditorFor(model => model.ElegivelParaRecrutamento,
+                                                  new
+                                                  {
+                                                      htmlAttributes =
+                                                  new { data_toggle = "toggle", data_on = "Recrutar", data_off = "Não recrutar", data_onstyle = "success", data_offstyle = "danger", type = "checkbox" }
+                                                  })
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div id="step-22">
+                                    <h2 class="StepTitle">Contactos</h2>
+
+
+                                    <span class="section">Insira as informações de contacto do cliente</span>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12 col-sm-12">
+                                            @Html.EditorFor(model => model.MoradaCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10 novoClienteMorada", placeholder = "Morada" } })
+
+                                            <span class="fa fa-map-o form-control-feedback left" aria-hidden="true"></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4 col-sm-4">
+                                            @Html.EditorFor(model => model.CodigoPostalCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "CP" } })
+
+                                            <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
+
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            @Html.EditorFor(model => model.Localidade, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "Localidade" } })
+
+                                            <span class="fa fa-map-pin form-control-feedback right" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6">
+                                            @Html.EditorFor(model => model.TelemovelCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "Telemóvel" } })
+                                            @Html.ValidationMessageFor(model => model.TelemovelCliente, "", new { @class = "text-danger" })
+                                            <span class="fa fa-mobile form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            @Html.EditorFor(model => model.ContactoAlternativoCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "Contacto Alternativo" } })
+                                            <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6">
+                                            @Html.EditorFor(model => model.EmailCliente, new { htmlAttributes = new { @class = "form-control has-feedback-left", placeholder = "Email" } })
+                                            <span class="fa fa-at form-control-feedback left" aria-hidden="true"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div id="step-33">
+                                    <h2 class="StepTitle">Notas</h2>
+                                    <span class="section">Deseja inserir notas relacionadas com o cliente?</span>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control has-feedback-left notas", placeholder = "Notas" } })
+                                            <span class="fa fa-comment-o form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="step-44">
+                                    <h2 class="StepTitle">Política de privacidade</h2>
+                                    <p>Ao submeter este registo, afirmo que o tratamento de todos os dados que nele constam, foram autorizados pelo cliente, e que serão válidos apenas para campanhas relacionadas com 
+                                    o objetivo que nos levou a contactar o cliente.
+                                    </p>
+
+                                    <p>
+                                        Em circunstancia alguma, este contacto será fornecido a terceiros, que não diretamente relacionados com tratamento, manutenção dos objetos tratados pelo âmbito deste serviço.
+                                    </p>
+                                </div>
                             </div>
+                            <!-- End SmartWizard Content -->
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
 
-
-        <div class="col-lg-12 col-md-12 col-sm-12">
-
-            <div class="panel panel-success ">
-
-                <div class="panel-heading">Contactos cliente<span style="float: right;"><a href="#contactosCliente" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
-                <div class="panel-body" id="contactosCliente">
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            @Html.EditorFor(model => model.MoradaCliente, new { htmlAttributes = new { @class = "MoradaField", placeholder = "Morada" } })
-                            @Html.ValidationMessageFor(model => model.MoradaCliente, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.CodigoPostalCliente, new { htmlAttributes = new { @class = "CPField", placeholder = "CP" } })
-                            @Html.EditorFor(model => model.Localidade, new { htmlAttributes = new { @class = "LocalidadeField", placeholder = "Localidade" } })
-                            @Html.ValidationMessageFor(model => model.Localidade, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            @Html.EditorFor(model => model.TelemovelCliente, new { htmlAttributes = new { @class = "TelemovelField", placeholder = "Telemóvel" } })
-                            @Html.EditorFor(model => model.ContactoAlternativoCliente, new { htmlAttributes = new { @class = "ContactoAlternativoField", placeholder = "Contacto alternativo" } })
-                            @Html.ValidationMessageFor(model => model.TelemovelCliente, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.EmailCliente, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
-                            @Html.ValidationMessageFor(model => model.EmailCliente, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="col-lg-12 col-md-12 col-sm-12" style="clear:both; width:100% !important;">
-
-            <div class="panel panel-success ">
-
-                <div class="panel-heading">Notas<span style="float: right;"><a href="#notas" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
-                <div class="panel-body" id="notas">
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "Notas", placeholder = "Notas" } })
-                            @Html.ValidationMessageFor(model => model.Obs, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
     </div>
+    <!-- /page content -->
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
 
-    <script type="text/javascript">
-    $('#TelemovelCliente').change(function () {
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- jQuery Smart Wizard -->
+    <script src="../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+    <!-- Custom Theme Scripts -->
+    @*<script src="/build/js/custom.min.js"></script>*@
 
-        $("#id").val().length;
 
-        if $('#TelemovelCliente').val.length >= 0 {
+    <!-- bootstrap-progressbar -->
+    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-wysiwyg -->
+    <script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+    <script src="../vendors/google-code-prettify/src/prettify.js"></script>
+    <!-- jQuery Tags Input -->
+    <script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+    <!-- Switchery -->
+    <script src="../vendors/switchery/dist/switchery.min.js"></script>
+    <!-- Select2 -->
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <!-- Parsley -->
+    <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+    <!-- Autosize -->
+    <script src="../vendors/autosize/dist/autosize.min.js"></script>
+    <!-- jQuery autocomplete -->
+    <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+    <!-- starrr -->
+    <script src="../vendors/starrr/dist/starrr.js"></script>
 
-        }
-    alert('Changed!');
-    @*@Model.IsChanged = true;*@
-});
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
+
+    <script>
+                //$().DataTable();
     </script>
 
-    <script type="text/javascript">
- function OnChangeEvent(nome){
-    alert("value is changed" + nome);
-    @*@Model.IsChanged = true;*@
- }
-    </script>
+    @*<script>
+            function init_daterangepicker_single_call() {
+
+
+                $('#DataNascimentoCliente').daterangepicker({
+                    singleDatePicker: true,
+                    singleClasses: "picker_1"
+                }, function (start, end, label) {
+                    console.log(start.toISOString(), end.toISOString(), label);
+                });
+
+            }
+        </script>*@
+
 }
+

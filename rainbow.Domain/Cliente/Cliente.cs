@@ -86,7 +86,7 @@
         public virtual Profissao Profissao { get; set; }
 
         [Display(Name = "Título")]
-        public int TitleId { get; set; }
+        public int? TitleId { get; set; }
         [JsonIgnore]
         public virtual Title Title { get; set; }
 

@@ -20,6 +20,8 @@
     using NPOI.SS.UserModel;
     using NPOI.XSSF.UserModel;
     using NPOI.HSSF.UserModel;
+    using rainbow.Backend.Algoritmos;
+    using Algoritmos;
 
     [Authorize]
     public class RecomendacoesController : Controller
@@ -205,6 +207,11 @@
             WriteExcelWithNPOI(dt, "xlsx");
         }
 
+        public void CalcQualificacao(int idade, int estadoCivil, string telemovel)
+        {
+            var CalculoDeQualificacao = new CalculoDeQualificacao();
+            CalculoDeQualificacao.CalcularQualificacao(idade, estadoCivil,telemovel);
+        }
 
         // GET: Recomendacoes
         public async Task<ActionResult> Index(bool? okParaContactar, bool? DemoMarcada, bool? demoExecutada)
