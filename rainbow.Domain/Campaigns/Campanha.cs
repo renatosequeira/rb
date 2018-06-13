@@ -19,7 +19,7 @@
         public DateTime DataInicioCampanha { get; set; }
 
         [Display(Name = "Data Fim")]
-        public DateTime DataFimCampanha { get; set; }
+        public DateTime? DataFimCampanha { get; set; }
 
         [Display(Name = "Estado campanha")]
         public bool EstadoCampanha { get; set; }

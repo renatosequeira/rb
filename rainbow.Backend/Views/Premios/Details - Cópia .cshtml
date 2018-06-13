@@ -1,0 +1,58 @@
+﻿@model rainbow.Domain.Premios.Premio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Premio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DescricaoPremio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoPremio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInicioPremio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInicioPremio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFimPremio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFimPremio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoPremio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoPremio)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PremioId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

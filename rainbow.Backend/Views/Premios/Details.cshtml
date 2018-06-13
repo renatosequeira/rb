@@ -4,55 +4,181 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<!-- Bootstrap -->
+<link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- Datatables -->
+<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
-<div>
-    <h4>Premio</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DescricaoPremio)
-        </dt>
+<!-- Custom Theme Style -->
+<link href="~/build/css/custom.min.css" rel="stylesheet">
 
-        <dd>
-            @Html.DisplayFor(model => model.DescricaoPremio)
-        </dd>
+<!--Custom styles-->
+<link href="~/Content/customStyles.css" rel="stylesheet" />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Obs)
-        </dt>
+<link href="https://code.highcharts.com/css/highcharts.css" rel="stylesheet" />
 
-        <dd>
-            @Html.DisplayFor(model => model.Obs)
-        </dd>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left" style="margin-top:10px;">
+                <h3 style="font-size:30px;" class="label label-success">Definições</h3>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataInicioPremio)
-        </dt>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataInicioPremio)
-        </dd>
+        <div class="clearfix"></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataFimPremio)
-        </dt>
+        <!--INFORMAÇÕES GENÉRICAS-->
+        <div class="row">
 
-        <dd>
-            @Html.DisplayFor(model => model.DataFimPremio)
-        </dd>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 style="font-size:20px;" class="label label-info">Detalhes de @Model.DescricaoPremio</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EstadoPremio)
-        </dt>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i style="color:darkorange;" class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="/Campanhas/Edit/@Model.PremioId">Editar campanha @Model.DescricaoPremio</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Campanhas/Delete/@Model.PremioId">Apagar @Model.DescricaoPremio</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.EstadoPremio)
-        </dd>
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Detalhes</a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
 
-    </dl>
+                                <div class="clearfix"></div>
+
+                                <!--DETALHES-->
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                    <dl class="dl-horizontal">
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.DescricaoPremio)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.DescricaoPremio)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.Obs)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.Obs)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.DataInicioPremio)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.DataInicioPremio)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.DataFimPremio)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.DataFimPremio)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.EstadoPremio)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.EstadoPremio)
+                                        </dd>
+
+                                    </dl>
+                                </div>
+                                <!--/DETALHES-->
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PremioId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+
+@section Scripts {
+
+    <script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="~/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.popupimage').click(function (event) {
+                event.preventDefault();
+                $('.modal img').attr("src", $(this).attr("href"));
+                $('.modal').modal('show');
+            });
+        });
+    </script>
+}

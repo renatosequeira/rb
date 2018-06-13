@@ -20,7 +20,7 @@
         public string TelemovelMarcador { get; set; }
 
         [Display(Name = "Estado")]
-        public string EstadoMarcador { get; set; }
+        public bool EstadoMarcador { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Demonstracao> Demonstracoes { get; set; }

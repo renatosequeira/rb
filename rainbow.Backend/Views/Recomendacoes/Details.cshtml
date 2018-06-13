@@ -4,200 +4,444 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Recomendacao</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ContactoPrioritario)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContactoPrioritario)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EstadoCivil.NomeEstadoCivil)
-        </dt>
+<!-- Bootstrap -->
+<link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- Datatables -->
+<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
-        <dd>
-            @Html.DisplayFor(model => model.EstadoCivil.NomeEstadoCivil)
-        </dd>
+<!-- Custom Theme Style -->
+<link href="~/build/css/custom.min.css" rel="stylesheet">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RelacaoEntreContactos.DescricaoRelacao)
-        </dt>
+<!--Custom styles-->
+<link href="~/Content/customStyles.css" rel="stylesheet" />
 
-        <dd>
-            @Html.DisplayFor(model => model.RelacaoEntreContactos.DescricaoRelacao)
-        </dd>
+<link href="https://code.highcharts.com/css/highcharts.css" rel="stylesheet" />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title.TitleName)
-        </dt>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left" style="margin-top:10px;">
+                <h3 style="font-size:30px;" class="label label-success">@Model.Cliente.NomeCliente.ToUpper()</h3>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title.TitleName)
-        </dd>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NomeSr)
-        </dt>
+        <div class="clearfix"></div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NomeSr)
-        </dd>
+        <!--INFORMAÇÕES GENÉRICAS-->
+        <div class="row">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NomeSra)
-        </dt>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 style="font-size:20px;" class="label label-info">Recomendação: @Model.NomeSr</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
 
-        <dd>
-            @Html.DisplayFor(model => model.NomeSra)
-        </dd>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i style="color:darkorange;" class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="/Recomendacoes/Edit/@Model.RecomendacaoId">Editar recomendação @Model.NomeSr</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Recomendacoes/Delete/@Model.RecomendacaoId">Apagar demo de @Model.NomeSr</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IdadeSr)
-        </dt>
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Contacto principal</a>
+                                </li>
 
-        <dd>
-            @Html.DisplayFor(model => model.IdadeSr)
-        </dd>
+                                @{
+                                    if (!String.IsNullOrEmpty(Model.NomeSra))
+                                    {
+                                        <li role="presentation" class="">
+                                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Contacto secundário</a>
+                                        </li>
+                                    }
+                                }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IdadeSra)
-        </dt>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Demo</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content4" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Outros dados</a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
 
-        <dd>
-            @Html.DisplayFor(model => model.IdadeSra)
-        </dd>
+                                <div class="clearfix"></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TelemSr)
-        </dt>
+                                <!--CONTACTO PRINCIPAL-->
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                    <dl class="dl-horizontal dadosRecomendacoes">
 
-        <dd>
-            @Html.DisplayFor(model => model.TelemSr)
-        </dd>
+                                        <dt>
+                                            Idade:
+                                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TelemSra)
-        </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.IdadeSr)
+                                        </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TelemSra)
-        </dd>
+                                        <dt>
+                                            Estado civil:
+                                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfissaoSr)
-        </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.EstadoCivil.NomeEstadoCivil)
+                                        </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProfissaoSr)
-        </dd>
+                                        <dt>
+                                            Relação com cliente:
+                                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfisaoSra)
-        </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.RelacaoEntreContactos.DescricaoRelacao)
+                                        </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProfisaoSra)
-        </dd>
+                                        <dt>
+                                            Telemóvel:
+                                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Localidade)
-        </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.TelemSr)
+                                        </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Localidade)
-        </dd>
+                                        <dt>
+                                            Profissão:
+                                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contactado)
-        </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.ProfissaoSr)
+                                        </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contactado)
-        </dd>
+                                        <dt>
+                                            Localidade:
+                                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DemoMarcada)
-        </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.Localidade)
+                                        </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DemoMarcada)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Filhos)
-        </dt>
+                                    </dl>
+                                </div>
+                                <!--/CONTACTO PRINCIPAL-->
+                                <!--CONTACTO SECUNDÁRIO-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="tab">
+                                    <dl class="dl-horizontal dadosRecomendacoes">
+                                        <dt>
+                                            Nome:
+                                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Filhos)
-        </dd>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.NomeSra)
+                                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Animais)
-        </dt>
+                                        <dt>
+                                            Idade:
+                                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Animais)
-        </dd>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.IdadeSra)
+                                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Recrutamento)
-        </dt>
+                                        <dt>
+                                            Telemóvel:
+                                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Recrutamento)
-        </dd>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.TelemSra)
+                                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Obs)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Obs)
-        </dd>
+                                        <dt>
+                                            Profissão:
+                                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ClienteRB)
-        </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.ProfisaoSra)
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <!--/CONTACTO SECUNDÁRIO-->
 
-        <dd>
-            @Html.DisplayFor(model => model.ClienteRB)
-        </dd>
+                                <!--DEMO-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="tab">
+                                    <dl class="dl-horizontal dadosRecomendacoes">
+                                        <dt>
+                                            Demo marcada:
+                                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ClienteAceitouDemo)
-        </dt>
+                                        <dd>
+                                            @{
+                                                if (@Model.DemoMarcada)
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_up.png" data-toggle="tooltip" data-placement="top" title="Demo marcada" />
+                                                }
+                                                else
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_down.png" data-toggle="tooltip" data-placement="top" title="Demo não marcada" />
+                                                }
+                                            }
+                                        </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ClienteAceitouDemo)
-        </dd>
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.ClienteAceitouDemo)
+                                        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DemoExecutada)
-        </dt>
+                                        <dd>
+                                            @{
+                                                if (@Model.ClienteAceitouDemo)
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_up.png" data-toggle="tooltip" data-placement="top" title="Cliente aceitou demonstração" />
 
-        <dd>
-            @*@Html.DisplayFor(model => model.DemoExecutada)*@
-            @{
-        if (Model.DemoExecutada)
-        {
-            <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
-}
-else
-{
-        <img  style="width:25px;" title="Demo não executada" src="~/Content/Images/thumbs_down.png" />
-}
-            }
-        </dd>
-    </dl>
+                                                }
+                                                else
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_down.png" data-toggle="tooltip" data-placement="top" title="Cliente não aceitou demonstração" />
+                                                }
+                                            }
+
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.DemoExecutada)
+                                        </dt>
+
+                                        <dd>
+
+                                            @{
+                                                if (Model.DemoExecutada)
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_up.png"  data-toggle="tooltip" data-placement="top" title="Demonstração executada" />
+                                                }
+                                                else
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_down.png" data-toggle="tooltip" data-placement="top" title="Demonstração não executada" />
+                                                }
+                                            }
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <!--/DEMO-->
+
+                                <!--OUTROS DADOS-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="tab">
+                                    <dl class="dl-horizontal dadosRecomendacoes">
+
+                                        <dt>
+                                            Contacto prioritário:
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                if (Model.ContactoPrioritario)
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/dollar-sign.png" data-toggle="tooltip" data-placement="top" title="Cliente prioritário" />
+                                                }
+                                                else
+                                                {
+                                                    <p>Não</p>
+                                                }
+                                            }
+                                        </dd>
+
+
+                                        <dt>
+                                            Cliente contactado:
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                if (@Model.Contactado)
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_up.png" data-toggle="tooltip" data-placement="top" title="Cliente contactado" />
+                                                }
+                                                else
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_down.png" data-toggle="tooltip" data-placement="top" title="Cliente não contactado" />
+                                                }
+                                            }
+                                        </dd>
+
+                                       
+
+                                        <dt>
+                                            Filhos:
+                                        </dt>
+
+                                        <dd>
+
+                                            @{
+
+                                                if (@Model.Filhos)
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_up.png" data-toggle="tooltip" data-placement="top" title="Cliente tem filhos" />
+
+                                                }
+                                                else
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_down.png" data-toggle="tooltip" data-placement="top" title="Cliente não tem filhos" />
+                                                }
+                                            }
+
+                                        </dd>
+
+                                        <dt>
+                                            Animais:
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                if (@Model.Animais)
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_up.png" data-toggle="tooltip" data-placement="top" title="Cliente tem animais" />
+
+                                                }
+                                                else
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_down.png" data-toggle="tooltip" data-placement="top" title="Cliente não tem animais" />
+                                                }
+                                            }
+
+                                        </dd>
+
+                                        <dt>
+                                            Recrutamento:
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                if (@Model.Recrutamento)
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_up.png" data-toggle="tooltip" data-placement="top" title="Abordar cliente para recrutamento" />
+
+                                                }
+                                                else
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_down.png" data-toggle="tooltip" data-placement="top" title="Não abordar cliente para recrutamento" />
+                                                }
+                                            }
+
+                                        </dd>
+
+                                        <dt>
+                                            Cliente Rainbow:
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                if (@Model.ClienteRB)
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_up.png" data-toggle="tooltip" data-placement="top" title="Cliente tem Rainbow" />
+
+                                                }
+                                                else
+                                                {
+                                                    <img style="width:25px;" src="~/Content/Images/thumbs_down.png" data-toggle="tooltip" data-placement="top" title="Cliente não tem Rainbow" />
+                                                }
+                                            }
+                                        </dd>
+
+                                       
+
+                                        @{
+                                            if (!string.IsNullOrEmpty(Model.Obs))
+                                            {
+                                                <dt>
+                                                    Notas:
+                                                </dt>
+
+                                                <dd>
+                                                    @Html.DisplayFor(model => model.Obs)
+                                                </dd>
+                                            }
+                                        }
+
+                                    </dl>
+                                </div>
+
+                                <!--/OUTROS DADOS-->
+
+                            </div>
+                            </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RecomendacaoId }) |
-    @Html.ActionLink("Voltar", "Details", "Clientes", new { id = Model.ClientId }, new { @class = "btn btn-info btn-small" })
-</p>
+
+
+
+@section Scripts {
+
+    <script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="~/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.popupimage').click(function (event) {
+                event.preventDefault();
+                $('.modal img').attr("src", $(this).attr("href"));
+                $('.modal').modal('show');
+            });
+        });
+    </script>
+}

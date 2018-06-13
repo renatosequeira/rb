@@ -6591,6 +6591,7 @@
     <Content Include="Content\Images\dollar-sign.png" />
     <Content Include="Content\Images\finished_flag.png" />
     <Content Include="Content\Images\green-light.png" />
+    <Content Include="Content\Images\Logo.png" />
     <Content Include="Content\Images\Notes_180507_143741_948_1.jpg" />
     <Content Include="Content\Images\off.png" />
     <Content Include="Content\Images\on.png" />
@@ -11553,6 +11554,24 @@
     <Content Include="Views\Clientes\Details - Cópia .cshtml" />
     <Content Include="Views\Clientes\Edit - Cópia .cshtml" />
     <Content Include="Views\Demonstracoes\Create - Cópia .cshtml" />
+    <Content Include="Views\Demonstracoes\Edit - Cópia .cshtml" />
+    <Content Include="Views\Demonstracoes\Details - Cópia .cshtml" />
+    <Content Include="Views\Demonstracoes\Delete - Cópia .cshtml" />
+    <Content Include="Views\Recomendacoes\Create - Cópia .cshtml" />
+    <Content Include="Views\Recomendacoes\Details - Cópia .cshtml" />
+    <Content Include="Views\Recomendacoes\Edit - Cópia .cshtml" />
+    <Content Include="Views\Recomendacoes\Delete - Cópia .cshtml" />
+    <Content Include="Views\Account\Login - Cópia .cshtml" />
+    <Content Include="Views\Campanhas\Index - Cópia .cshtml" />
+    <Content Include="Views\Campanhas\Create - Cópia .cshtml" />
+    <Content Include="Views\Campanhas\Edit - Cópia .cshtml" />
+    <Content Include="Views\Campanhas\Details - Cópia .cshtml" />
+    <Content Include="Views\Campanhas\Delete - Cópia .cshtml" />
+    <Content Include="Views\Premios\Create - Cópia .cshtml" />
+    <Content Include="Views\Premios\Index - Cópia .cshtml" />
+    <Content Include="Views\Premios\Details - Cópia .cshtml" />
+    <Content Include="Views\Premios\Edit - Cópia .cshtml" />
+    <Content Include="Views\Premios\Delete - Cópia .cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

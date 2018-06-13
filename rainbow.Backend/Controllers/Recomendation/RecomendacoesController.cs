@@ -304,13 +304,28 @@
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 
+
+
                 var recomendacao = ToRecomendacao(view);
                 recomendacao.ScanFolhaDeContactos = pic;
+
+                List<object> teste = new List<object>();
+
+                foreach (var item in db.Demonstracaos.Where(c => c.ClientId == recomendacao.ClientId))
+                {
+                    teste.Add(item.DataMarcacao);
+                }
+
+                var ultimaData = teste.LastOrDefault();
+
+                recomendacao.DataRecomendacao = (DateTime)ultimaData;
+
+
 
                 db.Recomendacaos.Add(recomendacao);
                 await db.SaveChangesAsync();
                 //return RedirectToAction("Index");
-                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = recomendacao.ClientId}));
+                return RedirectToAction("Details", new RouteValueDictionary(new { controller = "Clientes", action = "Details", Id = InternalClientId}));
             }
 
             ViewBag.EstadoCivilId = new SelectList(db.EstadoCivils, "EstadoCivilId", "NomeEstadoCivil", view.EstadoCivilId);

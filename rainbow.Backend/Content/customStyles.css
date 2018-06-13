@@ -67,3 +67,77 @@
     background-color: #5bc0de;
     font-size:15px;
 }
+
+.Half12{
+    width:50%;
+}
+
+.dadosDemo dd {
+    margin-bottom: 20px;
+}
+
+.dl-horizontal-custom {
+    float: left !important;
+    width: 300px !important;
+    overflow: hidden !important;
+    clear: left;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.marginBottom15{
+    margin-bottom:15px;
+}
+
+/*MODAL DE IMAGEM*/
+.profile-img-container {
+    position: relative;
+    display: inline-block; /* added */
+    overflow: hidden; /* added */
+}
+
+.profile-img-container img {
+    width: 100%;
+}
+    /* remove if using in grid system */
+
+    .profile-img-container img:hover {
+        opacity: 0.5
+    }
+
+.profile-img-container:hover p {
+    opacity: 1; /* added */
+    top: 0; /* added */
+    z-index: 500;
+}
+    /* added */
+    .profile-img-container:hover p span {
+        top: 50%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+    }
+/* added */
+.profile-img-container p {
+    display: block;
+    position: absolute;
+    top: -100%;
+    opacity: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    color: inherit;
+}
+
+.active a span.fa {
+    text-align: right !important;
+    margin-right: 35px;
+}
+
+.dadosRecomendacoes dd {
+    margin-bottom: 20px;
+}
+/*/MODAL DE IMAGEM*/

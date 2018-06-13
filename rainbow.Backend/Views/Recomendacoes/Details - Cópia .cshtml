@@ -1,0 +1,203 @@
+﻿@model rainbow.Domain.Recomendation.Recomendacao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Recomendacao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactoPrioritario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactoPrioritario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoCivil.NomeEstadoCivil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoCivil.NomeEstadoCivil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RelacaoEntreContactos.DescricaoRelacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelacaoEntreContactos.DescricaoRelacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title.TitleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title.TitleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeSr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeSr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeSra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeSra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdadeSr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdadeSr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdadeSra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdadeSra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelemSr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelemSr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelemSra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelemSra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfissaoSr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfissaoSr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfisaoSra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfisaoSra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Localidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Localidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contactado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contactado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DemoMarcada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DemoMarcada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Filhos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Filhos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Animais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Animais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recrutamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recrutamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClienteRB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClienteRB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClienteAceitouDemo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClienteAceitouDemo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DemoExecutada)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.DemoExecutada)*@
+            @{
+        if (Model.DemoExecutada)
+        {
+            <img style="width:25px;" title="Demo executada" src="~/Content/Images/thumbs_up.png" />
+}
+else
+{
+        <img  style="width:25px;" title="Demo não executada" src="~/Content/Images/thumbs_down.png" />
+}
+            }
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RecomendacaoId }) |
+    @Html.ActionLink("Voltar", "Details", "Clientes", new { id = Model.ClientId }, new { @class = "btn btn-info btn-small" })
+</p>

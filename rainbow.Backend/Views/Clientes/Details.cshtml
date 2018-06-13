@@ -337,6 +337,10 @@
                                                 {
                                                     <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00" title="Cliente comprou em @dataUltimaCompra"></i>
                                                 }
+                                                else if (compras == 0 && Model.ClienteRainbow)
+                                                {
+                                                    <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00" title="Cliente de modelo antigo"></i>
+                                                }
                                                 else
                                                 {
                                                     <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkgray"></i>
@@ -584,7 +588,7 @@
                                         <a href="/Demonstracoes/Create?cltId=@Model.ClientId">Demonstração</a>
                                     </li>
                                     <li>
-                                        <a href="/Recomendacoes/Create?cltId=@Model.ClientId">Recomendação</a>
+                                        <a href="/Recomendacoes/Create?comp=@Model.ClientId">Recomendação</a>
                                     </li>
                                     <li>
                                         <a href="#">Venda</a>
@@ -792,8 +796,7 @@
 
                                                                 <li class="divider"></li>
                                                                 <li>
-                                                                    <a href="#" data-toggle="modal" data-target=".apagar-cliente-sm">Apagar demo de @demo.DataMarcacao.ToShortDateString()</a>
-                                                                    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>*@
+                                                                    <a href="/Demonstracoes/Delete/@demo.DemonstracaoId" data-backdrop="static" data-keyboard="false">Apagar demo de @demo.DataMarcacao.ToShortDateString()</a>
                                                                 </li>
                                                             </ul>
                                                         </div>

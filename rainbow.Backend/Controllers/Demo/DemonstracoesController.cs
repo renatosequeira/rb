@@ -57,8 +57,8 @@
         {
             InternalClientId = cltId;
 
-            ViewBag.CampanhaId = new SelectList(db.Campanhas, "CampanhaId", "DescricaoCampanha");
-            ViewBag.MarcadorId = new SelectList(db.Marcadors, "MarcadorId", "NomeMarcador");
+            ViewBag.CampanhaId = new SelectList(db.Campanhas.Where(c => c.EstadoCampanha == true), "CampanhaId", "DescricaoCampanha");
+            ViewBag.MarcadorId = new SelectList(db.Marcadors.Where(m => m.EstadoMarcador == true), "MarcadorId", "NomeMarcador");
             ViewBag.PremioId = new SelectList(db.Premios, "PremioId", "DescricaoPremio");
             ViewBag.TipoVisitaId = new SelectList(db.TipoVisitas, "TipoVisitaId", "NomeTipoVisita");
             ViewBag.ccc = cltId;
@@ -182,9 +182,9 @@
             }
 
             ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente", demonstracao.ClientId);
-            ViewBag.CampanhaId = new SelectList(db.Campanhas, "CampanhaId", "DescricaoCampanha", demonstracao.CampanhaId);
+            ViewBag.CampanhaId = new SelectList(db.Campanhas.Where(c => c.EstadoCampanha == true), "CampanhaId", "DescricaoCampanha", demonstracao.CampanhaId);
             ViewBag.MarcadorId = new SelectList(db.Marcadors, "MarcadorId", "NomeMarcador", demonstracao.MarcadorId);
-            ViewBag.PremioId = new SelectList(db.Premios, "PremioId", "DescricaoPremio", demonstracao.PremioId);
+            ViewBag.PremioId = new SelectList(db.Premios.Where(p => p.EstadoPremio == true), "PremioId", "DescricaoPremio", demonstracao.PremioId);
             ViewBag.TipoVisitaId = new SelectList(db.TipoVisitas, "TipoVisitaId", "NomeTipoVisita", demonstracao.TipoVisitaId);
 
             var view = ToView(demonstracao);

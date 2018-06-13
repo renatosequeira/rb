@@ -1,0 +1,50 @@
+﻿@model rainbow.Domain.Campaigns.Campanha
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Campanha</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DescricaoCampanha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoCampanha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInicioCampanha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInicioCampanha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFimCampanha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFimCampanha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoCampanha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoCampanha)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CampanhaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

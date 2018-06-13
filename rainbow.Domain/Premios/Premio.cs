@@ -22,7 +22,7 @@
         public DateTime DataInicioPremio { get; set; }
 
         [Display(Name = "Data Fim")]
-        public DateTime DataFimPremio { get; set; }
+        public DateTime? DataFimPremio { get; set; }
 
         [Display(Name = "Estado premio")]
         public bool EstadoPremio { get; set; }

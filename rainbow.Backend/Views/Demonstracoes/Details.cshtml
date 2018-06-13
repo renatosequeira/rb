@@ -4,313 +4,448 @@
     ViewBag.Title = "Details";
 }
 
-<style>
-    .profile-img-container {
-        position: relative;
-        display: inline-block; /* added */
-        overflow: hidden; /* added */
-    }
-
-        .profile-img-container img {
-            width: 100%;
-        }
-            /* remove if using in grid system */
-
-            .profile-img-container img:hover {
-                opacity: 0.5
-            }
-
-        .profile-img-container:hover p {
-            opacity: 1; /* added */
-            top: 0; /* added */
-            z-index: 500;
-        }
-            /* added */
-            .profile-img-container:hover p span {
-                top: 50%;
-                position: absolute;
-                left: 0;
-                right: 0;
-                transform: translateY(-50%);
-            }
-        /* added */
-        .profile-img-container p {
-            display: block;
-            position: absolute;
-            top: -100%;
-            opacity: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            text-align: center;
-            color: inherit;
-        }
-</style>
-
-<h2>Details</h2>
-
-@using (Html.BeginForm("UrlReferrer"))
-{
-
-    <div>
-        <h4>Demonstracao</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Campanha.DescricaoCampanha)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Campanha.DescricaoCampanha)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Marcador.NomeMarcador)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Marcador.NomeMarcador)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Premio.DescricaoPremio)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Premio.DescricaoPremio)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.TipoVisita.NomeTipoVisita)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TipoVisita.NomeTipoVisita)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DataMarcacao)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DataMarcacao)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DemoFinalizada)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DemoFinalizada)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.RazaoNaoFinalizacao)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.RazaoNaoFinalizacao)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ClienteComprou)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ClienteComprou)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.IdentificacaoVenda)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IdentificacaoVenda)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.RazaoNaoCompra)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.RazaoNaoCompra)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ConvidadoParaCasaAberta)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ConvidadoParaCasaAberta)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ClienteAceitouConviteParaCasaAberta)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ClienteAceitouConviteParaCasaAberta)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SucessoRecrutamento)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SucessoRecrutamento)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DemoStatus)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DemoStatus)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Obs)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Obs)
-            </dd>
-
-            <dd>
-                @{
-                    if (!string.IsNullOrEmpty(Model.ImagemFichaDeDemo))
-                    {
-
-                        <a class="popupimage" href="@Url.Content(Model.ImagemFichaDeDemo)">
-                            <div class="profile-img-container">
-                                <img title="Ficha de Demo" class="img-thumbnail img-responsive" src="@Url.Content(Model.ImagemFichaDeDemo)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                                <p><span title="Ficha de Demo" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
-                            </div>
-                        </a>
 
 
-                        @*<a class="popupimage" href="@Url.Content(Model.ImagemFichaDeDemo)">ver</a>*@
-                    }
 
+<!-- Bootstrap -->
+<link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- Datatables -->
+<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
-                }
+<!-- Custom Theme Style -->
+<link href="~/build/css/custom.min.css" rel="stylesheet">
 
-            </dd>
+<!--Custom styles-->
+<link href="~/Content/customStyles.css" rel="stylesheet" />
 
-            <dd>
-                @{
-                    if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes))
-                    {
+<link href="https://code.highcharts.com/css/highcharts.css" rel="stylesheet" />
 
-                        <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes)">
-                            <div class="profile-img-container">
-                                <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                                <p><span title="Ficha de recomendações - Página 1" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
-                            </div>
-                        </a>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left" style="margin-top:10px;">
+                <h3 style="font-size:30px;" class="label label-success">@Model.Cliente.NomeCliente.ToUpper()</h3>
+            </div>
 
-
-                        @*<a class="popupimage" href="@Url.Content(Model.ImagemFichaDeDemo)">ver</a>*@
-                    }
-
-
-                }
-
-            </dd>
-
-
-            <dd>
-                @{
-                    if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes1))
-                    {
-
-                        <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes1)">
-                            <div class="profile-img-container">
-                                <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes1)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                                <p><span title="Ficha de recomendações - Página 2" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
-                            </div>
-                        </a>
-
-                    }
-                }
-
-            </dd>
-
-            <dd>
-                @{
-                    if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes2))
-                    {
-
-                        <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes2)">
-                            <div class="profile-img-container">
-                                <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes2)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                                <p><span title="Ficha de recomendações - Página 3" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
-                            </div>
-                        </a>
-
-                    }
-                }
-
-            </dd>
-
-            <dd>
-                @{
-                    if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes3))
-                    {
-
-                        <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes3)">
-                            <div class="profile-img-container">
-                                <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes3)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                                <p><span title="Ficha de recomendações - Página 4" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
-                            </div>
-                        </a>
-
-                    }
-                }
-
-            </dd>
-
-            <dd>
-                <div class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <img src='' class="img-responsive" width="100%" />
-                        </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
                     </div>
                 </div>
-            </dd>
+            </div>
+        </div>
 
-        </dl>
+        <div class="clearfix"></div>
+
+        <!--INFORMAÇÕES GENÉRICAS-->
+        <div class="row">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 style="font-size:20px;" class="label label-info">Demonstração de @Model.DataMarcacao.ToShortDateString()</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i style="color:darkorange;" class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="/Demonstracoes/Edit/@Model.DemonstracaoId">Editar demo de @Model.DataMarcacao.ToShortDateString()</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Demonstracoes/Delete/@Model.DemonstracaoId">Apagar demo de @Model.DataMarcacao.ToShortDateString()</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Detalhes</a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+
+                                <div class="clearfix"></div>
+
+                                <!--DETALHES-->
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                    <dl class="dl-horizontal dadosDemo">
+                                        <dt>
+                                            Campanha aberta
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.Campanha.DescricaoCampanha)
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.Marcador.NomeMarcador)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.Marcador.NomeMarcador)
+                                        </dd>
+
+                                        <dt>
+                                            Prémio entregue
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.Premio.DescricaoPremio)
+                                        </dd>
+
+                                        <dt>
+                                            Tipo de visita
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.TipoVisita.NomeTipoVisita)
+                                        </dd>
+
+
+
+                                        <dt>
+                                            Demo executada?
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                if (@Model.DemoFinalizada)
+                                                {
+                                                    <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkgray"></i>
+                                                }
+                                            }
+                                        </dd>
+
+                                        @{
+                                            if (!Model.DemoFinalizada)
+                                            {
+                                                int diferença = DateTime.Today.Day - Model.DataMarcacao.Day;
+                                                if (Model.DataMarcacao > DateTime.Today)
+                                                {
+                                                    <dt>Faltam </dt>
+                                                    <dd>@diferença dias</dd>
+                                                }
+                                                else
+                                                {
+                                                    string razao = @Model.RazaoNaoFinalizacao;
+                                                    <dt>Demo não finalizada por </dt>
+                                                    <dd>
+                                                        @if (string.IsNullOrEmpty(razao))
+                                                        {
+                                                            <p>Razões desconhecidas</p>
+                                                        }
+                                                        else
+                                                        {
+                                                            @razao;
+                                                        }
+                                                    </dd>
+                                                }
+
+                                            }
+                                        }
+
+
+
+                                        <dt>
+                                            Cliente comprou?
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                if (@Model.ClienteComprou)
+                                                {
+                                                    <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkgray"></i>
+                                                }
+                                            }
+                                        </dd>
+
+                                        @{
+                                            if (Model.ClienteComprou && DateTime.Today >= Model.DataMarcacao)
+                                            {
+                                                <dt>
+                                                    ID da venda
+                                                </dt>
+
+                                                <dd>
+                                                    @Html.DisplayFor(model => model.IdentificacaoVenda)
+                                                </dd>
+                                            }
+                                            else
+                                            {
+                                                <dt title="Cliente não comprou porque">
+                                                    Cliente não comprou porque
+                                                </dt>
+
+                                                <dd>
+                                                    @Html.DisplayFor(model => model.RazaoNaoCompra)
+                                                </dd>
+                                            }
+                                        }
+
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.ConvidadoParaCasaAberta)
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                if (@Model.ConvidadoParaCasaAberta)
+                                                {
+                                                    <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkgray"></i>
+                                                }
+                                            }
+                                        </dd>
+
+                                        @{
+                                            if (Model.ConvidadoParaCasaAberta)
+                                            {
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.ClienteAceitouConviteParaCasaAberta)
+                                                </dt>
+
+                                                <dd>
+                                                    @if (@Model.ClienteAceitouConviteParaCasaAberta)
+                                                    {
+                                                        <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkgray"></i>
+                                                    }
+                                                </dd>
+                                            }
+                                        }
+
+
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.SucessoRecrutamento)
+                                        </dt>
+
+                                        <dd>
+                                            @if (@Model.SucessoRecrutamento)
+                                            {
+                                                <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true" style="color:#00bb00"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true" style="color: darkgray"></i>
+                                            }
+                                        </dd>
+
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.DemoStatus)
+                                        </dt>
+
+                                        <dd>
+                                            @{
+                                                if (Model.DemoStatus)
+                                                {
+                                                    <i class="fa fa-lock fa-2x" aria-hidden="true" title="Demo fechada"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-unlock fa-2x" aria-hidden="true" title="Demo em aberto"></i>
+                                                }
+                                            }
+
+                                        </dd>
+
+                                        @{
+                                            if (!string.IsNullOrEmpty(@Model.Obs))
+                                            {
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.Obs)
+                                                </dt>
+
+                                                <dd>
+                                                    @Html.DisplayFor(model => model.Obs)
+                                                </dd>
+
+                                            }
+                                        }
+
+                                        <dd>
+                                            @{
+                                                if (!string.IsNullOrEmpty(Model.ImagemFichaDeDemo))
+                                                {
+
+                                                    <a class="popupimage" href="@Url.Content(Model.ImagemFichaDeDemo)">
+                                                        <div class="profile-img-container">
+                                                            <img title="Ficha de Demo" class="img-thumbnail img-responsive" src="@Url.Content(Model.ImagemFichaDeDemo)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                                                            <p><span title="Ficha de Demo" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
+                                                        </div>
+                                                    </a>
+
+
+                                                    @*<a class="popupimage" href="@Url.Content(Model.ImagemFichaDeDemo)">ver</a>*@
+                                                }
+
+
+                                            }
+
+                                        </dd>
+
+                                        <dd>
+                                            @{
+                                                if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes))
+                                                {
+
+                                                    <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes)">
+                                                        <div class="profile-img-container">
+                                                            <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                                                            <p><span title="Ficha de recomendações - Página 1" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
+                                                        </div>
+                                                    </a>
+
+
+                                                    @*<a class="popupimage" href="@Url.Content(Model.ImagemFichaDeDemo)">ver</a>*@
+                                                }
+
+
+                                            }
+
+                                        </dd>
+
+
+                                        <dd>
+                                            @{
+                                                if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes1))
+                                                {
+
+                                                    <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes1)">
+                                                        <div class="profile-img-container">
+                                                            <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes1)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                                                            <p><span title="Ficha de recomendações - Página 2" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
+                                                        </div>
+                                                    </a>
+
+                                                }
+                                            }
+
+                                        </dd>
+
+                                        <dd>
+                                            @{
+                                                if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes2))
+                                                {
+
+                                                    <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes2)">
+                                                        <div class="profile-img-container">
+                                                            <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes2)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                                                            <p><span title="Ficha de recomendações - Página 3" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
+                                                        </div>
+                                                    </a>
+
+                                                }
+                                            }
+
+                                        </dd>
+
+                                        <dd>
+                                            @{
+                                                if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes3))
+                                                {
+
+                                                    <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes3)">
+                                                        <div class="profile-img-container">
+                                                            <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes3)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                                                            <p><span title="Ficha de recomendações - Página 4" class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
+                                                        </div>
+                                                    </a>
+
+                                                }
+                                            }
+
+                                        </dd>
+
+                                        <dd>
+                                            <div class="modal fade">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <img src='' class="img-responsive" width="100%" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dd>
+
+                                    </dl>
+                                </div>
+                                <!--/DETALHES-->
+
+                            </div>
+                        </div>                   
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+
     </div>
-
-    
-}
-
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.DemonstracaoId }) |
-
-        @{
-        string urlRef = ViewBag.UrlReferrer;
-        if (String.IsNullOrEmpty(urlRef))
-        {
-            @Html.ActionLink("Voltar", "Details", "Clientes", new { id = Model.ClientId }, new { @class = "btn btn-info btn-small" })
-    }
-    else
-    {
-        <a class="btn btn-info" href="@ViewBag.UrlReferrer">Voltar</a>
-}
-        }
+</div>
 
 
-
-
-    </p>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 
-    <script src="../Scripts/jquery-3.1.1.min.js"></script>
-    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="~/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -321,5 +456,4 @@
             });
         });
     </script>
-
 }
