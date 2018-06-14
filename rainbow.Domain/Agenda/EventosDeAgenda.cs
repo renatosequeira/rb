@@ -24,5 +24,8 @@
         public int? ClientId { get; set; }
         [JsonIgnore]
         public virtual Cliente Cliente { get; set; }
+
+        [Display(Name = "Prioridade")]
+        public int Prioridade { get; set; }
     }
 }

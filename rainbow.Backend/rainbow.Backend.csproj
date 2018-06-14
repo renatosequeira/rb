@@ -261,37 +261,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FilesHelper.cs" />
-    <Compile Include="Migrations\201806141206341_dadosUtilizadores.cs" />
-    <Compile Include="Migrations\201806141206341_dadosUtilizadores.Designer.cs">
-      <DependentUpon>201806141206341_dadosUtilizadores.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141210282_dadosUtilizadores1.cs" />
-    <Compile Include="Migrations\201806141210282_dadosUtilizadores1.Designer.cs">
-      <DependentUpon>201806141210282_dadosUtilizadores1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141242029_dadosUtilizadores12.cs" />
-    <Compile Include="Migrations\201806141242029_dadosUtilizadores12.Designer.cs">
-      <DependentUpon>201806141242029_dadosUtilizadores12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141714196_InitialCreate.cs" />
-    <Compile Include="Migrations\201806141714196_InitialCreate.Designer.cs">
-      <DependentUpon>201806141714196_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141715403_teste.cs" />
-    <Compile Include="Migrations\201806141715403_teste.Designer.cs">
-      <DependentUpon>201806141715403_teste.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141730542_nomeUtilizador.cs" />
-    <Compile Include="Migrations\201806141730542_nomeUtilizador.Designer.cs">
-      <DependentUpon>201806141730542_nomeUtilizador.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141733176_removeNomeUtilizador.cs" />
-    <Compile Include="Migrations\201806141733176_removeNomeUtilizador.Designer.cs">
-      <DependentUpon>201806141733176_removeNomeUtilizador.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141839428_addedFullName.cs" />
-    <Compile Include="Migrations\201806141839428_addedFullName.Designer.cs">
-      <DependentUpon>201806141839428_addedFullName.cs</DependentUpon>
+    <Compile Include="Migrations\201806142012591_teste.cs" />
+    <Compile Include="Migrations\201806142012591_teste.Designer.cs">
+      <DependentUpon>201806142012591_teste.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -11627,29 +11599,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806141206341_dadosUtilizadores.resx">
-      <DependentUpon>201806141206341_dadosUtilizadores.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141210282_dadosUtilizadores1.resx">
-      <DependentUpon>201806141210282_dadosUtilizadores1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141242029_dadosUtilizadores12.resx">
-      <DependentUpon>201806141242029_dadosUtilizadores12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141714196_InitialCreate.resx">
-      <DependentUpon>201806141714196_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141715403_teste.resx">
-      <DependentUpon>201806141715403_teste.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141730542_nomeUtilizador.resx">
-      <DependentUpon>201806141730542_nomeUtilizador.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141733176_removeNomeUtilizador.resx">
-      <DependentUpon>201806141733176_removeNomeUtilizador.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141839428_addedFullName.resx">
-      <DependentUpon>201806141839428_addedFullName.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806142012591_teste.resx">
+      <DependentUpon>201806142012591_teste.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

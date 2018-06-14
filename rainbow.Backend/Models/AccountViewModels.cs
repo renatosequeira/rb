@@ -48,11 +48,14 @@ namespace rainbow.Backend.Models
 
     public class LoginViewModel
     {
-      
+        [Display(Name = "Username")]
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        public string UserName { get; set; }
+
+        //[Required]
+        //[Display(Name = "Email")]
+        //[EmailAddress]
+        //public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -61,10 +64,15 @@ namespace rainbow.Backend.Models
 
         [Display(Name = "Lembrar-me?")]
         public bool RememberMe { get; set; }
+        
     }
 
     public class RegisterViewModel
     {
+        [Display(Name = "Username")]
+        [Required]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -81,13 +89,13 @@ namespace rainbow.Backend.Models
         [Compare("Password", ErrorMessage = "A senha e a senha de confirmação não correspondem.")]
         public string ConfirmPassword { get; set; }
 
-        //[Display(Name = "Nome completo")]
-        //[Required]
-        //public string FullName { get; set; }
+        [Display(Name = "Nome completo")]
+        [Required]
+        public string FullName { get; set; }
 
-        //[Display(Name = "Código de agente")]
-        //[Required]
-        //public string CodigoAgente { get; set; }
+        [Display(Name = "Código de agente")]
+        [Required]
+        public string CodigoAgente { get; set; }
     }
 
     public class ResetPasswordViewModel

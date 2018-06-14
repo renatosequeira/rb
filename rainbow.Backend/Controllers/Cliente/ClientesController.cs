@@ -10,6 +10,7 @@
     using System.Linq;
     using System.Web.Routing;
     using System.Web.Helpers;
+    using Microsoft.AspNet.Identity;
 
     [Authorize]
     public class ClientesController : Controller
@@ -26,6 +27,7 @@
 
         public async Task<ActionResult> Index(string search, bool? status = true)
         {
+            
             object resultado = null;
 
                 resultado = (await db.Clientes.Where(c => c.NomeCliente.Contains(search)||
@@ -91,6 +93,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Cliente cliente)
         {
+            
             // Save today's date.
             var today = DateTime.Today;
             //// Calculate the age.

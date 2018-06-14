@@ -7,13 +7,13 @@ namespace rainbow.Backend.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class dadosUtilizadores1 : IMigrationMetadata
+    public sealed partial class teste : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dadosUtilizadores1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(teste));
         
         string IMigrationMetadata.Id
         {
-            get { return "201806141210282_dadosUtilizadores1"; }
+            get { return "201806142012591_teste"; }
         }
         
         string IMigrationMetadata.Source

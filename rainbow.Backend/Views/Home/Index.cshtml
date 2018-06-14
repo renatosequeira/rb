@@ -193,7 +193,15 @@
                                     }
                                 }
 
-                                racioOksPorDemo = contOks / contDemos;
+                                try
+                                {
+                                    racioOksPorDemo = contOks / contDemos;
+                                }
+                                catch (Exception)
+                                {
+
+                                    racioOksPorDemo = 0;
+                                }
 
                                 <span>@racioOksPorDemo</span>
                             }
@@ -201,7 +209,16 @@
                         <p>
                             <b>Recomendações/ Cliente:</b>
                             @{
-                                int media = recom.Count() / clt.Count();
+                                int media;
+                                try
+                                {
+                                    media = recom.Count() / clt.Count();
+                                }
+                                catch (Exception)
+                                {
+
+                                    media = 0;
+                                }
                                 <span>@media</span>
                             }
                         </p>

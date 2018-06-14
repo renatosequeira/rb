@@ -13,9 +13,9 @@ namespace rainbow.Backend.Models
     public class ApplicationUser : IdentityUser
     {
 
-        //public string FullName { get; set; }
+        public string FullName { get; set; }
 
-        //public string CodigoAgente { get; set; }
+        public string CodigoAgente { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -23,15 +23,16 @@ namespace rainbow.Backend.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Adicionar declarações de usuário personalizado aqui
 
-            //if (string.IsNullOrEmpty(FullName))
-            //{
-            //    userIdentity.AddClaim(new Claim("userFName", UserName));
-            //}
-            //else
-            //{
-            //    userIdentity.AddClaim(new Claim("userFName", FullName));
-            //}
+            if (string.IsNullOrEmpty(FullName))
+            {
+                userIdentity.AddClaim(new Claim("userFName", UserName));
+            }
+            else
+            {
+                userIdentity.AddClaim(new Claim("userFName", FullName));
+            }
 
+            
             return userIdentity;
         }
     }
