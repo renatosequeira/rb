@@ -44,10 +44,12 @@
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "PremioId,DescricaoPremio,Obs,DataInicioPremio,DataFimPremio,EstadoPremio")] Premio premio)
+        public async Task<ActionResult> Create(Premio premio)
         {
             if (ModelState.IsValid)
             {
+                premio.EstadoPremio = true;
+
                 db.Premios.Add(premio);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

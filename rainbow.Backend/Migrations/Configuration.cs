@@ -1,5 +1,8 @@
 namespace rainbow.Backend.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using rainbow.Backend.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -9,8 +12,9 @@ namespace rainbow.Backend.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             AutomaticMigrationDataLossAllowed = true;
+            //ContextKey = "rainbow.Backend.Models.DataContextLocal";
         }
 
         protected override void Seed(rainbow.Backend.Models.DataContextLocal context)
@@ -27,6 +31,8 @@ namespace rainbow.Backend.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            
+
         }
     }
 }

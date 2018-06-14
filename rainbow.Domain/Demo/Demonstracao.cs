@@ -101,6 +101,9 @@
         [JsonIgnore]
         public virtual Premio Premio { get; set; }
 
+        [Display(Name ="Número de série do prémio")]
+        public string NumSeriePremio { get; set; }
+
         [Display(Name = "Identificação do contacto")]
         public int? ClientId { get; set; }
         [JsonIgnore]

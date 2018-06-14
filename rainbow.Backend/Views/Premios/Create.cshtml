@@ -116,22 +116,24 @@
                                     </div>
                                 </div>
 
-                             
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.EstadoPremio, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
+                                    <div class="col-md-10 camposNormais">
                                         <div class="checkbox">
-                                            @Html.EditorFor(model => model.EstadoPremio)
+                                            @Html.EditorFor(model => model.EstadoPremio,
+                                            new
+                                            {
+                                                htmlAttributes =
+                                            new { data_toggle = "toggle", data_on = "Prémio ativo", data_off = "Prémio inativo", data_onstyle = "success", data_offstyle = "danger", type = "checkbox", data_width="200" }
+                                            })
                                             @Html.ValidationMessageFor(model => model.EstadoPremio, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Obs, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Obs, "", new { @class = "text-danger" })
+                                    <div class="col-md-12 col-sm-12">
+                                        @Html.EditorFor(model => model.Obs, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10 notas", placeholder = "Notas adicionais" } })
+                                        <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                 </div>
 

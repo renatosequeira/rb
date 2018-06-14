@@ -73,9 +73,12 @@ namespace rainbow.Backend.Controllers
                 return View(model);
             }
 
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
             // Isso não conta falhas de login em relação ao bloqueio de conta
             // Para permitir que falhas de senha acionem o bloqueio da conta, altere para shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -136,8 +139,8 @@ namespace rainbow.Backend.Controllers
 
         //
         // GET: /Account/Register
-        //[AllowAnonymous]
-        [Authorize(Users="renato.sequeira@outstand.pt")]
+        [AllowAnonymous]
+        //[Authorize(Users="renato.sequeira@outstand.pt")]
         public ActionResult Register()
         {
             return View();
@@ -152,7 +155,9 @@ namespace rainbow.Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName, CodigoAgente = model.CodigoAgente };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
