@@ -231,6 +231,18 @@
                                     <div class="panel-heading">Outras informações<span style="float: right;"><a href="#outros" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
                                     <div class="panel-body" id="outros">
 
+
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-sm-8 marginBottom15">
+                                                @Html.EditorFor(model => model.OkParaContactar,
+                                                new
+                                                {
+                                                    htmlAttributes =
+                                                new { data_toggle = "toggle", data_on = "Cliente aceitou contacto", data_off = "Cliente não aceitou contacto", data_onstyle = "success", data_offstyle = "danger", type = "checkbox", data_width = "220" }
+                                                })
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <div class="col-md-8 col-sm-8 marginBottom15">
                                                 @Html.EditorFor(model => model.ContactoPrioritario,
@@ -288,18 +300,6 @@
                                                 })
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <div class="col-md-8 col-sm-8 marginBottom15">
-                                                @Html.EditorFor(model => model.OkParaContactar,
-                                                new
-                                                {
-                                                    htmlAttributes =
-                                                new { data_toggle = "toggle", data_on = "Cliente aceitou contacto", data_off = "Cliente não aceitou contacto", data_onstyle = "success", data_offstyle = "danger", type = "checkbox", data_width = "220" }
-                                                })
-                                            </div>
-                                        </div>
-
 
                                     </div>
                                 </div>
