@@ -248,6 +248,8 @@
     <Compile Include="Controllers\Configurations\TiposVisitaController.cs" />
     <Compile Include="Controllers\Configurations\TitlesController.cs" />
     <Compile Include="Controllers\Demo\DemonstracoesController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\Exceptions\RepeatedMobileNumber.cs" />
     <Compile Include="Controllers\Familia\MembrosFamiliaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -11577,6 +11579,8 @@
     <Content Include="Views\Premios\Details - Cópia .cshtml" />
     <Content Include="Views\Premios\Edit - Cópia .cshtml" />
     <Content Include="Views\Premios\Delete - Cópia .cshtml" />
+    <Content Include="Views\Shared\_DuplicatedMobile.cshtml" />
+    <Content Include="Views\Clientes\Delete - Cópia .cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

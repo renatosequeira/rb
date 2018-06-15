@@ -11,6 +11,10 @@
     using System.Web.Routing;
     using System.Web.Helpers;
     using Microsoft.AspNet.Identity;
+    using System.Collections.Generic;
+    using System.Data.SqlClient;
+    using rainbow.Backend.Controllers.Exceptions;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
     [Authorize]
     public class ClientesController : Controller
@@ -18,6 +22,9 @@
         private DataContextLocal db = new DataContextLocal();
         private static DateTime? OldBirthDate;
         private static int? OldIdade;
+        private static string _registeredBy;
+        private static string _ownerAgent;
+        private static DateTime? _registeredDate; 
 
         // GET: Clientes
         public ActionResult ModalPopUp()
@@ -89,6 +96,7 @@
         // POST: Clientes/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Cliente cliente)
@@ -114,13 +122,43 @@
             if (cliente.DataNascimentoCliente > today.AddYears(idade)) idade--;
 
             cliente.TitleId = 1;
+            cliente.RegisteredBy = User.Identity.GetUserId();
+
+
+            #region Teste Get Numero Agente
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            string numAgente = currentUser.CodigoAgente;
+            #endregion
+
+            cliente.OwnerAgentCode = numAgente;
+
+            cliente.RegisteredDate = DateTime.Today.Date;
 
             if (ModelState.IsValid)
             {
+                List<object> telemovelRepetido = new List<object>();
+
+                foreach (var item in db.Clientes)
+                {
+                    string clienteAtual ="";
+                    string oldCliente = "";
+                    string telemovel = item.TelemovelCliente;
+
+                   if(item.TelemovelCliente == cliente.TelemovelCliente)
+                    {
+                        clienteAtual = cliente.NomeCliente;
+                        oldCliente = item.NomeCliente;
+                        throw new RepeatedMobileNumber(1,String.Format("{0} já existe no cliente {1}",telemovel,oldCliente));
+                        
+                    }
+                }
+
                 cliente.ClientStatus = true;
                 cliente.DataAdicao = DateTime.Now;
                 db.Clientes.Add(cliente);
                 await db.SaveChangesAsync();
+               
                 return RedirectToAction("Index");
             }
 
@@ -142,6 +180,9 @@
             Cliente cliente = await db.Clientes.FindAsync(id);
             OldBirthDate = cliente.DataNascimentoCliente;
             OldIdade = Convert.ToInt32(cliente.IdadeCliente);
+            _registeredDate = cliente.RegisteredDate;
+            _registeredBy = cliente.RegisteredBy;
+            _ownerAgent = cliente.OwnerAgentCode;
 
             if (cliente == null)
             {
@@ -190,6 +231,11 @@
 
             if (ModelState.IsValid)
             {
+                cliente.RegisteredBy = _registeredBy;
+                cliente.RegisteredDate = _registeredDate;
+                cliente.OwnerAgentCode = _ownerAgent;
+                cliente.ChangedBy = User.Identity.GetUserId();
+                cliente.LastChange = DateTime.Today.Date;
             
                 db.Entry(cliente).State = EntityState.Modified;
                 await db.SaveChangesAsync();
@@ -289,6 +335,10 @@
     yValues: new[] { demosAbril, demosMaio, demosJulho, demosJulho }).Write("png");
 
             return null;
+        }
+
+        public class UniqueConstraintException : Exception
+        {
         }
     }
 }

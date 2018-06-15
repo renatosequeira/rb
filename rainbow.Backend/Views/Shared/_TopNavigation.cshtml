@@ -1,4 +1,20 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using System;
+@using System.Globalization;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Security.Principal;
+@using System.Threading.Tasks;
+@using System.Web;
+@using System.Web.Mvc;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Microsoft.AspNet.Identity.Owin;
+@using Microsoft.Owin.Security;
+@using rainbow.Backend.Models;
+
 <div class="top_nav">
     <div class="nav_menu">
         <nav>
@@ -9,7 +25,18 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="~/Content/Images/boy_avatar.png" alt="">Renato Sequeira
+                        <img src="~/Content/Images/boy_avatar.png" alt="">
+
+                        @{
+                            if (Request.IsAuthenticated)
+                            {
+                                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                                var currentUser = manager.FindById(User.Identity.GetUserId());
+                                <span>@currentUser.FullName</span>
+
+                            }
+                        }
+
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -25,7 +52,7 @@
                         @using Microsoft.AspNet.Identity
                         @if (Request.IsAuthenticated)
                         {
-                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                             {
                                 @Html.AntiForgeryToken()
 

@@ -123,15 +123,7 @@
                             <img src="~/Content/Images/boy_avatar.png" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
-                            <span>Bem vindo</span>
-                            <h2>@User.Identity.GetUserName()</h2>
-
-
-                            @*@{
-                                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext));
-                                var currentUser = manager.FindById(User.Identity.GetUserId());
-                                <h2>@currentUser.FullName</h2>
-                            }*@
+                            <span>Bem vindo</span>                          
 
                             @{
                                 if (Request.IsAuthenticated)
