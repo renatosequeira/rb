@@ -10,6 +10,8 @@
     using System;
     using System.Web.Routing;
     using rainbow.Backend.Helpers;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
     [Authorize]
     public class DemonstracoesController : Controller
@@ -76,6 +78,14 @@
             
             if (ModelState.IsValid)
             {
+
+                #region Teste Get Numero Agente
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                var currentUser = manager.FindById(User.Identity.GetUserId());
+                string numAgente = currentUser.CodigoAgente;
+                #endregion
+
+
                 var folder = "~/Content/Images";
 
                 #region Imagem Ficha de Demo

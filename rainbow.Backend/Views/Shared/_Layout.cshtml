@@ -51,8 +51,22 @@
 <head>
 
     @using Microsoft.AspNet.Identity
+    @using Microsoft.AspNet.Identity;
+    @using Microsoft.AspNet.Identity.EntityFramework;
+    @using System;
+    @using System.Globalization;
+    @using System.Linq;
+    @using System.Security.Claims;
+    @using System.Security.Principal;
+    @using System.Threading.Tasks;
+    @using System.Web;
+    @using System.Web.Mvc;
+    @using Microsoft.AspNet.Identity;
+    @using Microsoft.AspNet.Identity.EntityFramework;
+    @using Microsoft.AspNet.Identity.Owin;
+    @using Microsoft.Owin.Security;
     @using rainbow.Backend.Models;
-
+    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -60,7 +74,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>RCM | </title>
+    <title>RCM | v2.0</title>
 
     <!-- Bootstrap -->
     <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -111,6 +125,23 @@
                         <div class="profile_info">
                             <span>Bem vindo</span>
                             <h2>@User.Identity.GetUserName()</h2>
+
+
+                            @*@{
+                                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext));
+                                var currentUser = manager.FindById(User.Identity.GetUserId());
+                                <h2>@currentUser.FullName</h2>
+                            }*@
+
+                            @{
+                                if (Request.IsAuthenticated)
+                                {
+                                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                                    var currentUser = manager.FindById(User.Identity.GetUserId());
+                                    <h2>@currentUser.FullName</h2>
+
+                                }
+                            }
 
                         </div>
                     </div>

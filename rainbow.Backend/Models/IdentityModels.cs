@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -49,4 +50,5 @@ namespace rainbow.Backend.Models
             return new ApplicationDbContext();
         }
     }
+    
 }
