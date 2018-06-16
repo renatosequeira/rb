@@ -21,7 +21,8 @@
     using NPOI.XSSF.UserModel;
     using NPOI.HSSF.UserModel;
     using rainbow.Backend.Algoritmos;
-    using Algoritmos;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
     [Authorize]
     public class RecomendacoesController : Controller
@@ -33,6 +34,10 @@
         private static DateTime? DataOkLocal;
         private static DateTime? DataContactoLocal;
         private static string DemoId;
+        private static string _registeredBy;
+        private static string _ownerAgent;
+        private static DateTime? _registeredDate;
+        private static DateTime? _dataRecomendacao;
 
         public void ExportToCSV()
         {
@@ -287,9 +292,15 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ImagemRecomendacaoView view)
         {
+            #region Teste Get Numero Agente
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            string numAgente = currentUser.CodigoAgente;
+            #endregion
 
             if (ModelState.IsValid)
             {
+               
                 if (view.OkParaContactar)
                 {
                     view.DataOk = DateTime.Now;
@@ -308,6 +319,11 @@
 
                 var recomendacao = ToRecomendacao(view);
                 recomendacao.ScanFolhaDeContactos = pic;
+                recomendacao.OwnerAgentCode = numAgente;
+
+                recomendacao.RegisteredDate = DateTime.Today.Date;
+
+                recomendacao.RegisteredBy = User.Identity.GetUserId();
 
                 List<object> teste = new List<object>();
 
@@ -391,6 +407,10 @@
             DataContactoLocal = recomendacao.DataContacto;
             DataOkLocal = recomendacao.DataOk;
             DemoId = recomendacao.DemonstracaoGuid;
+            _ownerAgent = recomendacao.OwnerAgentCode;
+            _registeredBy = recomendacao.RegisteredBy;
+            _registeredDate = recomendacao.RegisteredDate;
+            _dataRecomendacao = recomendacao.DataRecomendacao;
 
             if (recomendacao == null)
             {
@@ -446,8 +466,7 @@
                 ClienteRB = recomendacao.ClienteRB,
                 ContactoPrioritario = recomendacao.ContactoPrioritario,
                 ClienteAceitouDemo = recomendacao.ClienteAceitouDemo,
-                DemoExecutada = recomendacao.DemoExecutada,
-                DataRecomendacao = recomendacao.DataRecomendacao
+                DemoExecutada = recomendacao.DemoExecutada
             };
         }
 
@@ -474,6 +493,13 @@
 
                 recomendacao.ClientId = InternalClientId;
                 recomendacao.DemonstracaoGuid = DemoId;
+
+                recomendacao.ChangedBy = User.Identity.GetUserId();
+                recomendacao.DataRecomendacao = _dataRecomendacao;
+                recomendacao.RegisteredBy = _registeredBy;
+                recomendacao.RegisteredDate = _registeredDate;
+                recomendacao.OwnerAgentCode = _ownerAgent;
+                recomendacao.LastChange = DateTime.Today;
 
                 if (recomendacao.Contactado)
                 {

@@ -106,5 +106,16 @@
         [JsonIgnore]
         public virtual Cliente Cliente { get; set; }
 
+        //ID do utilizador
+        public string RegisteredBy { get; set; }
+
+        public string OwnerAgentCode { get; set; }
+
+        //ID do utilizador
+        public string ChangedBy { get; set; }
+
+        public DateTime? RegisteredDate { get; set; }
+
+        public DateTime? LastChange { get; set; }
     }
 }
