@@ -162,7 +162,9 @@
                 TipoVisitaId = view.TipoVisitaId,
                 SmsAgradecimento = view.SmsAgradecimento,
                 SmsFechoCampanha = view.SmsFechoCampanha,
-                SmsFollowUp = view.SmsFollowUp
+                SmsFollowUp = view.SmsFollowUp,
+                NumeroDemoRainbow = view.NumeroDemoRainbow,
+                NumSeriePremio = view.NumSeriePremio
             };
         }
 

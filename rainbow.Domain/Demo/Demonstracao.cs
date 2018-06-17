@@ -109,5 +109,8 @@
         [JsonIgnore]
         public virtual Cliente Cliente { get; set; }
 
+        [Display(Name = "Número Demo Rainbow")]
+        public string NumeroDemoRainbow { get; set; }
+
     }
 }

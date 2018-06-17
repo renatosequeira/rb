@@ -117,12 +117,12 @@
                                     <div class="panel-body" id="marcacao">
                                         @*<div class="form-group">
 
-                    <div class="col-md-10" data-toggle="tooltip" data-placement="top" title="Data de marcação da demostração">
-                        <input class="date-picker form-control col-md-7 col-xs-12 text-box single-line has-feedback-left camposNormais Half12" data-val="true" data-val-date="The field Data Marcação must be a date." id="DataMarcacao" name="DataMarcacao" type="date" value="DataMarcacao">
-                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                        @Html.ValidationMessageFor(model => model.DataMarcacao, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
+            <div class="col-md-10" data-toggle="tooltip" data-placement="top" title="Data de marcação da demostração">
+                <input class="date-picker form-control col-md-7 col-xs-12 text-box single-line has-feedback-left camposNormais Half12" data-val="true" data-val-date="The field Data Marcação must be a date." id="DataMarcacao" name="DataMarcacao" type="date" value="DataMarcacao">
+                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.DataMarcacao, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
                                         <div class="clearfix"></div>
 
@@ -142,6 +142,15 @@
                                                 <span class="fa fa-user-md form-control-feedback left" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Tooltip left"></span>
                                             </div>
 
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-sm-8">
+                                                @Html.EditorFor(model => model.NumeroDemoRainbow, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10 novoClienteMorada", placeholder = "Número Demo Rainbow" } })
+                                                <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
+                                                @Html.ValidationMessageFor(model => model.NumeroDemoRainbow, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
 
                                     </div>
@@ -254,14 +263,22 @@
 
                                         </div>
 
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-sm-8">
+                                                @Html.EditorFor(model => model.NumSeriePremio, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10 novoClienteMorada", placeholder = "Número de série prémio" } })
+                                                <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
+                                                @Html.ValidationMessageFor(model => model.NumSeriePremio, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
                                         @*<div class="form-group">
-                    @Html.LabelFor(model => model.ImagemDemo, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <span class="btn btn-default btn-file">
-                            @Html.TextBoxFor(modelo => modelo.ImagemDemo, new { type = "file" })
-                        </span>
-                    </div>
-                </div>*@
+            @Html.LabelFor(model => model.ImagemDemo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span class="btn btn-default btn-file">
+                    @Html.TextBoxFor(modelo => modelo.ImagemDemo, new { type = "file" })
+                </span>
+            </div>
+        </div>*@
                                     </div>
                                 </div>
                                 <!--/RESUMO DA DEMO-->
