@@ -26,6 +26,12 @@
         private static string RecomendationImagePath1;
         private static string RecomendationImagePath2;
         private static string RecomendationImagePath3;
+        private static string _registeredBy;
+        private static string _ownerAgent;
+        private static DateTime? _registeredDate;
+        private static DateTime? _dataRecomendacao;
+        private static bool _demoIsOpened;
+
 
         // GET: Demonstracoes
         public async Task<ActionResult> Index()
@@ -75,7 +81,8 @@
         public async Task<ActionResult> Create(DemoImagesView view)
         {
             string guid = Guid.NewGuid().ToString("N");
-            
+
+
             if (ModelState.IsValid)
             {
 
@@ -110,6 +117,10 @@
 
 
                 var demonstracao = ToDemonstracao(view);
+
+                demonstracao.OwnerAgentCode = numAgente;
+                demonstracao.RegisteredDate = DateTime.Today;
+                demonstracao.RegisteredBy = User.Identity.GetUserId();
 
                 demonstracao.DemoUniqueId = guid;
                 demonstracao.ClientId = InternalClientId;
@@ -186,7 +197,11 @@
             InternalClientId = demonstracao.ClientId;
             OldDataMarcacao = demonstracao.DataMarcacao;
             OldDemoId = demonstracao.DemoUniqueId;
-            //OldDataVisitaCasaAberta = demonstracao.DataVisitaCasaAberta;
+
+            _registeredBy = demonstracao.RegisteredBy;
+            _registeredDate = demonstracao.RegisteredDate;
+            _ownerAgent = demonstracao.OwnerAgentCode;
+            _demoIsOpened = demonstracao.DemoStatus;
 
             if (demonstracao == null)
             {
@@ -196,7 +211,7 @@
             ViewBag.ClientId = new SelectList(db.Clientes, "ClientId", "NomeCliente", demonstracao.ClientId);
             ViewBag.CampanhaId = new SelectList(db.Campanhas.Where(c => c.EstadoCampanha == true), "CampanhaId", "DescricaoCampanha", demonstracao.CampanhaId);
             ViewBag.MarcadorId = new SelectList(db.Marcadors, "MarcadorId", "NomeMarcador", demonstracao.MarcadorId);
-            ViewBag.PremioId = new SelectList(db.Premios.Where(p => p.EstadoPremio == true), "PremioId", "DescricaoPremio", demonstracao.PremioId);
+            ViewBag.PremioId = new SelectList(db.Premios, "PremioId", "DescricaoPremio", demonstracao.PremioId);
             ViewBag.TipoVisitaId = new SelectList(db.TipoVisitas, "TipoVisitaId", "NomeTipoVisita", demonstracao.TipoVisitaId);
 
             var view = ToView(demonstracao);
@@ -239,7 +254,16 @@
                 TipoVisitaId = demonstracao.TipoVisitaId,
                 SmsAgradecimento = demonstracao.SmsAgradecimento,
                 SmsFechoCampanha = demonstracao.SmsFechoCampanha,
-                SmsFollowUp = demonstracao.SmsFollowUp
+                SmsFollowUp = demonstracao.SmsFollowUp,
+                ChangedBy = demonstracao.ChangedBy,
+                ClosedBy = demonstracao.ClosedBy,
+                ClosedDate = demonstracao.ClosedDate,
+                LastChange = demonstracao.LastChange,
+                NumSeriePremio = demonstracao.NumSeriePremio,
+                OwnerAgentCode = demonstracao.OwnerAgentCode,
+                NumeroDemoRainbow = demonstracao.NumeroDemoRainbow,
+                RegisteredBy = demonstracao.RegisteredBy,
+                RegisteredDate = demonstracao.RegisteredDate
             };
         }
 
@@ -316,6 +340,25 @@
                 demonstracao.DataMarcacao = OldDataMarcacao;
                 demonstracao.ClientId = InternalClientId;
                 demonstracao.DemoUniqueId = OldDemoId;
+
+                //UPDATE DE STATUS EM DEMO FECHADA
+                bool updatedDemoStatus = demonstracao.DemoStatus;
+
+                if (!_demoIsOpened) //se a demo estiver aberta
+                {
+                    if(_demoIsOpened != updatedDemoStatus) //se o estado inicial for diferente do estado atual
+                    {
+                        demonstracao.ClosedBy = User.Identity.GetUserId();
+                        demonstracao.ClosedDate = DateTime.Today;
+                    }
+                }
+                // FIM UPDATE DE STATUS EM DEMO FECHADA
+
+                demonstracao.RegisteredBy = _registeredBy;
+                demonstracao.RegisteredDate = _registeredDate;
+                demonstracao.OwnerAgentCode = _ownerAgent;
+                demonstracao.LastChange = DateTime.Today;
+                demonstracao.ChangedBy = User.Identity.GetUserId();
 
                 db.Entry(demonstracao).State = EntityState.Modified;
                 await db.SaveChangesAsync();

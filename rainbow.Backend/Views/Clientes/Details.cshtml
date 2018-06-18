@@ -1,5 +1,22 @@
 ﻿@model rainbow.Domain.Client.Cliente
 
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using System;
+@using System.Globalization;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Security.Principal;
+@using System.Threading.Tasks;
+@using System.Web;
+@using System.Web.Mvc;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Microsoft.AspNet.Identity.Owin;
+@using Microsoft.Owin.Security;
+@using rainbow.Backend.Models;
+
 @{
     ViewBag.Title = "Details";
 }
@@ -80,6 +97,67 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+
+
+
+                        <div style="float: left;
+    background-color: lightgray;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid slategray;">
+
+                            @{
+
+                                if (Request.IsAuthenticated)
+                                {
+                                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+                                    var intialUser = manager.FindById(Model.RegisteredBy);
+
+                                    string _fullName;
+                                    string _codAgente;
+
+                                    try
+                                    {
+                                        intialUser = manager.FindById(Model.RegisteredBy);
+                                        _fullName = intialUser.FullName;
+                                        _codAgente = intialUser.CodigoAgente;
+                                    }
+                                    catch (Exception)
+                                    {
+                                        _fullName = "Utilizador desconhecido";
+                                        _codAgente = "Agente desconhecido";
+                                    }
+
+                                    //var closingUser = manager.FindById(User.Identity.GetUserId());
+
+                                    string dataCriacao;
+
+                                    try
+                                    {
+                                        dataCriacao = Model.RegisteredDate.Value.ToShortDateString();
+                                    }
+                                    catch (Exception)
+                                    {
+
+                                        dataCriacao = "Sem registo";
+                                    }
+
+                                    string quemCriou = Model.RegisteredBy;
+
+                            <span style="color:lightslategray; font-weight:100; font-size:11px;">
+                                <b>Criado em:</b> @dataCriacao - <b>Utilizador:</b> @_fullName - <b>Agente Num:</b> @_codAgente
+                            </span>
+
+
+                                }
+
+
+                            }
+
+
+                        </div>
+
                         <div>
                             <h2>
 
@@ -803,7 +881,7 @@
                                                     </td>
 
                                                     @*<td style="width:10px;">@Html.ActionLink(" ", "Details", "Demonstracoes", new { id = demo.DemonstracaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Demonstracoes", new { id = demo.DemonstracaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
+                                                        <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Demonstracoes", new { id = demo.DemonstracaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
                                                 </tr>
                                             }
 
@@ -897,7 +975,7 @@
                                                         </div>
                                                     </td>
                                                     @*<td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
+                                                        <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
                                                 </tr>
                                             }
                                             else if (string.IsNullOrEmpty(contacto.NomeSra))
@@ -1002,7 +1080,7 @@
                                                         </div>
                                                     </td>
                                                     @*<td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
+                                                        <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
                                                 </tr>
                                             }
                                             else
@@ -1105,7 +1183,7 @@
                                                         </div>
                                                     </td>
                                                     @*<td style="width:10px;">@Html.ActionLink(" ", "Details", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-success btn-lg fa fa-eye" })</td>
-                                    <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
+                                                        <td style="width:10px;">@Html.ActionLink(" ", "Delete", "Recomendacoes", new { id = contacto.RecomendacaoId }, new { @class = "btn btn-danger btn-lg fa fa-trash-o" })</td>*@
                                                 </tr>
                                             }
 

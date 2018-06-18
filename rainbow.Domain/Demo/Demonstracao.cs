@@ -112,5 +112,20 @@
         [Display(Name = "Número Demo Rainbow")]
         public string NumeroDemoRainbow { get; set; }
 
+        //ID do utilizador
+        public string RegisteredBy { get; set; }
+
+        public string OwnerAgentCode { get; set; }
+
+        //ID do utilizador
+        public string ChangedBy { get; set; }
+
+        public DateTime? RegisteredDate { get; set; }
+
+        public DateTime? LastChange { get; set; }
+
+        public string ClosedBy { get; set; }
+
+        public DateTime? ClosedDate { get; set; }
     }
 }

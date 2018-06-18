@@ -1,5 +1,22 @@
 ﻿@model rainbow.Backend.Models.DemoImagesView
 
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using System;
+@using System.Globalization;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Security.Principal;
+@using System.Threading.Tasks;
+@using System.Web;
+@using System.Web.Mvc;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Microsoft.AspNet.Identity.Owin;
+@using Microsoft.Owin.Security;
+@using rainbow.Backend.Models;
+
 @{
     ViewBag.Title = "Editar demonstração";
 }
@@ -110,6 +127,87 @@
                                     </div>
                                 </div>
 
+                                <!--ESTADO-->
+                                <div class="panel panel-primary">
+
+                                    <div class="panel-heading">Estado da Demo<span style="float: right;"><a href="#estado" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
+                                    <div class="panel-body" id="estado">
+
+                                        <div class="clearfix"></div>
+
+                                        <div class="col-md-10 camposNormais">
+                                            <div class="checkbox">
+                                                @Html.EditorFor(model => model.DemoStatus,
+                                                new
+                                                {
+                                                    htmlAttributes =
+                                                new { data_toggle = "toggle", data_on = "Demo Fechada", data_off = "Demo em aberto", data_onstyle = "success", data_offstyle = "danger", type = "checkbox", data_width="200" }
+                                                })
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="panel-footer" style="text-align:center;">
+                                        @{
+
+                                            if (Request.IsAuthenticated)
+                                            {
+                                                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+                                                var intialUser = manager.FindById(Model.RegisteredBy);
+
+                                                var closingUser = manager.FindById(Model.ClosedBy);
+
+                                                try
+                                                {
+                                                    intialUser = manager.FindById(Model.RegisteredBy);
+
+                                                    closingUser = manager.FindById(Model.ClosedBy);
+                                                }
+                                                catch (Exception)
+                                                {
+
+
+                                                }
+
+                                                //var closingUser = manager.FindById(User.Identity.GetUserId());
+
+                                                string dataCriacao;
+
+                                                try
+                                                {
+                                                    dataCriacao = Model.RegisteredDate.Value.ToShortDateString();
+                                                }
+                                                catch (Exception)
+                                                {
+
+                                                    dataCriacao = "Sem registo";
+                                                }
+
+                                                string quemCriou = Model.RegisteredBy;
+
+                                                <span style="color:lightgray; font-weight:100; font-size:11px;"><b>Criado em:</b> @dataCriacao - <b>Utilizador:</b> @intialUser.FullName - <b>Agente Num:</b> @intialUser.CodigoAgente
+                                        
+                                        @{ 
+                                            if (Model.DemoStatus)
+                                            {
+                                                <span> - <b>Fechado em:</b> @Model.ClosedDate.Value.ToShortDateString() - <b>Fechado por:</b> @closingUser.FullName </span>
+                                            }
+                                        }
+
+                                        </span>
+
+
+                                            }
+
+
+                                        }
+
+                                    </div>
+                                </div>
+                                <!--/ESTADO-->
                                 <!--DADOS MARCAÇÃO-->
                                 <div class="panel panel-primary">
 
@@ -117,12 +215,12 @@
                                     <div class="panel-body" id="marcacao">
                                         @*<div class="form-group">
 
-            <div class="col-md-10" data-toggle="tooltip" data-placement="top" title="Data de marcação da demostração">
-                <input class="date-picker form-control col-md-7 col-xs-12 text-box single-line has-feedback-left camposNormais Half12" data-val="true" data-val-date="The field Data Marcação must be a date." id="DataMarcacao" name="DataMarcacao" type="date" value="DataMarcacao">
-                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                @Html.ValidationMessageFor(model => model.DataMarcacao, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+                                                <div class="col-md-10" data-toggle="tooltip" data-placement="top" title="Data de marcação da demostração">
+                                                    <input class="date-picker form-control col-md-7 col-xs-12 text-box single-line has-feedback-left camposNormais Half12" data-val="true" data-val-date="The field Data Marcação must be a date." id="DataMarcacao" name="DataMarcacao" type="date" value="DataMarcacao">
+                                                    <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                                    @Html.ValidationMessageFor(model => model.DataMarcacao, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>*@
 
                                         <div class="clearfix"></div>
 
@@ -272,13 +370,13 @@
                                         </div>
 
                                         @*<div class="form-group">
-            @Html.LabelFor(model => model.ImagemDemo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <span class="btn btn-default btn-file">
-                    @Html.TextBoxFor(modelo => modelo.ImagemDemo, new { type = "file" })
-                </span>
-            </div>
-        </div>*@
+                                                @Html.LabelFor(model => model.ImagemDemo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    <span class="btn btn-default btn-file">
+                                                        @Html.TextBoxFor(modelo => modelo.ImagemDemo, new { type = "file" })
+                                                    </span>
+                                                </div>
+                                            </div>*@
                                     </div>
                                 </div>
                                 <!--/RESUMO DA DEMO-->
@@ -325,7 +423,6 @@
                                     </div>
                                 </div>
                                 <!--/FOLLOWUP-->
-
                                 <!--IMAGENS-->
                                 <div class="panel panel-primary">
 
@@ -384,44 +481,47 @@
                                             </dd>
 
                                             <dt>@Html.LabelFor(model => model.ImagemRecomendacao1, htmlAttributes: new { @class = "control-label col-md-2" })</dt>
-                                            <dd><div class="col-md-10">
-                                                @{
-                                                    if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes1))
-                                                    {
+                                            <dd>
+                                                <div class="col-md-10">
+                                                    @{
+                                                        if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes1))
+                                                        {
 
-                                                        <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes1)">
-                                                            <div class="profile-img-container" style="float:left;">
-                                                                <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes1)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                                                                <p><span class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
-                                                            </div>
-                                                        </a>
+                                                            <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes1)">
+                                                                <div class="profile-img-container" style="float:left;">
+                                                                    <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes1)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                                                                    <p><span class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
+                                                                </div>
+                                                            </a>
+                                                        }
                                                     }
-                                                }
 
-                                                <span class="btn btn-warning btn-file">
-                                                    @Html.TextBoxFor(modelo => modelo.ImagemRecomendacao1, new { type = "file" })
-                                                </span>
-                                            </div></dd>
+                                                    <span class="btn btn-warning btn-file">
+                                                        @Html.TextBoxFor(modelo => modelo.ImagemRecomendacao1, new { type = "file" })
+                                                    </span>
+                                                </div>
+                                            </dd>
 
                                             <dt>@Html.LabelFor(model => model.ImagemRecomendacao2, htmlAttributes: new { @class = "control-label col-md-2" })</dt>
-                                            <dd><div class="col-md-10">
-                                                @{
-                                                    if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes2))
-                                                    {
+                                            <dd>
+                                                <div class="col-md-10">
+                                                    @{
+                                                        if (!string.IsNullOrEmpty(Model.ImagemRecomendacoes2))
+                                                        {
 
-                                                        <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes2)">
-                                                            <div class="profile-img-container" style="float:left;">
-                                                                <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes2)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                                                                <p><span class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
-                                                            </div>
-                                                        </a>
+                                                            <a class="popupimage" href="@Url.Content(Model.ImagemRecomendacoes2)">
+                                                                <div class="profile-img-container" style="float:left;">
+                                                                    <img class="popupimage img-thumbnail img-responsive" src="@Url.Content(Model.ImagemRecomendacoes2)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                                                                    <p><span class="fa fa-search-plus fa-2x" style="color:darkgray"></span></p>
+                                                                </div>
+                                                            </a>
+                                                        }
                                                     }
-                                                }
 
-                                                <span class="btn btn-warning btn-file">
-                                                    @Html.TextBoxFor(modelo => modelo.ImagemRecomendacao2, new { type = "file" })
-                                                </span>
-                                            </div>
+                                                    <span class="btn btn-warning btn-file">
+                                                        @Html.TextBoxFor(modelo => modelo.ImagemRecomendacao2, new { type = "file" })
+                                                    </span>
+                                                </div>
                                             </dd>
 
                                             <dt> @Html.LabelFor(model => model.ImagemRecomendacao3, htmlAttributes: new { @class = "control-label col-md-2" })</dt>
@@ -450,7 +550,6 @@
                                     </div>
                                 </div>
                                 <!--/IMAGENS-->
-
                                 <!--NOTAS-->
                                 <div class="panel panel-primary">
 
