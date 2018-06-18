@@ -160,6 +160,12 @@
 
                                                 var closingUser = manager.FindById(Model.ClosedBy);
 
+                                                string _fullNameInitialUser;
+
+                                                string _fullNameClosingUser;
+
+                                                string _agentCode;
+
                                                 try
                                                 {
                                                     intialUser = manager.FindById(Model.RegisteredBy);
@@ -170,6 +176,35 @@
                                                 {
 
 
+                                                }
+
+                                                try
+                                                {
+                                                    _fullNameInitialUser = intialUser.FullName;
+                                                }
+                                                catch (Exception)
+                                                {
+
+                                                    _fullNameInitialUser = "Utilizador desconhecido";
+                                                }
+
+                                                try
+                                                {
+                                                    _fullNameClosingUser = closingUser.FullName;
+                                                }
+                                                catch (Exception)
+                                                {
+
+                                                    _fullNameClosingUser = "Utilizador desconhecido";
+                                                }
+
+                                                try
+                                                {
+                                                    _agentCode = intialUser.CodigoAgente;
+                                                }
+                                                catch (Exception)
+                                                {
+                                                    _agentCode = "Agente desconhecido";
                                                 }
 
                                                 //var closingUser = manager.FindById(User.Identity.GetUserId());
@@ -188,12 +223,12 @@
 
                                                 string quemCriou = Model.RegisteredBy;
 
-                                                <span style="color:lightgray; font-weight:100; font-size:11px;"><b>Criado em:</b> @dataCriacao - <b>Utilizador:</b> @intialUser.FullName - <b>Agente Num:</b> @intialUser.CodigoAgente
+                                                <span style="color:lightgray; font-weight:100; font-size:11px;"><b>Criado em:</b> @dataCriacao - <b>Utilizador:</b> @_fullNameInitialUser - <b>Agente Num:</b> @_agentCode
                                         
                                         @{ 
                                             if (Model.DemoStatus)
                                             {
-                                                <span> - <b>Fechado em:</b> @Model.ClosedDate.Value.ToShortDateString() - <b>Fechado por:</b> @closingUser.FullName </span>
+                                                <span> - <b>Fechado em:</b> @Model.ClosedDate.Value.ToShortDateString() - <b>Fechado por:</b> @_fullNameClosingUser </span>
                                             }
                                         }
 
