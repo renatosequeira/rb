@@ -12,6 +12,7 @@
     using rainbow.Backend.Helpers;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using System.Text;
 
     [Authorize]
     public class DemonstracoesController : Controller
@@ -340,6 +341,7 @@
                 demonstracao.DataMarcacao = OldDataMarcacao;
                 demonstracao.ClientId = InternalClientId;
                 demonstracao.DemoUniqueId = OldDemoId;
+
 
                 //UPDATE DE STATUS EM DEMO FECHADA
                 bool updatedDemoStatus = demonstracao.DemoStatus;
