@@ -160,11 +160,17 @@
 
                                                 var closingUser = manager.FindById(Model.ClosedBy);
 
+                                                var changingUser = manager.FindById(Model.ChangedBy);
+
                                                 string _fullNameInitialUser;
 
                                                 string _fullNameClosingUser;
 
+                                                string _fullNameChangingUser;
+
                                                 string _agentCode;
+
+
 
                                                 try
                                                 {
@@ -207,6 +213,16 @@
                                                     _agentCode = "Agente desconhecido";
                                                 }
 
+                                                try
+                                                {
+                                                    _fullNameChangingUser = changingUser.FullName;
+                                                }
+                                                catch (Exception)
+                                                {
+
+                                                    _fullNameChangingUser = "Utilizador desconhecido";
+                                                }
+
                                                 //var closingUser = manager.FindById(User.Identity.GetUserId());
 
                                                 string dataCriacao;
@@ -223,7 +239,8 @@
 
                                                 string quemCriou = Model.RegisteredBy;
 
-                                                <span style="color:lightgray; font-weight:100; font-size:11px;"><b>Criado em:</b> @dataCriacao - <b>Utilizador:</b> @_fullNameInitialUser - <b>Agente Num:</b> @_agentCode
+                                                <span style="color:lightgray; font-weight:100; font-size:12px;"><b>Criado em:</b> @dataCriacao - <b>Utilizador:</b> @_fullNameInitialUser - <b>Agente Num:</b> @_agentCode - 
+                                                                                                                                                                                            <b>Última modificação:</b> @_fullNameChangingUser em @Model.LastChange.Value.ToShortDateString()
                                         
                                         @{ 
                                             if (Model.DemoStatus)
