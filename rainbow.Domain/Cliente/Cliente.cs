@@ -122,6 +122,8 @@
         public DateTime? RegisteredDate { get; set; }
 
         public DateTime? LastChange { get; set; }
-        //alergias
+
+        [Display(Name = "Demo Rb de origem")]
+        public string DemoRbDeOrigem { get; set; }
     }
 }

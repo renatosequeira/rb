@@ -115,6 +115,12 @@
 
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="#step-55">
+                                            <span class="step_no">4</span>
+
+                                        </a>
+                                    </li>
                                 </ul>
 
                                 <div id="step-11">
@@ -224,7 +230,7 @@
 
                                 </div>
 
-                                <div id="step-33">
+                                <div id="step-44">
                                     <h2 class="StepTitle">Notas</h2>
                                     <span class="section">Deseja inserir notas relacionadas com o cliente?</span>
                                     <div class="form-group">
@@ -235,7 +241,25 @@
                                     </div>
                                 </div>
 
-                                <div id="step-44">
+                                <div id="step-33">
+                                    <h2 class="StepTitle">Notas</h2>
+                                    <span class="section">Informações comerciais do cliente</span>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.RecomendadoPor, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "Recomendado por" } })
+                                            <span class="fa fa-comment-o form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.DemoRbDeOrigem, new { htmlAttributes = new { @class = "form-control has-feedback-left margemBottom10", placeholder = "Número Demo Rainbow de origem" } })
+                                            <span class="fa fa-comment-o form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="step-55">
                                     <h2 class="StepTitle">Política de privacidade</h2>
                                     <p>
                                         Ao submeter este registo, afirmo que o tratamento de todos os dados que nele constam, foram autorizados pelo cliente, e que serão válidos apenas para campanhas relacionadas com
