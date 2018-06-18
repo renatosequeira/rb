@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    @ViewBag.Javascript;
 }
 
 <!-- Bootstrap -->
@@ -32,9 +33,10 @@
 <!--Custom styles-->
 <link href="~/Content/customStyles.css" rel="stylesheet" />
 
-@using (Html.BeginForm("Create", "Recomendacoes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Recomendacoes", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return runSearch();" }))
 {
     @Html.AntiForgeryToken()
+
     <div class="form-horizontal">
         <!-- page content -->
         <div class="right_col" role="main">
@@ -92,7 +94,11 @@
                                         <div class="panel-heading">Controlos<span style="float: right;"><a href="#controlos" style="color: white;" data-toggle="collapse"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></span></div>
                                         <div class="panel-body" id="controlos">
 
-                                            <button type="submit" class="btn btn-success" onclick="return confirm('Tem a certeza que deseja submeter este registo?')">
+                                            @*<button type="submit" class="btn btn-success" onclick="return confirm('Tem a certeza que deseja submeter este registo?')">
+                                                    <span class="fa fa-save"></span> Guardar
+                                                </button>*@
+
+                                            <button id="btnSave" type="submit" class="btn btn-success">
                                                 <span class="fa fa-save"></span> Guardar
                                             </button>
 
@@ -100,7 +106,6 @@
                                                 <i class="ace-icon fa fa-ban"></i>
                                                 <span class="bold">Cancelar</span>
                                             </a>
-
 
                                         </div>
                                     </div>
@@ -272,17 +277,6 @@
 
                                             <div class="form-group">
                                                 <div class="col-md-8 col-sm-8">
-                                                    @Html.EditorFor(model => model.Filhos,
-                                                    new
-                                                    {
-                                                        htmlAttributes =
-                                                    new { data_toggle = "toggle", data_on = "Cliente tem filhos", data_off = "Cliente não tem filhos", data_onstyle = "success", data_offstyle = "danger", type = "checkbox", data_width = "200" }
-                                                    })
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <div class="col-md-8 col-sm-8">
                                                     @Html.EditorFor(model => model.Animais,
                                                     new
                                                     {
@@ -303,13 +297,21 @@
                                                 </div>
                                             </div>
 
-
+                                            <div class="form-group">
+                                                <div class="col-md-8 col-sm-8">
+                                                    @Html.EditorFor(model => model.OkParaContactar,
+                                                    new
+                                                    {
+                                                        htmlAttributes =
+                                                    new { data_toggle = "toggle", data_on = "Cliente aceitou contacto", data_off = "Cliente não aceitou contacto", data_onstyle = "success", data_offstyle = "danger", type = "checkbox", data_width = "250" }
+                                                    })
+                                                </div>
+                                            </div>
 
 
                                         </div>
                                     </div>
                                     <!--/OUTRAS INFOS-->
-
                                     <!--NOTAS-->
                                     <div class="panel panel-primary">
 
@@ -382,6 +384,31 @@
 
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
+    <script type="text/javascript">
+        function runSearch__() {
+         
+            @*var str = @TempData["Alert"].ToString();*@
+            
 
+                        @*alert("@TempData["Alert"].ToString()");*@
+
+           @*var str = @Html.Raw(Json.Encode(TempData["Alert"]));*@
+
+            alert(@Html.Raw(Json.Encode(TempData["Alert"])));
+
+            return true;
+        }
+    </script>
+
+    @*@{
+        try
+        {
+            string str = ViewData["Alert"].ToString();
+            <script>alert(@str); </script>
+        }
+        catch { }
+    }*@
+
+}
 }
 

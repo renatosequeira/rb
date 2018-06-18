@@ -86,14 +86,6 @@
 
         public void ExportListUsingEPPlus()
         {
-            //var data = new[]{
-            //                   new{ Name="Ram", Email="ram@techbrij.com", Phone="111-222-3333" },
-            //                   new{ Name="Shyam", Email="shyam@techbrij.com", Phone="159-222-1596" },
-            //                   new{ Name="Mohan", Email="mohan@techbrij.com", Phone="456-222-4569" },
-            //                   new{ Name="Sohan", Email="sohan@techbrij.com", Phone="789-456-3333" },
-            //                   new{ Name="Karan", Email="karan@techbrij.com", Phone="111-222-1234" },
-            //                   new{ Name="Brij", Email="brij@techbrij.com", Phone="111-222-3333" }
-            //          };
 
             var data = from recomendacao in ExportRecomendacoesToExcel.findAll()
                       select new
@@ -300,7 +292,38 @@
 
             if (ModelState.IsValid)
             {
-               
+                TempData["Alert"] = "Registo válido";
+
+                List<object> telemovelRepetido = new List<object>();
+                string insertedNumber = view.TelemSr;
+
+                foreach (var item in db.Recomendacaos)
+                {
+                    //telemovelRepetido.Add(item.TelemSr);
+                    string clienteAtual = "";
+                    string oldCliente = "";
+                    string telemovel = item.TelemSr;
+
+                    //for (int i = 0; i < telemovelRepetido.Count() - 1; i++)
+                    //{
+                    //    if (item.TelemSr == telemovelRepetido[i])
+                    //    {
+                    //        clienteAtual = view.NomeSr;
+                    //        oldCliente = item.NomeSr;
+
+                    //        TempData["Alert"] = String.Format("O número {0} já existe no cliente {1}", telemovel, oldCliente);
+                    //    }
+                    //}
+
+                    if (telemovel == insertedNumber)
+                    {
+                        clienteAtual = view.NomeSr;
+                        oldCliente = item.NomeSr;
+
+                        TempData["Alert"] = String.Format("O número {0} já existe no cliente {1}", telemovel, oldCliente);
+                    }
+                }
+
                 if (view.OkParaContactar)
                 {
                     view.DataOk = DateTime.Now;
@@ -336,7 +359,7 @@
 
                 recomendacao.DataRecomendacao = (DateTime)ultimaData;
 
-
+                TempData["Alert"] = null;
 
                 db.Recomendacaos.Add(recomendacao);
                 await db.SaveChangesAsync();

@@ -170,6 +170,13 @@
 
                                                 string _agentCode;
 
+                                                string quemCriou = Model.RegisteredBy;
+
+                                                string dataModificacao;
+
+                                                string dataCriacao;
+
+                                                string dataFecho;
 
 
                                                 try
@@ -225,7 +232,7 @@
 
                                                 //var closingUser = manager.FindById(User.Identity.GetUserId());
 
-                                                string dataCriacao;
+
 
                                                 try
                                                 {
@@ -237,17 +244,38 @@
                                                     dataCriacao = "Sem registo";
                                                 }
 
-                                                string quemCriou = Model.RegisteredBy;
 
-                                                <span style="color:lightgray; font-weight:100; font-size:12px;"><b>Criado em:</b> @dataCriacao - <b>Utilizador:</b> @_fullNameInitialUser - <b>Agente Num:</b> @_agentCode - 
-                                                                                                                                                                                            <b>Última modificação:</b> @_fullNameChangingUser em @Model.LastChange.Value.ToShortDateString()
-                                        
-                                        @{ 
-                                            if (Model.DemoStatus)
-                                            {
-                                                <span> - <b>Fechado em:</b> @Model.ClosedDate.Value.ToShortDateString() - <b>Fechado por:</b> @_fullNameClosingUser </span>
+
+                                                try
+                                                {
+                                                    dataModificacao = Model.LastChange.Value.ToShortDateString();
+                                                }
+                                                catch (Exception)
+                                                {
+
+                                                    dataModificacao = "Sem registo";
+                                                }
+
+                                                try
+                                                {
+                                                    dataFecho = Model.ClosedDate.Value.ToShortDateString();
+                                                }
+                                                catch (Exception)
+                                                {
+
+                                                    dataFecho = "Demo aberta";
+                                                }
+
+                                        <span style="color:lightgray; font-weight:100; font-size:12px;">
+                                            <b>Criado em:</b> @dataCriacao - <b>Utilizador:</b> @_fullNameInitialUser - <b>Agente Num:</b> @_agentCode -
+                                            <b>Última modificação:</b> @_fullNameChangingUser em @dataModificacao
+
+                                            @{
+                                                if (Model.DemoStatus)
+                                                {
+                                                    <span> - <b>Fechado em:</b> @dataFecho - <b>Fechado por:</b> @_fullNameClosingUser </span>
+                                                }
                                             }
-                                        }
 
                                         </span>
 

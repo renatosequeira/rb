@@ -132,7 +132,10 @@
                                 new { data_toggle = "toggle", data_on = "Cliente ativo", data_off = "Cliente inativo", type = "checkbox" }
                                 })
 
-                                    <div style="float:right;">@Html.EditorFor(model => model.RecomendadoPor, new { htmlAttributes = new { @class = "form-control", placeholder = "Recomendado por", title = "Recomendado por" } })</div>
+                                    <div style="float:right;">
+                                        @Html.EditorFor(model => model.RecomendadoPor, new { htmlAttributes = new { @class = "form-control", placeholder = "Recomendado por", title = "Recomendado por" } })
+                                        @Html.EditorFor(model => model.DemoRbDeOrigem, new { htmlAttributes = new { @class = "form-control", placeholder = "Demo de origem", title = "Demo de origem" } })
+                                    </div>
 
 
                                 </div>
