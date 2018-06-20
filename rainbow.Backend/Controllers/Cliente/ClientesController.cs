@@ -37,8 +37,19 @@
             
             object resultado = null;
 
-                resultado = (await db.Clientes.Where(c => c.NomeCliente.Contains(search)||
-                c.TelemovelCliente.Contains(search)||
+            resultado = (await db.Clientes.Where(c => c.NomeCliente.Contains(search)||
+                c.TelemovelCliente.Contains(search)|| 
+                c.Localidade.Contains(search)||
+                c.MembroFamilia.FirstOrDefault().NomeMembroFamilia.Contains(search) ||
+                c.Demonstracao.FirstOrDefault().NumeroDemoRainbow.Contains(search)||
+                c.Demonstracao.FirstOrDefault().NumSeriePremio.Contains(search)||
+                c.Demonstracao.FirstOrDefault().OwnerAgentCode.Contains(search)||
+                c.DemoRbDeOrigem.Contains(search) ||
+                c.EstadoCivil.NomeEstadoCivil.Contains(search)||
+                c.OwnerAgentCode.Contains(search)||
+                c.Profissao.NomeProfissao.Contains(search)||
+                c.Recomendacao.FirstOrDefault().NomeSr.Contains(search)||
+                c.Recomendacao.FirstOrDefault().TelemSr.Contains(search) ||
                 search == null).OrderBy(n => n.NomeCliente).ToListAsync());
             
             return View(resultado);
